@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/static/plugs/layui/css/layui.css"/>
+<div class="ibox-content">
+<table width="100%" height="421" border="1" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="10"><div align="center">单广告广告头部</div></td>
+    <td width="90">{volist name=&quot;dtgggList&quot; id=&quot;g&quot;}</td>
+  </tr>
+  <tr>
+    <td><div align="center">多广告广告头部</div></td>
+    <td>{volist name=&quot;goodstggg&quot; id=&quot;g&quot;}</td>
+  </tr>
+  <tr>
+    <td><div align="center">文字广告广告头部</div></td>
+    <td>{volist name=&quot;wztgggList&quot; id=&quot;g&quot;}</td>
+  </tr>
+  <tr>
+    <td><div align="center">广告结尾</div></td>
+    <td>{&#47;volist}</td>
+  </tr>
+  <tr>
+    <td><div align="center">广告链接</div> </td>
+    <td>{$&#103;.url}</td>
+  </tr>
+  <tr>
+    <td><div align="center">广告图片</div> </td>
+    <td>{$&#103;.images}</td>
+  </tr>
+  <tr>
+    <td><div align="center">广告标题</div></td>
+    <td>{$&#103;.title}</td>
+  </tr>
+  <tr>
+    <td><div align="center">广告内容</div></td>
+    <td>{$&#103;.content}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><div align="center">添加方式：例如文字广告</div></td>
+  </tr>
+  <tr>
+    <td colspan="2">{volist name=&quot;wztgggList&quot; id=&quot;g&quot;}<br>
+      &lt;a href=&quot;{$&#103;.url}&quot; target=&quot;_blank&quot;&gt;{$&#103;.content}&lt;/a&gt;<br>
+{&#47;volist}</td>
+  </tr>
+  <tr>
+    <td>链接广告</td>
+    <td>&lt;a href=&quot;链接地址&quot; target=&quot;_blank&quot;&gt;广告内容&lt;/a&gt;</td>
+  </tr>
+  <tr>
+    <td>图片广告</td>
+    <td>&lt;img src=&quot;图片地址&quot; &gt; 宽度 width=&quot;100&quot;  高度 height=&quot;100&quot;</td>
+  </tr>
+</table>
+
+</div>

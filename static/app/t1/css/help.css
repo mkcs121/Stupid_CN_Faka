@@ -1,0 +1,97 @@
+header{
+	background: url(../images/bzbj.jpg) no-repeat !important;
+	background-size:cover  !important;
+	background-position:center  !important;
+}
+.help{
+	margin: 0 auto;
+	color: #fff;
+	padding:140px 0 ;
+}
+@media only screen and (min-width: 1400px) and (max-width: 3000px) {	
+	.help_cen{min-height: 1080px;}
+	/*.help{}*/
+}
+.help h3{
+	font-weight: 400;
+	font-size: 34px;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.help h6{
+	font-weight: 400;
+	font-size: 14px;
+	text-align: center;	
+	padding-bottom: 50px;
+}
+.help_box{
+	overflow: hidden;
+	width: 100%;
+}
+.help_box ul{
+	overflow: hidden;
+}
+.help_box ul li{
+	width: 49%;
+	padding: 40px 10px 20px 10px;
+	box-sizing: border-box;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	background: #fff;
+	color: #333;
+	overflow: hidden;
+	margin: 1% 0%;
+	box-sizing: border-box;
+	cursor: default;
+}
+.help_box ul li.help_lf{
+	margin-right: 2%;
+}
+.help_box ul li h5{
+	padding: 20px;
+	border: 1px solid #EBEBEB;
+	font-weight: 400;
+	overflow: hidden;
+	margin:0 1%;
+	width: 10%;
+	box-sizing: border-box;
+	text-align: center;
+}
+.help_box ul li .help_tix{
+	display: inline-block;
+	line-height: 24px;
+	width: 88%;
+}
+.help_box ul li .help_tix p{
+	color: #898A8C;
+	height: 52px;
+	font-size: 14px;
+}
+.help_box ul li .help_tix p.help_tix_t{
+	color: #3D3D3D;
+	height: 26px;
+	font-size: 16px;
+}
+/*下方按钮*/
+.ltgt_box .lfrg{
+	overflow: hidden;
+	display: inline-block;
+	margin: 0 auto;
+}
+.ltgt_box{
+	overflow: hidden;
+	text-align: center;
+	width: ;
+}
+.ltgt_box div.l{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid #fff;
+	margin: 15px;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 5px;
+	cursor: pointer;
+}

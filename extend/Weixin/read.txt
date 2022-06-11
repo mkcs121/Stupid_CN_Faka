@@ -1,0 +1,3 @@
+Wechat.class.php            自动回复
+WechatAuth.class.php        高级接口
+WXBizMsgCrypt.class.php     消息加解密，用于企业号

@@ -1,0 +1,64 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<div class="main">
+    <div class="content">
+
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">推广返利</a></li>
+        </ul><br>
+
+			
+					分成比例：{:get_spread_rebate_rate()*100}% | 已返利总额：{$_user->rebate}元
+				</div>
+			</div>
+			<!-- end row -->
+			
+			{foreach $logs as $v}
+			 <div class="mt20">
+            <div class="selltable">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+							<td colspan="6">
+                                <span>ID：{$v.id}</span>
+                            </td>
+				        </tr>
+						
+						<tr>
+							<td colspan="6">
+                                <span>返佣时间：{$v.create_at|date="Y-m-d H:i:s",###}</span>
+                            </td>
+				        </tr>
+						
+						<tr>
+							<td colspan="6">
+                                <span>分成金额：{$v.money}</span>
+                            </td>
+				        </tr>
+						<tr>
+							<td colspan="6">
+                                <span>分成金额：{$v.reason}</span>
+                            </td>
+				        </tr>
+			      </tbody>
+                </table>
+            </div>
+        </div>
+			
+			{/foreach}
+
+			<!-- end row -->
+		</div>
+		{$page}
+	</div>
+</div>
+{/block}
+
+{block name="appendJS"}
+
+<script>
+</script>
+
+{/block}

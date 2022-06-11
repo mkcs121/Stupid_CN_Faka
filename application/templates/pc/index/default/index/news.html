@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+          <title>{$title}_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+      <meta name="keywords" content="{:sysconf('site_keywords')}" />
+      <meta name="description" content="{:sysconf('site_desc')}" />
+      <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+<style>
+
+.pagination {
+text-align:center;
+margin:20px auto 50px;
+}
+
+.pagination li{
+display:inline-block;
+margin-left:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+    {include file="./header"}
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                新闻资讯            </div>
+        </div>
+    </div>
+</div>
+<div class="tabnav">
+    <div class="wrapper">
+        <ul>
+            <li ><a href="/company/notice">系统公告</a></li>
+            <li  class="on"><a href="/company/news">新闻资讯</a></li>
+            <li ><a href="/company/settlement">结算公告</a></li>
+            <li ><a href="/company/faq">常见问题</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper newslist">
+    <div class="newslist-bd" style="min-height:300px">
+        <ul id="lists">
+                       
+                        
+						
+						
+						  {foreach $articles as $v}
+                       
+					
+					 <li>
+                  <a href="{:url('/article/'.$v.id)}">
+                    <div class="img">
+                        <img src="{$v.title_img}" onerror="src='/static/app/cyfaka/imgs/default_img.jpg'"/>
+                    </div>
+                    <div class="txt">
+                        <div class="txt-hd">
+                           {$v.title}                       </div>
+                        <div class="txt-bd">
+                                                    </div>
+                        <div class="txt-ft">
+                            <div class="left">
+                                  <span>{$v.create_at|date="Y-m-d",###}</span>
+                        <span>{$v.create_at|date="H:i:s",###}</span>
+                            </div>
+                            <div class="right">
+                                &gt;&gt;
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+                        {/foreach}    
+                    </ul>
+    </div>
+    <!---->
+	<ul class="pagination"></ul>    <!--<div class="newslist-ft" id="getmore">
+        <a class="g-btn" href="javascript:;">加载更多</a>
+    </div>-->
+    <!---->
+</div>
+
+{include file="./footer"}
+
+</body>
+</html>
+

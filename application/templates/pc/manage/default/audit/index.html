@@ -1,0 +1,153 @@
+{extend name='./content'}
+{block name="content"}
+
+<!-- 表单搜索 开始 -->
+<form class="layui-form layui-form-pane form-search" action="__SELF__" onsubmit="return false" method="get">
+    <input type="hidden" name="status" id="status" value=""/>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">搜索字段</label>
+        <div class="layui-input-inline">
+            <select class="layui-input" name="field">
+                <option value="1" {if $Think.get.field=='1'}selected{/if}>商户ID</option>
+                <option value="2" {if $Think.get.field=='2'}selected{/if}>账号</option>
+                <option value="3" {if $Think.get.field=='3'}selected{/if}>店铺名</option>
+                <option value="4" {if $Think.get.field=='4'}selected{/if}>手机号码</option>
+                <option value="5" {if $Think.get.field=='5'}selected{/if}>QQ</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">搜索关键词</label>
+        <div class="layui-input-inline">
+            <input name="keyword" value="{$Think.get.keyword|default=''}" placeholder="请输入关键词" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">申请时间</label>
+        <div class="layui-input-inline">
+            <input name="date_range" id="date_range" value="{:urldecode($Think.get.date_range)}" placeholder="请选择时间范围" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <button type="submit" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+    </div>
+</form>
+<!-- 表单搜索 结束 -->
+
+<ul id="records_status" class="nav nav-tabs">
+    <li role="presentation" {if $Think.get.status == "" && $Think.get.status !== "0"} class="active" {/if}><a href='javascript:;' data-id="">全部</a></li>
+    <li role="presentation" {if $Think.get.status == "0" } class="active" {/if}><a href="javascript:;" data-id="0">待审核</a></li>
+    <li role="presentation" {if $Think.get.status == "1" } class="active" {/if}><a href="javascript:;" data-id="1">已审核</a></li>
+    <li role="presentation" {if $Think.get.status == "2" } class="active" {/if}><a href="javascript:;" data-id="2">已取消</a></li>
+</ul>
+
+<form onsubmit="return false;" data-auto="true" method="post">
+    <input type="hidden" value="resort" name="action"/>
+    <table class="layui-table" lay-skin="line" lay-size="sm">
+        <thead>
+        <tr>
+            <th class='text-center'>ID</th>
+            <th>账号</th>
+<!--            <th>店铺名</th>-->
+            <th>手机</th>
+            <th>QQ</th>
+<!--            <th>余额</th>-->
+<!--            <th>手续费</th>-->
+<!--            <th>冻结金额</th>-->
+
+            <th>状态</th>
+            <th>被投诉次数</th>
+            <th>当前</th>
+            <th>申请</th>
+            <th>完结时间</th>
+            <th>取消原因</th>
+            <th class='text-center'>申请时间</th>
+            <th class='text-center'>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $list as $v}
+        <tr>
+            <td class='text-center'>{$v.id}</td>
+            <td>{$v.user.username}</td>
+<!--            <td>{$v.user.shop_name}</td>-->
+            <td>{$v.user.mobile}</td>
+            <td>{$v.user.qq}</td>
+<!--            <td>{$v.user.money}</td>-->
+<!--            <td>{$v.user.poundage}</td>-->
+<!--            <td>{$v.user.freeze_money}</td>-->
+            <td>
+                {$v.status | get_merchant_audit_ts}
+            </td>
+            <td >{$v.user.complaint_count}</td>
+            <td>
+                {$v.user.group_type | get_merchant_type}
+            </td>
+            <td >
+                {$v.type | get_merchant_type}
+            </td>
+            <td>
+                {if $v.status != 0 }
+                {$v.complete_time|date="Y-m-d H:i:s",###}
+                {else/}
+                -
+                {/if}
+            </td>
+            <td >{$v.reason}</td>
+            <td class='text-center'>{$v.create_at|date="Y-m-d H:i:s",###}</td>
+            <td class='text-center nowrap'>
+                {if $v.status == 0}
+                <a data-title="审核" data-modal='{:url("edit")}?id={$v.id}' href="javascript:void(0)">审核</a>
+                {else}
+                <a data-title="查看" data-modal='{:url("edit")}?id={$v.id}' href="javascript:void(0)">查看</a>
+                {/if}
+                <a data-title="删除" onclick="record_del(this,'{$v.id}')" href="javascript:void(0)">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</form>
+{$page}
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+        $("#records_status a").on('click',function(){
+            $("#status").val($(this).data('id'));
+            $("button[type='submit']").submit();
+        })
+
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期范围
+        laydate.render({
+            elem: '#date_range',
+            range: true
+        });
+    });
+
+    function record_del(obj, id) {
+        layer.confirm('确认要删除这条记录吗？', function (index) {
+            $.ajax({
+                url:"/manage/audit/del",
+                type:'post',
+                data:'id='+id,
+                success:function(res){
+                    if(res.code == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+
+</script>
+{/block}

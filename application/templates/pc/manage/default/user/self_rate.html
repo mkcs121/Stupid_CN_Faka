@@ -1,0 +1,189 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+    {if isset($change) && $change == 1 }
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <a data-title="平台费率设置" data-modal='{:url("rate")}?user_id={$user_id}'
+               href="javascript:void(0);">==>平台费率设置点击</a>
+        </div>
+    </div>
+    {/if}
+    <div class="layui-form-item">
+        <label class="layui-form-label">费率分组</label>
+        <div class="layui-input-block">
+            <select id="group" name="group">
+                <option value="">不设置费率分组</option>
+                {foreach $rate_group as $v}
+                <option data-rate={$v->rateRules|json_encode} value="{$v['id']}"
+                    <?php if($v['id'] == $userGroup) { ?>selected<?php } ?>>{$v['title']}
+                </option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    {foreach $channels as $v}
+    <div class="layui-form-item-channel layui-form-item channel-row-{$v['id']}">
+        <label class="layui-form-label">{$v.title}</label>
+        <div class="layui-input-inline" style="width:40%">
+            <input id="channel_ids{$v.id}" data-value="{$v.poundage*1000}" type="number" name="channel_ids[{$v.id}]"
+                   value="{$userRate[$v['id']]|default=''}" title="请输入{$v.title}费率" placeholder="请输入{$v.title}费率"
+                   class="layui-input channel-ids">
+        </div>
+        <div class="layui-input-inline" style="width: 30%">
+            <input id="status{$v.id}" type="hidden" data-value="{$v.status}" name="status[{$v.id}]" value="{$v.status}"
+                   class="layui-input channel-status">
+            <button type="button" id="btn-open-{$v.id}"
+                    class='layui-btn {if $v.status == 1 }layui-btn-normal{else/}layui-btn-primary{/if}   btn-status-open'
+                    onclick="changeStatus(this,1)">开启
+            </button>
+            <button type="button" id="btn-close-{$v.id}"
+                    class='layui-btn {if $v.status==0}layui-btn-normal{else/}layui-btn-primary{/if}   btn-status-close'
+                    onclick="changeStatus(this,0)">关闭
+            </button>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    {/foreach}
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <span>单位：千分率，如千分之三，设置为 3 即可。</span>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        <input type="hidden" name="user_id" value="{$user_id}">
+        <button class="layui-btn" type='submit'>保存</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消吗？" data-close>取消</button>
+    </div>
+
+</form>
+
+<script>
+    group = {};
+    var lastSelectedIndex = {$userGroup|default=0};
+    layui.use('form', function () {
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+
+        form.on('select', function (data) {
+
+            if (data.elem.selectedIndex == lastSelectedIndex)
+                return;
+
+            lastSelectedIndex = data.elem.selectedIndex;
+
+            var rate = data.elem[ data.elem.selectedIndex ].dataset.rate;
+
+            if (!rate) {
+                $(".layui-form-item-channel").each(function (i) {
+                    var vi = $(this).find(".channel-ids");
+                    var vs = $(this).find(".channel-status");
+                    vi.prop('value',vi.data('value') );
+                    if (vs.data('value') == 1) {
+                        $(this).find('.btn-status-open').click();
+                    } else {
+                        $(this).find('.btn-status-close').click();
+                    }
+                })
+            } else {
+
+                var d = JSON.parse(rate);
+                $.each(d, function (i) {
+                    var channelElem = $(".channel-row-" + d[ i ].channel_id);
+                    //channelElem.find(".channel-ids").value = ( d[ i ].poundage * 1000 );
+                    channelElem.find(".channel-ids").prop('value',d[ i ].poundage * 1000);
+                    if (d[ i ].status == 1) {
+                        channelElem.find(".btn-status-open").click();
+                    } else {
+                        channelElem.find(".btn-status-close").click();
+                    }
+                })
+
+            }
+
+
+            /* var id = $('#group').val();
+             var groupInfo = group[ 'g' + id ];
+             if (groupInfo) {
+                 //已经请求过分组数据
+                 setRate(groupInfo);
+             } else {
+                 //没有请求过分组数据
+                 $.get("{:url('manage/user/getRateRouteInfo')}", { id: id }, function (res) {
+                     if (res.code == 200) {
+                         group[ 'g' + id ] = res.data
+                         setRate(res.data);
+                         setRateApi(res.data);
+                         setstatus(res.data);
+                     } else {
+                         layer.msg('费率分组数据请求错误，请刷新重试', { icon: 2 })
+                     }
+                 }, 'json')
+             }*/
+        });
+    });
+
+    function setRate(data) {
+        for (i in data.rules) {
+            $('#channel_ids' + data.rules[ i ].channel_id).val(data.rules[ i ].rate * 1000);
+        }
+    }
+
+    function setRateApi(data) {
+        for (i in data.rules) {
+            $('#channel_ids_rate_api' + data.rules[ i ].channel_id).val(data.rules[ i ].rate_api * 1000);
+        }
+    }
+
+    function setstatus(data) {
+        for (i in data.rules) {
+
+            if (data.rules[ i ].status == 1) {
+
+                $('#btn-open-' + data.rules[ i ].channel_id).removeClass('layui-btn-primary');
+                $('#btn-open-' + data.rules[ i ].channel_id).addClass('layui-btn-normal');
+                $('#btn-close-' + data.rules[ i ].channel_id).removeClass('layui-btn-normal');
+                $('#btn-close-' + data.rules[ i ].channel_id).addClass('layui-btn-primary');
+                $('#status' + data.rules[ i ].channel_id).val(1);
+            } else {
+                $('#btn-open-' + data.rules[ i ].channel_id).removeClass('layui-btn-normal');
+                $('#btn-open-' + data.rules[ i ].channel_id).addClass('layui-btn-primary');
+                $('#btn-close-' + data.rules[ i ].channel_id).removeClass('layui-btn-primary');
+                $('#btn-close-' + data.rules[ i ].channel_id).addClass('layui-btn-normal');
+                $('#status' + data.rules[ i ].channel_id).val(0);
+            }
+
+        }
+    }
+
+
+    function changeStatus(obj, status) {
+
+        var parent = $(obj).parents('div.layui-input-inline');
+        parent.find('.layui-btn-normal').removeClass('layui-btn-normal').addClass('layui-btn-primary');
+        $(obj).addClass('layui-btn-normal').removeClass('layui-btn-primary');
+        parent.find('input[type="hidden"]').val(status);
+
+        return;
+        if (status == 1) {
+            $('#btn-open-' + channel_id).removeClass('layui-btn-primary');
+            $('#btn-open-' + channel_id).addClass('layui-btn-normal');
+            $('#btn-close-' + channel_id).removeClass('layui-btn-normal');
+            $('#btn-close-' + channel_id).addClass('layui-btn-primary');
+            $('#status' + channel_id).val(1);
+        } else {
+            $('#btn-open-' + channel_id).removeClass('layui-btn-normal');
+            $('#btn-open-' + channel_id).addClass('layui-btn-primary');
+            $('#btn-close-' + channel_id).removeClass('layui-btn-primary');
+            $('#btn-close-' + channel_id).addClass('layui-btn-normal');
+            $('#status' + channel_id).val(0);
+        }
+
+
+    }
+
+</script>

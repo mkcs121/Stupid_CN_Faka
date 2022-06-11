@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+
+@charset "utf-8";
+/* CSS Document */
+/*全局样式*/
+body { font-family:"微软雅黑"; font-size:12px; color:#333;}
+* { margin:0px; padding:0px; list-style:none;}
+.clear { clear:both;}
+a { color:#333; text-decoration:none;}
+a:hover { color:#0069ad; text-decoration: none;}
+.fl { float:left;}
+.fr { float:right; }
+ul { list-style:none; margin:0px; padding:0px;}
+img { border:0px; max-width:100%;}
+.dbgao { height:80px;}
+
+/*首页头部*/
+.ltop { width:100%; height:auto; padding:20px 0px;}
+.ltop img { width:100%;}
+.ltopl { width:100%; }
+.ltopr { width:40%; margin-top:10px;}
+.dhtp { float:left; width:22%; margin-right:5px; }
+.ltopr p { font-size:1.1em; line-height:1.3em;  }
+.ltopr p strong { font-size:1.3em;}
+/*nav*/
+.lnav { width:100%; height:100px; background-color:#1571c8;}
+.lnav ul li { width:33.33%; height:50px; line-height:50px; font-size:16px; background:url(../images/shouji_15.jpg) repeat-x bottom; float:left; text-align:center;  }
+.lnav ul li a { color:#fdfdfa; text-decoration:none; background:url(../images/shouji_11.jpg) repeat-y right; display:block;}
+
+/*ban*/
+.slider-focus{position:relative;max-width:640px;overflow:hidden;/*max-height:320px;*/margin:0px auto;}
+.slider-focus .hd{ position:absolute;width:100%;height:22px;left:0;bottom:2%;z-index:1;line-height:28px;text-align:center;}
+.slider-focus  .hd li{ display:inline-block;vertical-align:middle;width:13px;height:13px;margin:0 3px;-webkit-border-radius:50%;-moz-border-radius:50%;-o-border-radius:50%;border-radius:50%;font-size:0;line-height:0;text-indent:-9999em;background:#fff; cursor:pointer;}
+.slider-focus  .hd li.on{ background:#ffea00;  }
+.slider-focus  .bd{ position:relative; z-index:0; }
+.slider-focus  .bd li{ position:relative; text-align:center;  }
+.slider-focus  .bd li img{ background:url(../images/loading.gif) center center no-repeat;vertical-align:top;width:100%;/* 图片宽度100%，达到自适应效果 */}
+.slider-focus  .bd li a{ -webkit-tap-highlight-color:rgba(0,0,0,0);  }  /* 去掉链接触摸高亮 */
+.slider-focus  .bd li .tit{ display:block; width:100%;  position:absolute; bottom:0; text-indent:10px; height:28px; line-height:28px; background:url(../images/focusbg.png) repeat-x; color:#fff;  text-align:left;  }
+
+/*关于我们*/
+.lgywm { width:100%; height:auto; margin-top:20px;} 
+.lgywm_title { width:100%; height:auto;}
+.xian { width:100%; height:25px; border-bottom:1px solid #d7d8d8; }
+.lwenzi { width:110px; height:auto; text-align:center; background-color:#FFF; margin:-20px auto 0px;}
+.lwenzi p { font-size:12px; color:#333; line-height:1.6em;}
+.lwenzi p strong { font-size:1.5em;}
+.lgywm_wz { width:100%; height:auto; padding:3% 0px;}
+.lgywm_wz p { font-size:1.2em; line-height:1.8em; color:#333; padding:0px 10px;}
+
+/*更多按钮*/
+.angd { width:100%; height:auto; padding:10px 0px; text-align:center;}
+.angd a { width:auto; height:40px; padding:0px 20px; color:#999; display:block; font-size:14px; line-height:40px; border:1px solid #d7d8d8; border-radius:8px; display:inline-block; }
+/*服务项目*/
+.fwxm { width:100%; height:auto; margin-top:20px;}
+.fwxm_nr { width:100%; height:auto; padding:10px 0px;}
+.fwxm_nr ul li { width:20%; height:auto; padding:10px 0px; float:left; text-align:center; line-height:30px;}
+.fwxm_nr ul li .lzj { width:74%; margin:0px auto; text-align:center;}
+
+/*成功案例*/
+.cgal_nr { width:100%; height:auto; padding:10px 0px;}
+.cgal_nr ul li { width:33.333%; height:auto; padding:10px 0px; float:left; text-align:center; line-height:30px;}
+.cgal_nr ul li .lzj { width:89%; margin:0px auto; text-align:center;}
+
+/*新闻中心*/
+.xwzx_nr { width:98%; height:auto; margin:5px auto; padding:10px 0px;}
+.xwzx_nr ul li { width:100%; height:auto; padding:10px 0px; float:left; line-height:30px; border-bottom:1px solid #d7d8d8; background:url(../images/shouji_44.jpg) no-repeat right center; }
+.xwzx_nr ul li h3 { width:78%; font-size:14px; color:#333; line-height:20px; overflow:hidden; white-space: nowrap;}
+.xwzx_nr ul li p { width:78%; font-size:12px; color:#666; line-height:20px; overflow:hidden; white-space: nowrap;}
+.xwzx_nr ul li .lzj { width:13%;  text-align:center; float:left; margin-right:15px;}
+
+/*底部*/
+.lbottom { width:100%; padding:10px 0px; font-size:12px; color:#666; text-align:center; line-height:20px; border-top:1px solid #d7d8d8; margin-bottom:70px;}
+
+/*footer*/
+.lfooter { width:100%; height:70px; background-color:#0061a8; position:fixed; bottom:0px;  }
+.lfooter ul li { width:25%; height:auto; float:left; text-align:center; padding:10px 0px; }
+.lfooter ul li a { color:#FFF; line-height:12px; font-size:12px;}
+
+
+/*关于我们*/
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;vertical-align:baseline;outline:0;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html{overflow-y:scroll}
+/* page structure */
+header{display:block;width:100%;height:55px;background:#3e4e5a; text-align:center; }
+header strong {font-size:20px; color:#FFF; line-height:55px;}
+.menubtn{position:relative;z-index:101;text-decoration:none;background-image:url(../images/hamburger.png);background-position: center center; background-repeat:no-repeat; width:30px; height:55px; float:right;  margin-right:10px;}
+a.fanhui { width:20px; height:55px; float:left; margin-left:10px; background:url(../images/fanhui.png) no-repeat center;}
+a.shouye { width:20px; height:55px; float:left; margin-left:10px; background:url(../images/dbsy.png) no-repeat center;}
+/* toggle menu */
+#pgcontainer{padding:0;margin:0}
+.overlay{position:fixed;z-index:99;background-color:rgba(0,0,0,.5);bottom:0;right:0;left:0}
+.openmenu .overlay{top:0}
+#hamburgermenu{height:100%;width:0;background:#373737;position:fixed;top:0;right:0;z-index:101;overflow:hidden;-webkit-box-shadow:3px 0 7px rgba(0,0,0,.55);-moz-box-shadow:3px 0 7px rgba(0,0,0,.55);box-shadow:3px 0 7px rgba(0,0,0,.55)}
+#hamburgermenu ul{margin-top:45px;z-index:101;overflow-y:auto;overflow-x:hidden}
+#hamburgermenu ul li{display:block}
+#hamburgermenu ul li a{display:block;min-width:130px;padding:10px 8px;color:#cdcdcd;font-size:1.2em;text-decoration:none;text-align:center}
+#hamburgermenu li a:hover{color:#fff;background:#2c2c2c}
+
+.zymain { width:100%; height:auto;}
+.zybt { width:100%; height:40px; border-bottom:1px solid #e5e5e5; margin:10px 0px; }
+.zybt strong { font-size:15px; color:#333; line-height:40px; padding-left:10px;}
+.zy_nr { width:auto; padding:0px 10px; height:auto; margin:10px 0px;}
+.zy_nr h2 { font-size:16px; color: #333; text-align:center; line-height:50px; font-weight:700;}
+.zy_nr  p { font-size:12px; color:#666; line-height:24px; padding:5px 0px;text-indent: 2em;}
+
+/*龙拓观点*/
+.ltgd_nr { width:98%; height:auto; margin:5px auto; padding:10px 0px;}
+.ltgd_nr ul li { width:98%; height:auto; padding:10px 0px; float:left; line-height:30px; border-bottom:1px solid #d7d8d8; background:url(../images/shouji_44.jpg) no-repeat right center; }
+.ltgd_nr ul li h3 { width:98%; font-size:14px; color:#333; line-height:20px; overflow:hidden; }
+.ltgd_nr ul li p { width:98%; font-size:12px; color:#666; line-height:20px; overflow:hidden; }
+.ltgd_nr ul li .lzj { width:13%; text-align:center; float:left; margin-right:15px;}
+/*龙拓观点首页*/
+.ltgds_nr { width:98%; height:auto; margin:5px auto;}
+.ltgds_nr ul li { width:33.3333%; height:auto; float:left; margin-top:5px; line-height:30px; text-align:center;  }
+.ltgds_nr ul li h3 { width:100%; font-size:14px; color:#333; line-height:20px; font-weight:normal; overflow:hidden; white-space: nowrap;}
+.ltgds_nr ul li .lzj { width:79%; margin:10px auto;}
+
+.fot{font-size: 14px;width: 100%;line-height: 43px;margin-left: 1%;}

@@ -1,0 +1,30 @@
+
+{extend name="./layout"}
+
+{block name="content"}
+<script>
+    $(function () {
+        selectcateid2({$category.id|default=0})
+    })
+</script>
+<input type="hidden" name="goodid" id="goodid" value="{$goods.id|default=0}">
+<input type="hidden" name="cateid" id="cateid" value="{$category.id|default=0}">
+<div class="panel">
+<div class="title"><img src="__RES__/newimg/icon_001.png" /> 选择分类</div>
+<div class="category">
+    <div class="categorys" id="categorys">
+        <div class="item category-{$category.id}" value="{$category.id}">
+            <div style="padding-top: 12px;font-size: 13px">{$category.name}</div>
+            <div style="font-size: 12px">共{$categorys.count}种商品</div>
+            <img src="__RES__/newimg/icon_002.png" />
+        </div>
+    </div>
+</div>
+<div class="title"><img src="__RES__/newimg/icon_004.png" /> 选择商品</div>
+
+<div class="goods">
+    <div class="list" id="goodslist"></div>
+</div>
+
+
+{/block}

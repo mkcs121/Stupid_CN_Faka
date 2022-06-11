@@ -1,0 +1,58 @@
+html,body,div,p,span,ul,ol,dl,li,h1,h2,h3,h4,h5,h5,section{padding:0;margin:0;font-weight:200;}
+body{font-family:微软雅黑,'Microsoft Yahei',黑体,'STHeitiSC-Medium';}
+ul{list-style:none}
+a img{border:0;}
+a{text-decoration:none}
+a:hover{text-decoration:none}
+html{font-size:82.5%;}
+
+.top{height:180px;padding-top:20px;background-image:url(../images/topbg.png);background-position:bottom center;background-repeat:no-repeat;background-size:100%}
+.nav a{display:inline-block;border:1px solid #349EDC;border-radius:5px;float:right;padding:5px 15px;margin-left:10px;margin-top:20px;background:#fff}
+.wel{position:absolute;color:#349EDC;margin-top:20px;margin-left:10px}
+.wel span{font-size: 134%!important;}
+
+.main{background:#349EDC;min-height:500px;padding:30px 10px}
+.search .input{border:0;border-radius:5px;background:#fff;padding:10px;width:72%}
+.search .btn1{border:0;border-radius:5px;background:#fff;padding:10px 15px;color:#349EDC;width:26%}
+
+.box{background:#fff;border-radius:5px;padding:10px;margin-top:20px}
+.box .title{color:#FFA600;line-height:50px;font-size:120%}
+.box dl dd a{color:#666}
+.box dl dd a span{color:#999}
+.box dl dd{line-height:40px;border-bottom:1px dotted #ddd}
+
+.footer{text-align:center;padding:30px 0}
+.footer  p.menu span{color:#999;margin:0 3%}
+.footer .cp{color:#999;padding-top:20px}
+
+.header{background:#349EDC;position:fixed;width:100%}
+.header .logo,.header .back{color:#fff;line-height:60px;font-size:120%}
+.header a{color:#fafafa}
+.content{padding-top:60px;border-bottom:1px solid #ddd;padding-bottom:50px}
+.content h3{margin-top:0px;text-align:center;font-size:120%;border-bottom:1px solid #ddd;padding:20px 20px;color:#FFA600}
+
+@media only screen and (min-width: 320px){
+     html {font-size: 64%!important;}
+     .header .logo{font-size:120%}
+     .nav a{padding:3px 5px;margin-left:2px;}
+     .search .input{width:66%}
+     .search .btn1{width:32%}
+     .wel{font-size:140%}
+}
+
+@media only screen and (min-width: 360px){
+     .nav a{padding:5px 10px;margin-left:10px;}
+     .search .input{width:68%}
+     .search .btn1{width:30%}
+}
+
+@media only screen and (min-width: 481px){
+     html {font-size: 94%!important;}
+     .header .logo{font-size:120%}
+}
+ @media only screen and (min-width: 561px){
+     html {font-size: 129%!important;}
+ }
+ @media only screen and (min-width: 641px){
+     html {font-size: 135%!important;}
+ }

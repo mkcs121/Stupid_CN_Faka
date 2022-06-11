@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+      <title>{$title}_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+      <meta name="keywords" content="{:sysconf('site_keywords')}" />
+      <meta name="description" content="{:sysconf('site_desc')}" />
+      <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+  {include file="./header"}
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                系统公告            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tabnav">
+    <div class="wrapper">
+        <ul>
+            <li  class="on"><a href="/company/notice">系统公告</a></li>
+            <li ><a href="/company/news">新闻资讯</a></li>
+            <li ><a href="/company/settlement">结算公告</a></li>
+            <li ><a href="/company/faq">常见问题</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="wrapper notices">
+    <div class="notices-bd" style="min-height:300px">
+        <form>
+            <input type="hidden" name="alias" id="alias" value="notice">
+            <input type="hidden" name="page" id="page" value="2">
+        <ul id="lists">
+     
+                   
+                      {foreach $articles as $v}
+                       
+					
+					
+					                   <li>
+                <div class="hd">
+                     <a href="{:url('/article/'.$v.id)}">{$v.title}</a>
+                </div>
+                <div class="bd">
+                                    </div>
+                <div class="ft">
+                    <div class="ft-l">
+                        <span>{$v.create_at|date="Y-m-d",###}</span>
+                        <span>{$v.create_at|date="H:i:s",###}</span>
+                    </div>
+                    <div class="ft-r">
+                        发布：{:sysconf('site_name')}
+                    </div>
+                </div>
+            </li>
+                        {/foreach}      
+						
+						
+						
+                    </ul>
+    </div>
+    <!---->
+    <div class="notices-ft" id="getmore">
+        <a class="g-btn" href="javascript:;">加载更多</a>
+    </div>
+    <!---->
+</div>
+
+{include file="./footer"}
+
+</body>
+</html>
+

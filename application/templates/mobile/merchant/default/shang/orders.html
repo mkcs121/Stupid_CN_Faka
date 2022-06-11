@@ -1,0 +1,55 @@
+{extend name="base/detail"}
+
+
+{block name="content"}
+
+<div class="main">
+    <div class="content">
+
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">兑换记录</a></li>
+        </ul><br>
+           <div class="aui-flex">
+    </div>
+       
+     <div class="aui-flex">
+                <div class="aui-flex-box">
+                    <h5>商品兑换后无需您承担任何的费用,我司会在兑换日的30日内给您邮递,谢谢您的支持。</h5>
+                </div>
+            </div>
+            <div class="aui-slide-list aui-slide-list-one">
+                <table class="table table-striped m-0">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>商品名称</th>
+							<th>积分</th>
+							<th>兑换时间</th>
+						    <th>货物状态</th>
+						</tr>
+					</thead>
+					<tbody>
+                    {volist name="orders" id="v"}
+                    <tr>
+							<th>{$v['id']}</th>
+							<th>{$v['goodsname']}</th>
+							<th>{$v['money']}</th>
+							<th>{$v.addtime|date="Y-m-d",###}</th>
+						    <th>{eq name="v.status" value="1"}准备发货{else/}已发货{/eq}</th>
+						</tr>
+                     {/volist}   
+				
+                	</tbody>
+				</table>
+            </div>
+{$page}
+    </div>
+</div>
+
+</div>
+{/block}
+
+{block name="appendJS"}
+
+{/block}

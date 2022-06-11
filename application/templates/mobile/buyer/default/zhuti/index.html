@@ -1,0 +1,106 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<div class="main">
+    <div class="content">
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">主题管理</a></li>
+        </ul><br>
+
+					<form class="form-horizontal" role="form" action="" method="post">
+                     
+						<div class="form-group">
+						<label class="col-md-2 control-label">支付页面风格</label>
+						<div class="col-md-10">
+							<div class="radio radio-primary " style="text-align:center;">
+                                {foreach :config('pay_themes') as $theme}
+                                 <div class="col-md-3">
+                                 <div><img src="{$theme.piximg}" style="width:150px;"></div>
+                                <input type="radio" name="pay_theme" id="p{$theme.alias}" value="{$theme.alias}" {if $_user.pay_theme==$theme.alias}checked{/if}>
+                                <label for="p{$theme.alias}">
+                                   {$theme.name}
+                                </label>
+                                </div>
+                                 {/foreach}
+                            </div>
+							                           
+						</div>
+					</div>
+                       
+                    
+                  
+                    
+                    
+						<div class="form-group">
+						<label class="col-md-2 control-label">手机主题风格</label>
+						<div class="col-md-10">
+							<div class="radio radio-primary " style="text-align:center;">
+                                {foreach :config('mobile_theme') as $theme}
+                                 <div class="col-md-3">
+                                 <div><img src="{$theme.piximg}" style="width:150px;"></div>
+                                <input type="radio" name="mobile_theme" id="p{$theme.alias}" value="{$theme.alias}" {if $_user.mobile_theme==$theme.alias}checked{/if}>
+                                <label for="p{$theme.alias}">
+                                   {$theme.name}
+                                </label>
+                                </div>
+                                 {/foreach}
+                            </div>
+							                           
+						</div>
+					</div>
+                       
+						
+
+						<div class="form-group">
+
+							<label class="col-md-3 control-label"></label>
+
+							<div class="col-md-9">
+
+								<button type="submit" class="btn btn-purple waves-effect waves-light">保存设置</button>
+
+							</div>
+
+						</div>
+
+					</form>
+
+				</div>
+
+				<!-- end col -->
+
+		
+
+		
+
+
+
+		</form>
+
+	</div>
+
+	<!-- end col -->
+
+</div>
+
+<!-- end row -->
+
+</div>
+
+</div>
+
+<!-- end col -->
+
+</div>
+
+{/block}
+
+
+
+{block name="appendJS"}
+
+  
+
+{/block}
+

@@ -1,0 +1,228 @@
+{extend name="base"}
+
+{block name="content"}
+<style>
+    .text-blue{
+        color:#679bdc;
+    }
+
+    .text-medium{
+        font-size:24px;
+    }
+
+    .text-normal{
+        font-size:12px;
+    }
+
+    .text-bold{
+        font-weight: bold;
+    }
+
+    .m20{
+        margin:35px;
+    }
+
+    .desc{
+        line-height: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .icon-box{
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+    }
+
+    .icon{
+        height: 100%;
+        width: 100%;
+    }
+</style>
+<style type="text/css">.cj_stat{text-anchor: middle;font-family: Arial;font-size: 20px;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);color: #000;}</style>
+<ul class="main_cards">
+    <li>
+        <span><i class="iconfont icon-yue2"></i></span>
+        <div class="main_cards_txt">
+            <h3>{$dealStat.money + 0|sprintf="%.2f",###}元</h3>
+            <p class="p1">账户余额</p>
+            <p class="p2" title="{:sysconf('buyer_jiesuantixing')}">{:sysconf('buyer_jiesuantixing')}</p>
+            <p class="p2">&nbsp;</p>
+        </div>
+    </li>
+    <li>
+        <span><i class="iconfont icon-jinrishouru"></i></span>
+        <div class="main_cards_txt">
+            <h3>{$baseData['todayOrderTotal']}元</h3>
+            <p class="p1">今日订单</p>
+            <p class="p2">今日数量：{$baseData['todayOrderCount'] + 0}笔</p>
+            <p class="p2">今日买入：{$baseData['todayCardCount']}张</p>
+        </div>
+    </li>
+    <li style="display:none">
+        <span><i class="iconfont icon-yue"></i></span>
+        <div class="main_cards_txt">
+            <h3>{$baseData['orderTotal']}元</h3>
+            <p class="p1">总消费金额</p>
+            <p class="p2">总数量：{$baseData['orderCount'] + 0}元</p>
+            <p class="p2">总买入：{$baseData['cardCount']}笔</p>
+        </div>
+    </li>
+
+    <li>
+        <span><i class="iconfont icon-yue"></i></span>
+        <div class="main_cards_txt">
+            <h3>{$_user['freeze_money']|sprintf="%.2f",###}元</h3>
+            <p class="p1">冻结金额</p>
+            <p class="p2">&nbsp;</p>
+            <p class="p2">&nbsp;</p>
+        </div>
+    </li>
+
+    <li>
+        <span><i class="iconfont icon-zongedu"></i></span>
+        <div class="main_cards_txt">
+            <h3>{$dealStat.money + $dealStat.last_cash|sprintf="%.2f",###}元</h3>
+            <p class="p1">最近提现</p>
+            <p class="p2">最近结算：<span style="font-size: 9px;"></span>{$dealStat.money + $dealStat.last_cash|sprintf="%.2f",###}元</p>
+            <p class="p2">&nbsp;</p>
+        </div>
+    </li>
+</ul>
+<div class="clear"></div>
+
+
+
+
+<!-- end col -->
+<!--<div class="col-lg-12">
+    <div class="card-box">
+        <h4 class="header-title m-t-0">近期交易统计</h4>
+        <div id="morris-line-example" style="height: 280px;">
+        </div>
+    </div>
+</div>-->
+<!-- end col -->
+</div>
+
+
+<!-- end row -->
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card-box">
+            <h4 class="header-title m-t-0  m-b-30">系统公告</h4>
+            <div class="inbox-widget nicescroll">
+                {foreach $articles as $v}
+                <a href="/merchant/index/notice?article_id={$v.id}" data-toggle="modal" data-target="#myModal" >
+                    <div class="inbox-item">
+                        <p class="inbox-item-author">
+                            {$v.title}
+                            <san style="">{$v.create_at|date="m/d H:i",###}</san>
+                        </p>
+                        <p class="inbox-item-text">
+                            {$v.content|htmlspecialchars_decode|strip_tags|mb_substr=0,20,'utf-8'}...
+                            <br>
+                        </p>
+                        <!-- <p class="inbox-item-date" >
+                            {$v.create_at|date="m/d H:i:s",###}
+                        </p> -->
+                    </div>
+                </a>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card-box">
+            <h4 class="header-title m-t-0 m-b-30">最新订单信息</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            订单号
+                        </th>
+                        <th>
+                            商品名称
+                        </th>
+                        <th>
+                            交易金额
+                        </th>
+                        <th>
+                            下单时间
+                        </th>
+                        <th>
+                            状态
+                        </th>
+                        <th>
+                            支付通道
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $orders as $v}
+                    <tr>
+                        <td>
+                            {if $v.is_proxy==1}
+                            {$v.trade_no}(代理订单)
+                            {else/}
+                            {$v.trade_no}
+                            {/if}
+
+                        </td>
+                        <td>
+                            {$v.goods_name}（{$v.quantity}张）
+                        </td>
+                        <td>
+                            {$v.total_price}
+                        </td>
+                        <td>
+                            {$v.create_at|date="m/d H:i:s",###}
+                        </td>
+                        <td>
+                            {if $v.status==1}
+                            <span class="label label-success">{$v.status_text}</span>
+                            {else/}
+                            <span class="label label-default">{$v.status_text}</span>
+                            {/if}
+                        </td>
+                        <td>
+                            {$v|get_channel_name}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+{/block}
+
+{block name="appendJS"}
+<script>
+    $("#myModal").on("hidden", function() {
+        $(this).removeData("modal");
+    });
+    $("#myModal").on("hidden.bs.modal", function() {
+        $(this).removeData("bs.modal");
+    });
+</script>
+<!-- KNOB JS -->
+<!--[if IE]>
+<script type="text/javascript" src="__RES__/assets/plugins/jquery-knob/excanvas.js"></script>
+<![endif]-->
+<script src="__RES__/assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+<!--Morris Chart-->
+<script src="__RES__/assets/plugins/morris/morris.min.js"></script>
+<script src="__RES__/assets/plugins/raphael/raphael-min.js"></script>
+
+{/block}

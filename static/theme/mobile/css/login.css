@@ -1,0 +1,39 @@
+ul,
+li,
+p,
+dl,
+dt,
+dd,
+h3 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 1px;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Arial, sans-serif;
+  background: #f9fafe;
+}
+body > .logo {
+  display: inline-block;
+  text-align: center;
+}
+.nav {
+  width: 100%;
+}
+.nav span {
+  width: 50%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  float: left;
+  text-align: center;
+}
+.nav span.ac {
+  color: #2a62ff;
+  border-bottom: solid 1px #2a62ff;
+  padding-bottom: 8px;
+}

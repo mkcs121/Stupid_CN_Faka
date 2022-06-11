@@ -1,0 +1,65 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">商户账号</label>
+        <div class="layui-input-block">
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <p> {$d.user.username}</p>
+            </blockquote>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式</label>
+        <div class="layui-input-block">
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <p>{$d.user.mobile}|{$d.user.qq}</p>
+            </blockquote>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">申请通道</label>
+        <div class="layui-input-block">
+        <blockquote class="layui-elem-quote layui-quote-nm">
+            <p>{$d.ftype|get_merchant_type}->{$d.type|get_merchant_type}</p>
+        </blockquote>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作类型</label>
+        <div class="layui-input-block">
+            {if $d.status == 0 }
+            <input type="radio" title="通过" name="action" value="1" checked>
+            <input type="radio" title="取消" name="action" value="2">
+            {else/}
+            <h3 class="text-green">{$d.status|get_merchant_audit_ts}</h3>
+            {/if}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作备注</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="reason" rows="5" cols="80">{$d.reason}</textarea>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    {if $d.status == 0 }
+    <div class="layui-form-item text-center">
+        <input type="hidden" name="id" value="{$d.id|default='0'}">
+        <button class="layui-btn" type='submit'>执行操作</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消吗？" data-close>取消</button>
+    </div>
+    {/if}
+
+</form>
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    });
+</script>

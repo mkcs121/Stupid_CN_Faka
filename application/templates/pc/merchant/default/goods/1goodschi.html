@@ -1,0 +1,114 @@
+{extend name="base"}
+
+{block name="content"}
+
+<!-- 表单搜索 开始 -->
+<form class="layui-form layui-form-pane form-search" action="__SELF__" onsubmit="return false" method="get">
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">商户ID</label>
+        <div class="layui-input-inline">
+            <input name="user_id" value="{$Think.get.user_id|default=''}" placeholder="请输入商户ID" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">商品池</label>
+        <div class="layui-input-inline">
+            <input name="name" value="{$Think.get.name|default=''}" placeholder="请输入商品名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-inline">
+            <select name="status">
+                <option value="">全部状态</option>
+                <option value="1" {if $Think.get.status === '1'}selected{/if}>已置顶</option>
+                <option value="0" {if $Think.get.status === '0'}selected{/if}>未置顶</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">时间范围</label>
+        <div class="layui-input-inline">
+            <input name="date_range" id="date_range" value="{:urldecode($Think.get.date_range)}" placeholder="请选择时间范围" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <button type="submit" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+    </div>
+</form>
+
+
+<form onsubmit="return false;" data-auto="true" method="post">
+    <input type="hidden" value="resort" name="action"/>
+    <table class="layui-table" lay-skin="line" lay-size="sm">
+        <thead>
+        <tr>
+            <th>商户ID</th>
+            <th>商品池</th>
+            <th>是否置顶</th>
+            <th>到期时间</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $goodsList as $v}
+        <tr>
+            <td>{$v.user_id}</td>
+            <td>{$v.content}</td>
+            <td>
+                {if $v.istop==1}
+                <span style="color:green"><i class="glyphicon glyphicon-ok"></i> 已置顶</span>
+                {else/}
+                <span style="color:red"><i class="glyphicon glyphicon-remove"></i> 未置顶</span>
+                {/if}
+            </td>
+            <td>
+               {$v.toptime|date="Y-m-d H:i:s",###}
+            </td>
+            <td>{$v.addtime|date="Y-m-d H:i:s",###}</td>
+            <td>
+                <a onclick="del(this,'{$v.id}')">删除</a>
+             
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</form>
+{$page}
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期范围
+        laydate.render({
+            elem: '#date_range',
+            range: true
+        });
+    });
+
+    function del(obj,id) {
+        layer.confirm('确定删除？删除后，不可恢复！',function(val){
+            if(val){
+                $.post('/manage/goods/delchi',{
+                    id:id
+                },function(res){
+                    if(res.code!=200){
+                        layer.msg('删除失败');
+                    }else{
+                        layer.msg('删除成功！',function(){
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        })
+    }
+</script>
+{/block}

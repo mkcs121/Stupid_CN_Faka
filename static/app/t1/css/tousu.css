@@ -1,0 +1,326 @@
+﻿@charset "UTF-8";
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    text-decoration: none;
+}
+a, img {
+    cursor:pointer;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after, .clearfix:before {
+    display: block;
+    content: "clear";
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+html {
+    height: 100%;
+}
+
+html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, a, img, small, ol, ul, li, label {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+}
+
+select, input, textarea,label {
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+}
+
+ul, dl, dd {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    border: none;
+    font-size: 0;
+    outline-width: 0px;
+    vertical-align: inherit;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.cur, button {
+    cursor: pointer;
+}
+
+a:hover, button:hover {
+    opacity: 0.8;
+}
+
+*:focus {
+    outline: none;
+}
+.ts_con {
+    /*float: left;*/
+    padding: 4%;
+    width: 57%;
+    margin:50px auto;
+    position: relative;
+}
+.header {
+background-color:#fff;position: relative;z-index: 1001;height: 80px;box-shadow: 0 0 2px #dfe3e8;
+}
+.controller {
+position:relative;width:1200px;margin:0 auto;
+}
+.header .logo {
+position: absolute;left: 0;font-size: 24px;line-height: 100px;
+}
+.logo img {
+height:  45px;line-height:  100px;
+}
+.ts_con {
+background-color: #fff;box-shadow: 0 2px 10px 0 rgba(55,61,65,.3);
+}
+.ts_con p {
+    height: 40px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #eae9f2;
+    border-radius: 2px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+.ts_con label {
+    line-height: 35px;
+    font-size: 14px;
+    color: #525252;
+}
+.ts_con p > span, .img span {
+    width: 100px;
+    font-size: 16px;
+    background: #3498DB;
+    display: block;
+    float: left;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    color: #fff;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 14px;
+}
+/*上传图片 begin*/
+.shili {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    margin-left: 20px;
+    color: #f53d54;
+    position: relative;
+}
+.shili > img {
+    position: absolute;
+    top: -150px;
+    left: 0;
+}
+.zhuyi {
+    float: right;
+    font-size: 12px;
+    line-height: 20px;
+    width: 280px;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 50px;
+}
+.zhuyi:hover {
+    text-decoration:none;
+}
+.upload-box {
+    float: left;
+    position: relative;
+    display: inline-block;
+    height: 32px;
+    vertical-align: middle;
+    zoom: 1;
+}
+.upload-box .upload-btn {
+    display: inline-block;
+    height: 32px;
+    zoom: 1;
+}
+.webuploader-container {
+    position: relative;
+}
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    width: 220px;
+    font-size: 14px;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid #e1e1e1;
+    cursor: pointer;
+    background: #fff;
+    color: #09b6c5;
+    text-align: center;
+    overflow: hidden;
+    zoom: 1;
+}
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px,1px,1px,1px);
+}
+/*上传图片 end*/
+.ts_con p input, .ts_con p select {
+    width: calc(100% - 140px);
+    height: 35px;
+    border: none;
+    color: #757575;
+    font-size: 14px;
+    line-height: 35px;
+    outline: 0;
+    letter-spacing: 1px;
+}
+
+.ts_con p textarea {
+    width: calc(100% - 140px);
+    height: 195px;
+    border: none;
+    font-size: 14px;
+    line-height: 35px;
+    outline: 0;
+    letter-spacing: 1px;
+    resize: none;
+}
+
+.btn_ts {
+    display: block;
+    border: none;
+    height: 48px;
+    width: 200px;
+    font-size:16px;
+    line-height: 48px;
+    background: linear-gradient(-45deg,#3498db,#3498db);
+    color: #fff;
+    margin: 0 auto;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    color: #3498DB;
+    background: none;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-color: rgba(52, 152, 219, 0.4);
+}
+.tousu_btns {
+    position: absolute;
+    right: 0;
+    line-height: 80px;
+}
+.tousu_btns i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+.query_hover, .query_btn:hover, .tsquery_btn:hover {
+    color: #fff;
+    background-color: #3498DB;
+}
+ .tousu_btn {
+    margin: 0 30px;
+    color: #eb5d68;
+    background: none;
+    border-color: rgba(235, 93, 104, 0.4);
+}
+.tousu_hover, .tousu_btn:hover {
+    color: #fff;
+    background-color: #eb5d68;
+}
+
+.tousu_time {
+    line-height: 36px;
+    border: 1px dashed #faa270;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: #e22d3b;
+}
+.tousu_time i {
+    margin-right: 10px;
+}
+
+@media (max-width: 800px){
+    .tousu_btns {
+        width: 100%;
+        text-align: center;
+    }
+     .tousu_btn {
+        margin: 0 3%;
+    }
+    .controller {
+        width:92%;
+    }
+    .ts_con {
+        padding: 4%;
+        width: 92%;
+        position: relative;
+    }
+    .logo {
+        display: none;    
+    }
+}

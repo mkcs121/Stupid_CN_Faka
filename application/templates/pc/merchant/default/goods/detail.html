@@ -1,0 +1,105 @@
+{extend name="detail"}
+
+{block name="content"}
+<link rel="stylesheet" href="__STATIC__/plugs/awesome/css/font-awesome.min.css?ver={:date('YmdH')}">
+        <link rel="stylesheet" href="__STATIC__/plugs/bootstrap/css/bootstrap.min.css?ver={:date('YmdH')}"/>
+    <link rel="stylesheet" href="__STATIC__/plugs/layui/css/layui.css?ver={:date('YmdH')}"/>
+        <link rel="stylesheet" href="__STATIC__/theme/default/css/console.css?ver={:date('YmdH')}">
+        <link rel="stylesheet" href="__STATIC__/theme/default/css/animate.css?ver={:date('YmdH')}">
+        <script src="/static/plugs/echarts/echarts.min.js?ver={:date('YmdH')}"></script>
+        <script src="__STATIC__/plugs/require/require.js?ver={:date('YmdH')}"></script>
+        <script src="__STATIC__/admin/app.js?ver={:date('YmdH')}"></script>
+        <script>window.ROOT_URL='__PUBLIC__';</script>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="row">
+				<form class="form-horizontal" role="form" action="" method="post">
+					<input type="hidden" name="cate_id" value="{$goods.id|default=''}">
+					<div class="form-group">
+						<label class="col-md-2 control-label">商品分类</label>
+						<div class="col-md-4">
+							<select name="goodstg_class" class="form-control" required>
+								  {foreach $categorys as $v}
+                <option value="{$v.id}" {if isset($article) && $article.goodstg_class==$v.id}selected{/if}>{$v.name}</option>
+                    {foreach $v['child'] as $vo}
+                    <option value="{$vo.id}" {if isset($article) && $article.goodstg_class==$vo.id}selected{/if}>&nbsp;&nbsp;|--{$vo.name}</option>
+                    {/foreach}
+                {/foreach}
+							</select>
+						</div>
+						<div class="col-md-6">
+							<p class="form-control-static">请选择商品分类</p>
+						</div>
+					</div>
+					
+                    
+					
+                    
+                    
+                    
+                    
+					
+                    <div class="form-group">
+						<label class="col-md-2 control-label">推广图片</label>
+						<div class="col-md-4">
+							 <img data-tips-image style="height:auto;max-height:32px;min-width:32px" src="{$article.goodstg_img|default=''}" />
+            <input type="hidden" name="goodstg_img" onchange="$(this).prev('img').attr('src', this.value)"
+                   value="{$article.goodstg_img|default=''}" class="layui-input">
+            
+						</div>
+						<div class="col-md-6">
+							<p class="form-control-static"><a class="btn btn-link" data-file="one" data-type="jpg,jpeg,gif,png" data-field="goodstg_img">上传图片</a></p>
+						</div>
+                    </div>
+                    <div class="form-group">
+						<label class="col-md-2 control-label">推广内容</label>
+						<div class="col-md-4">
+							<textarea name="goodstg_content">{$article.goodstg_content}</textarea>
+						</div>
+						<div class="col-md-6">
+							<p class="form-control-static"></p>
+						</div>
+                    </div>
+                   
+					
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label"></label>
+						 <input type="hidden" name="id" value="{$article.id}">
+						<div class="col-md-4">
+							<button type="submit" class="btn btn-purple waves-effect waves-light">确认提交</button>
+						</div>
+						<div class="col-md-6">
+							<p class="form-control-static"></p>
+						</div>
+                    </div>
+
+
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{/block}
+
+{block name="appendJS"}
+<script>
+
+
+ 
+
+    require(['ckeditor'], function () {
+        var editor = window.createEditor('[name="goodstg_content"]', { 
+		removeButtons: 'Source', 
+	   });
+
+        // 获取内容
+        var content = editor.getData();
+        console.log(content);
+    });
+
+</script>
+{/block}
+

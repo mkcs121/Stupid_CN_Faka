@@ -1,0 +1,33 @@
+
+{extend name="./layout"}
+
+{block name="content"}
+<div class="panel">
+
+    <script>
+        $(function() {
+            selectcateid2({$category.id|default=0})
+        })
+    </script>
+    <input type="hidden" name="goodid" id="goodid" value="{$goods.id|default=0}">
+    <input type="hidden" name="cateid" id="cateid" value="{$category.id}">
+    <div class="title"><img src="__RES__/app/bai/images/icon-category.png" /> 选择分类</div>
+    <div class="category">
+        <div class="categorys" id="categorys">
+            <div class="item category-{$category.id}" value="{$category.id}">
+                {$category.name}
+                <img src="__RES__/app/bai/images/icon-select.png" />
+            </div>
+        </div>
+    </div>
+    <div class="goods">
+        <div class="title">选择商品</div>
+        <div class="list" id="goodslist"></div>
+    </div>
+
+    <div class="choose-tip">
+        <span class="title"><img src="__RES__/app/bai/images/icon-chat.png" />产品说明：</span>
+        <span id="remark"></span>
+    </div>
+</div>
+{/block}

@@ -1,0 +1,82 @@
+<div class="hfoot">
+    <div class="wrapper">
+        <div class="hfoot-bar">
+            <div class="hf-bar-logo left">
+                <img src="/static/app/996fk/imgs/logo-h2.png" alt="" width="120">
+            </div>
+            <div class="hf-bar-nav left">
+                <ul>
+                                                {volist name="nav" id="vo"}
+            <li><a href="{$vo.url}" {eq name="vo.target" value="1"}target="_blank"{/eq}>{$vo.title}</a></li>
+            {/volist}
+                                    </ul>
+            </div>
+        </div>
+        <div class="hfoot-info">
+            <div class="hf-info-reXian left">
+                <h3>咨询热线</h3>
+                <p>{:sysconf('site_info_tel')}</p>
+                <span>工作时间：9:00AM ~ 22:00PM</span>
+            </div>
+
+            <div class="hf-info-nav left">
+                <dl>
+                    <dt>联系我们</dt>
+                    <dd><a href="#">联系邮箱：{:sysconf('site_info_email')}</a></dd>
+                    <dd><a href="#">企业Q Q：{:sysconf('site_info_qq')}</a><i class="iconfont icon-qq"></i></dd>
+                    <dd><a href="#">联系地址：{:sysconf('site_info_address')}</a></dd>
+                </dl>
+                <dl>
+                    <dt>合作共赢</dt>
+                    <dd><a href="#">推广联盟</a></dd>
+                </dl>
+                <dl>
+                    <dt>关注微信</dt>
+                    <dd><img src="{:sysconf('site_info_qrcode')}" style="width: 80px;"></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="hcopy" style="padding-bottom: 0;">
+   
+    <a href="javascript:void(0)" style="color: #5d768f;" onclick="window.open('http://beian.miit.gov.cn/');">
+		{:htmlspecialchars_decode(sysconf('site_info_icp'))}</a>
+{:htmlspecialchars_decode(sysconf('site_statistics'))}
+</div>
+
+<div class="hcopy" style="padding-bottom: 0;">
+    <p>Copyright © 2018 - {:htmlspecialchars_decode(sysconf('site_info_copyright'))} All rights reserved. 版权所有 <font color="red">防盗版必究</font></p>
+</div>
+
+<!--侧边栏-->
+<div class="htop">
+    <ul>
+        <li class="qr">
+            <a href="#">
+                <i class="iconfont icon-weixin"></i>
+            </a>
+            <div class="qr-img">
+                <img src="/static/app/996fk/imgs/f-qr.png">
+                <p>官方微信</p>
+            </div>
+        </li>
+        <li class="htop-open">
+            <a href="//wpa.qq.com/msgrd?v=1&amp;uin={:sysconf('site_info_qq')}&amp;site=miaoka.la&amp;menu=yes">
+                <i class="iconfont icon-qq"></i><span>{:sysconf('site_info_qq')} </span>
+            </a>
+        </li>
+        <li class="htop-open">
+            <a href="#">
+                <i class="iconfont icon-telephone"></i><span>{:sysconf('site_info_tel')}</span>
+            </a>
+        </li>
+        <li class="go-top" style="display: list-item;">
+            <a href="#">
+                <i class="iconfont icon-xiangshang"></i>
+            </a>
+        </li>
+    </ul>
+</div>

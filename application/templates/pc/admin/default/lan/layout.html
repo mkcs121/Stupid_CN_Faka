@@ -1,0 +1,552 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{if condition="$shop['shop_name']"}{$shop.shop_name} - {/if}{:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}"/>
+    <meta name="description" content="{:sysconf('site_desc')}"/>
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}"/>
+    <!--    模版页面样式文件开始-->
+    <link href="__RES__/app/css/lsy.css" rel="stylesheet" type="text/css">
+    <link href="__RES__/app/css/pay.css" rel="stylesheet" type="text/css">
+    <link href="__RES__/app/css/iconfont.css" rel="stylesheet" type="text/css">
+    <link href="__RES__/app/cyfaka/css/icons.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__RES__/app/css/sweetalert.css">
+
+
+    <!--    模版页面样式文件结束-->
+
+    <!--    点击购买遮罩弹窗开始-->
+    <link href="__RES__/app/css/nyro.css" rel="stylesheet" type="text/css">
+    <script src="__RES__/app/js/jquery.min.js"></script>
+    <script src="__RES__/app/js/nyro.js"></script>
+    <!--    点击购买遮罩弹窗结束-->
+
+    <!--    核心文件开始-->
+    <script src="__RES__/app/mban/cjmobile/js/woodyapp.js?_v={:date('YmdHi')}"></script>
+    <!--    核心文件结束-->
+
+    <!--    支付方式样式文件开始-->
+    <script src="__RES__/app/js/layer.js"></script>
+    <script src="__RES__/app/js/sweetalert.min.js"></script>
+
+    <!--    支付方式样式文件结束-->
+    {block name="CSS"}
+    {/block}
+
+</head>
+<script>
+    var user_popup_message = '';
+    var is_display = '0';
+    var userid = "{$shop.id}";
+    var cateid = 0;
+    var static_url = '__PUBLIC__';
+    var dis_pwd_content = '<div style="padding:10px;color:#cc3333;line-height:24px"><p style="float:left;font-size:14px;font-weight:bold;color:blue;">访问密码：</p><div style="float:right; font-size:14px; padding-left:20px;"></div><p style="clear:both;font-size:12px;font-weight:bold;color:red;"><input type="password" name="pwdforbuy" class="input" maxlength="20"> <input type="submit"  onclick="verify_pwdforbuy()" id="verify_pwdforbuy" style="font-size:12px;padding:3px 3px" value="验证密码"> <span id="verify_pwdforbuy_msg" style="display:none"><img src="__RES__/app/images/load.gif"> 正在验证...</span><ul><li>1.本商品购买设置了安全密码</li><li>2.只有成功验证密码后才能继续购买</li></ul></p></div>';
+    var goodid = "{$goods.id|default=0}";
+    var is_contact_limit = '{$goods.contact_limit|default=""}';
+    var is_contact_limit_default = '{$goods.contact_limit|default=""}';
+    var limit_quantity_tip = '无法修改购买数量，是因为本商品限制了购买数量。';
+
+    /* {if !isset($goods)} */
+
+    function closeNyro() {
+        $('[name="goodid"]').val('');
+        $('[name="goodid"]').change();
+    }
+
+    /* {/if} */
+</script>
+
+<!--新加-->
+<script>
+    var _theme_ = 'default';
+</script>
+<script type="text/javascript" src="__RES__/app/mban/cjmobile/js/lanbase.js"></script>
+<link href="__RES__/app/mban/cjmobile/css/base.css" rel="stylesheet" type="text/css">
+<link href="__RES__/app/css/xin.css" rel="stylesheet" type="text/css">
+
+
+<body>
+<input type="hidden" name="is_contact_limit" value="{$goods.contact_limit|default=""}">
+<input type="hidden" name="limit_quantity" value="{$goods.limit_quantity|default=1}">
+<!--顶部-->
+<div class="aaa" style="display: none">{$shop.shop_notice}</div>
+
+{if $shop.shop_name == ''}
+<div class="top_bg" style="height: 140px;">
+    <div class="top"></div>
+    <div class="top2">
+        <div class="top_menu">
+            <div style="height: 10px;"></div>
+            <ul>
+                <li style="width: 100%"><span style="line-height: 14px">商家QQ：{$shop.qq} &nbsp;&nbsp;</span><button class="btn btnStyle4" onclick="window.open('//wpa.qq.com/msgrd?v=1&uin={$shop.qq}&site=mjfaka.com&menu=yes')" style="line-height: 14px"><div style="font-size:12px;-webkit-transform-origin-x: 1;-webkit-transform: scale(0.7);line-height:14px;">联系卖家</div></button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{else/}
+<div class="top_bg">
+    <div class="top"></div>
+    <div class="top2">
+        <div class="top_menu">
+            <div class="" style="text-align: center;height: 35px;font-size: 23px;font-family:腾祥魅黑简;font-weight: bold;">
+                {$shop.shop_name}
+            </div>
+            <ul>
+                <li style="width: 100%"><span style="line-height: 14px">商家QQ：{$shop.qq} &nbsp;&nbsp;</span><button class="btn btnStyle4" onclick="window.open('//wpa.qq.com/msgrd?v=1&uin={$shop.qq}&site=mjfaka.com&menu=yes')" style="line-height: 14px"><div style="font-size:12px;-webkit-transform-origin-x: 1;-webkit-transform: scale(0.7);line-height:14px;">联系卖家</div></button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{/if}
+
+<form id="payform" name="p" method="get" action="/pay/order">
+    <div class="seller_form choose">
+        <div>
+            <!--            <div class="panel">-->
+            {block name="content"}{/block}
+            <div class="panel" style="display:none;" id="discountdetail">
+                <span class="title"><img src="__RES__/newimg/icon_012.png" />优惠：</span>
+                <span style="display:none;color: #4b19ae;" id="isdiscount_span"></span>
+            </div>
+            <div class="panel" style="padding: 0">
+                <span class="title"><img src="__RES__/newimg/icon_005.png" />产品说明：</span>
+                <span id="remark" style="padding-left: 10px"></span>
+            </div>
+
+            <div class="form-field">
+                <!--<span style="display:none;color: #648ff7;" id="isdiscount_span">(查看批发价格)</span>-->
+<!--                <div id="discountdetail" style="display: none;"></div>-->
+            </div>
+
+            <div class="form-tab">
+
+                <div class="form-field" style="position: relative">
+                    <div class="form_title">
+                        <span class="required"><img src="__RES__/newimg/icon_010.png" /></span>购买数量&nbsp;&nbsp;
+                        <span class="red" id="goodInvent" style="flex-shrink: 0"></span>
+
+                    </div>
+                    <div class="value" align="right ">
+                        <span id="quantityex" class="css-icon-delete-circle" style="width: 30px;height:30px;"></span>
+                        <input type="text" value="1" name="quantity" onkeyup="changequantity2()" style="text-align: center;width: 25%;border: 1px solid #0071FF;border-radius: 5px">
+                        <span id="quantityeq" class="css-icon-plus-circle" style="width: 30px;height:30px;"></span>
+<!--                        <span class="red" id="goodInvent" style="flex-shrink: 0"></span>-->
+
+                    </div>
+                </div>
+                <div class="form-field" style="border-top:1px solid #0071FF">
+                    <span class="form_title"><span class="required"><img src="__RES__/newimg/icon_010.png" /></span>联系方式</span>
+                    <div class="value">
+                        <input class="phone_num" type="text" name="contact" placeholder="请填写QQ号或手机号" data-onchange="js_check_contact()" style="text-align:right" >
+                    </div>
+                </div>
+
+                <div class="form-field" id="pwdforsearch1" style="display:none;border-top:1px solid #0071FF;">
+                    <span class="form_title"><span class="required"><img src="__RES__/newimg/icon_010.png" /></span>取卡密码</span>
+                    <div class="value">
+                        <input type="text" onblur="is_pwd_need()" name="pwdforsearch1" placeholder="[必填]请输入取卡密码(6-20位)" />
+                    </div>
+                </div>
+                <div class="form-field" id="pwdforsearch2" style="display:none;border-top:1px solid #0071FF;">
+                    <span class="form_title">取卡密码</span>
+                    <div class="value">
+                        <input type="text" onblur="is_pwd_not_need()" name="pwdforsearch2" placeholder="[选填]请输入取卡密码(6-20位)">
+                    </div>
+                </div>
+                <div class="form-field" id="goodCoupon" style="display:none;border-top:1px solid #0071FF;">
+                    <span class="form_title" id="checkcoupon" >优惠卷</span>
+                    <!--                    <div id="checkcoupon" style="display:none" class="tip">正在查询...</div>-->
+                    <div class="value" id="coupon_value">
+                        <input type="text" name="couponcode" onblur="checkCoupon2()" placeholder="请填写你的优惠券" style="text-align:right">
+                    </div>
+                </div>
+                <div class="form-field" style="border-top:1px solid #0071FF;">
+                    <span class="form_title">短信提醒</span>
+                        <div class="value" style="margin-top:2px">
+                            <input type="checkbox" class="switch" name="is_rev_sms" value="1" id="is_rev_sms" data-cost="{if isset($goods) && $goods.sms_payer==1}0{else}{:get_sms_cost()}{/if}" style="Float:right">
+                        </div>
+                </div>
+                <div class="form-field" style="border-top:1px solid #0071FF;">
+                    <span class="form_title">邮箱提醒</span>
+                    <div class="value" id="isemailw" style="display: none;">
+                        <input class="email" type="text" name="email" placeholder="请填写邮箱" onblur="checkemail2()" style="text-align:right;">
+                    </div>
+                    <div class="value" style="margin-top:2px">
+                        <input type="checkbox" class="switch" name="isemail" value="1" id="isemail" style="Float:right" >
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+        <!--如果是分类链接或者是店铺链接结束-->
+        <input type="hidden" name="mban" value="shenlan">
+        <input type="hidden" name="userid" value="{$shop.id}">
+        <input type="hidden" name="cardNoLength" value="0">
+        <input type="hidden" name="cardPwdLength" value="0">
+        <input type="hidden" name="is_discount" id="is_discount" value="0">
+        <input type="hidden" name="coupon_ctype" value="0">
+        <input type="hidden" name="coupon_value" value="0">
+        <input type="hidden" name="sms_price" value="0">
+
+        <div class="panel">
+            <input type="hidden" name="is_pwdforsearch">
+            <input type="hidden" name="is_coupon" value="">
+            <div class="form-field" class="" style="display:none">折价率<br>
+                <span class="rate">100</span><span>%</span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="payments panel">
+        <span class="title"><img src="__RES__/newimg/icon_011.png" />支付方式</span>
+        <input type="hidden" name="feePayer" value="{$goods.fee_payer|default=1}">
+        <input type="hidden" name="fee_rate" value="{$userChannels[0]['rate']|default=0}">
+        <input type="hidden" name="min_fee" value="{:sysconf('transaction_min_fee')}">
+        <ul>
+            <!-- {$n=0} -->
+            <!--{foreach $userChannels as $v}-->
+            <!--{if $v.status==1}-->
+            <li onclick="javascript:setFeeRate('{$v.rate}')" {if $n==0}class="pay_chooses" {/if}>
+                <img src="__RES__/app/images/{:get_paytype_info($v.paytype)['logo']}2.jpg" alt="">
+
+                <!--{if isset(get_paytype_info($v.paytype)['target'])}-->
+                <input name="pid" data-target='1' value="{$v.channel_id}" type="radio">
+                <!--{else/}-->
+                <input name="pid" value="{$v.channel_id}" type="radio">
+                <!--{/if}-->
+            </li>
+            <!-- {$n++} -->
+            <!--{/if}-->
+            <!--{/foreach}-->
+        </ul>
+    </div>
+    <div class="choose-span">
+        <span>本卡密自动销售技术由@密家发卡提供</span>
+    </div>
+</form>
+
+<div style="height: 80px"></div>
+<div class="pay_bottom " id="submit">
+    去支付
+    ￥<span class="pay_all tprice">0.00</span>
+</div>
+
+<div id="notice_tpl" style="display:none;">
+    <pre>{$shop.shop_notice}</pre>
+</div>
+<!--右浮动-->
+<!--    <div class="ewm" style="background: rgba(255, 255, 255, 0);border:0;padding:5px;">-->
+<!--        <li onclick="window.open('/orderquery')" style="color: #648ff7"><img src="__RES__/app/images/chaxuntongji.png" alt="" style="width: 30px;height: 30px;"><br>订单查询</li>-->
+
+<!--    </div>-->
+
+
+
+<div class="float-bar" >
+    <a href="/orderquery?orderid=&querytype=1" class="item">
+        <img src="__RES__/newimg/icon_015.png" />&nbsp;购买记录
+    </a>
+    <a href="/complaint" class="item">
+        <img src="__RES__/newimg/icon_016.png" />&nbsp;投诉订单
+    </a>
+</div>
+<script>
+    $("#submit").click(function(){
+        $(this).addClass('notclickn');
+        setTimeout("$('#submit').removeClass('notclickn')",2000);
+    });
+
+    $('#quantityeq').click(
+        function () {
+            var quantity = $("input[name='quantity']").val();
+            quantity++;
+            $("input[name='quantity']").val(quantity);
+            changequantity2();
+        }
+    );
+    $('#quantityex').click(
+        function () {
+            var quantity = $("input[name='quantity']").val();
+            quantity--;
+            if(quantity<0)quantity=0;
+            $("input[name='quantity']").val(quantity);
+            changequantity2();
+        }
+    );
+    /*
+     * 显示批发优惠价格
+     */
+    $("#isdiscount_span").hover(
+        function () {
+            //1.获取数据
+            // var discountdetail2 = '';
+            // var goodid = $('#goodid').val();
+            // $.ajax({
+            //     url: '/ajax/getdiscountdetails',
+            //     data: {
+            //         goodid: goodid,
+            //     },
+            //     type: 'post',
+            //     dataType: 'json',
+            //     async: false,
+            //     success: function (data) {
+            //         // console.log(data);
+            //         $('#discountdetail').html(data);
+            //     },
+            //     error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //         layer.msg('连接错误');
+            //     }
+            // });
+            // 3.显示数据
+            // var discountdetail2 = $('#discountdetail').html();
+            // if (discountdetail2 != '') {
+            //     //显示样式
+            //     var index = layer.tips(discountdetail2, $('#isdiscount_span'), {
+            //         tips: [1, '#4B4B4B'],
+            //         time: 0
+            //     });
+            //     //显示数据
+            //     $(this).attr("data-index", index);
+            // }
+        },
+        //4.关闭显示
+        function () {
+            layer.close($(this).attr("data-index"));
+        });
+
+    function changequantity2() {
+        goodDiscount();
+        goodschk();
+        var quantity = $("input[name='quantity']").val();
+        var kucun = $("input[name='kucun']").val();
+        if (quantity < 1) {
+            return false;
+        } else if ((quantity - kucun) > 0) {
+            layer.msg('您输入的购买数量超过库存数量，请重新输入！');
+            $('[name=quantity]').focus();
+        }
+    }
+
+    $(function () {
+        last_trade_no = "{$last_trade_no|default=0}";
+        if(last_trade_no != 0){
+            layer.open({
+                content: '您有已付款未取订单，是否查看卡密'
+                ,btn: ['确定','稍后']
+                ,skin: 'footer'
+                ,yes: function(index){
+                    window.location.href="{:url('/orderquery')}?querytype=1"
+                }
+            });
+        }
+        $('.payments li').click(function () {
+            $(this).addClass('pay_chooses');
+            $(this).siblings('li').removeClass('pay_chooses');
+            $(this).children('input').attr('checked', true);
+            $(this).siblings('li').find('input').attr('checked', false);
+        });
+
+        $('.payments li:eq(0)').click();
+
+        $('.seller_name').click(function () {
+            swal({
+                    title: "卖家Q Q",
+                    text: "{$shop.qq}",
+                    showCancelButton: true,
+                    cancelButtonText: "返回",
+                    confirmButtonText: "联系商户"
+                },
+                function () {
+                    window.open('//wpa.qq.com/msgrd?v=1&uin={$shop.qq}&site=miaoka.la&menu=yes'); //联系QQ链接
+                }
+            );
+        });
+        $('.gg_btn').click(function () {
+            swal({
+                title: "商户公告",
+                html: true,
+                text: $('#notice_tpl').html(),
+                confirmButtonText: "已阅",
+                customClass: 'notice'
+            });
+        });
+        $('.pf_btn').click(function () {
+            swal({
+                title: "批发优惠",
+                text: "批发优惠内容！",
+                confirmButtonText: "返回"
+            });
+        });
+        /* {if $shop.shop_notice_auto_pop == 1}*/
+
+
+        /* {/if} */
+    });
+    //-----js样式部分开始-----//
+
+    //-----js样式部分结束-----//
+
+    //-----js新增部分开始-----//
+    function is_pwd_need() {
+        //更新部分
+        var pwdforsearch1 = $("input[name='pwdforsearch1']").val();
+        if (pwdforsearch1 != '') {
+            $("input[name='is_pwdforsearch']").val("1");
+        } else {
+            $("input[name='is_pwdforsearch']").val("");
+        }
+        var reg = /^([0-9A-Za-z]+){6,20}$/;
+        if (pwdforsearch1 != '' && !reg.test(pwdforsearch1)) {
+            layer.msg('请填写6-20位取卡密码！', {
+                icon: 2,
+                time: 2000,
+            });
+            $('[name=pwdforsearch1]').focus();
+            return false;
+        }
+    }
+
+    function is_pwd_not_need() {
+        //更新部分
+        var pwdforsearch2 = $("input[name='pwdforsearch2']").val();
+        if (pwdforsearch2 != '') {
+            $("input[name='is_pwdforsearch']").val("1");
+        } else {
+            $("input[name='is_pwdforsearch']").val("");
+        }
+        var reg = /^([0-9A-Za-z]+){6,20}$/;
+        if (pwdforsearch2 != '' && !reg.test(pwdforsearch2)) {
+            layer.msg('请填写6-20位取卡密码！', {
+                icon: 2,
+                time: 2000,
+            });
+            $('[name=pwdforsearch2]').focus();
+            return false;
+        }
+    }
+
+    function js_check_contact() {
+        //更新部分
+        var contact = $.trim($("input[name='contact']").val());
+        var reg = /^([0-9A-Za-z]+){6,20}$/;
+        if (contact == '' || !reg.test(contact)) {
+            layer.msg('联系方式最短6位！', {
+                icon: 2,
+                time: 2000,
+            });
+            $('[name=contact]').focus();
+            return false;
+        }
+    }
+
+    function checkemail2() {
+        if (!$('#isemail').is(':checked')) {
+            return;
+        }
+        var email = $("input[name='email']").val();
+        var reg = /^([0-9a-zA-Z_-])+@([0-9a-zA-Z_-])+((\.[0-9a-zA-Z_-]{2,3}){1,2})$/;
+        if (!email || email == null || email == "" || email == 0) {
+            layer.msg('邮箱地址必填哦！', {
+                icon: 2,
+                time: 2000,
+            });
+            $('[name=email]').focus();
+        } else if (reg.test(email)) {
+            //showToast('success', '', '您输入的邮箱 填写正确^_^');
+        } else {
+            layer.msg('您输入的邮箱地址 填写有误！', {
+                icon: 2,
+                time: 2000,
+            });
+            $('[name=email]').focus();
+        }
+    }
+
+    function checkCoupon2() {
+        var couponcode = $.trim($('[name=couponcode]').val());
+        if (cateid == 0) {
+            cateid = $('#cateid').val();
+        }
+        $('#checkcoupon').show();
+        $.post('/ajax/checkcoupon', {
+            couponcode: couponcode,
+            userid: userid,
+            cateid: cateid,
+            t: new Date().getTime()
+        }, function (data) {
+            if (data) {
+                data = eval(data);
+                if (data.result == 0) {
+                    $('#checkcoupon').html('<span class="red">' + data.msg+ '</span>');
+                    $('[name=is_coupon]').val("0"); //更新部分
+                } else if (data.result == 1) {
+                    $('[name=coupon_ctype]').val(data.ctype);
+                    $('[name=coupon_value]').val(data.coupon);
+                    $('[name=is_coupon]').val("1"); //更新部分
+                    $('#checkcoupon').html('<span class="blue">此优惠券可用</span>');
+                    goodschk();
+                } else {
+                    $('#checkcoupon').html('验证失败！');
+                }
+            }
+        }, "json");
+    }
+
+    $('input[name="is_rev_sms"]').click(function () {
+        if ($(this).is(':checked')) {
+            $('[name=sms_price]').val(
+                "{if isset($goods) && $goods.sms_payer==1}0{else}{:get_sms_cost()}{/if}"
+            );
+        } else {
+            $('[name=sms_price]').val(0);
+        }
+        goodDiscount();
+        goodschk();
+        updateContactLimit();
+    });
+    $('input[name="isemail"]').click(function () {
+        if ($(this).is(':checked')) {
+            $('#isemailw').show();
+        } else {
+            $('#isemailw').hide();
+        }
+    })
+    $('input[name="switch_coupon"]').click(function () {
+        if ($(this).is(':checked')) {
+            $('#coupon_value').show();
+        } else {
+            $('#coupon_value').hide();
+        }
+    })
+    //-----js新增部分结束-----//
+</script>
+{$shop.statis_code|htmlspecialchars_decode}
+<!--百度统计-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f9788dca2e3b7d6c800311b2bdda561a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<!--end-->
+</body>
+
+</html>

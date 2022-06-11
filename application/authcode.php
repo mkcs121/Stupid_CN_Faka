@@ -1,0 +1,2 @@
+<?php
+$authcode='11';

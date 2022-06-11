@@ -1,0 +1,168 @@
+{block name="style"}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>安全验证</title>
+    <link rel="stylesheet" href="__STATIC__/app/ht/css/login.css">
+    <script src="__RES__/app/js/jquery-2.2.1.min.js"></script>
+    <script src="__RES__/app/js/layer.js"></script>
+	<style>
+		#btn{padding-left:10px;font-size:13px;color:black;cursor:pointer;}
+	</style>
+</head>
+
+<body>
+
+    <div class="login">
+        <div class="center">
+            <h1><img src="__STATIC__/app/ht/imgs/Windows10.png" width="80" height="80" alt=""></h1>
+                <div class="inputLi">
+                    <input type="number" id="code" class="user" placeholder="请输入{$msg}" required>
+					{if condition="$come eq 1"}
+					<input type="button" id="btn" value="获取验证码" onclick="send_pcode(this)" />
+					{else/}
+					<input type="button" id="btn" value="获取验证码" onclick="send_ecode(this)" />
+					{/if}
+                </div>
+                <div class="inputLi">
+					<input type="hidden" id="way" value="{$way}"/>
+					{if condition="$come eq 1"}
+					<button onclick="check_code()">验证</button>
+					{else/}
+					<button onclick="check_ecode()">验证</button>
+					{/if}
+                </div>
+            <p class="tip" style="text-align:center;">官方网址：www.mfxw.cc</p>
+        </div>
+    </div>
+	
+</body>
+
+</html>
+{/block}
+<script>
+	var countdown=60; 
+	function send_pcode(val) { 
+		layer.prompt({
+            title: '请输入图形码',
+            formType: 3
+
+        }, function (chkcode) {
+            $('#btn').off('click');
+            $.post('/admin/test/send_code', {
+                chkcode: chkcode,
+                phone: $("#way").val(),
+            }, function (ret) {
+                if (ret['status'] === 1) {
+                    layer.closeAll();
+                    layer.msg(ret['msg']);
+                    time(val);
+                } else {
+                    layer.msg(ret['msg']);
+                    <!-- $('#btn').on('click', send_pcode); -->
+                }
+            }, 'json');
+        })
+        $('.layui-layer-prompt .layui-layer-content').prepend($(
+            '<img style="cursor:pointer;height: 60px;" id="chkcode_img" src="/chkcode" onclick="javascript:this.src=\'/chkcode\'+\'?time=\'+Math.random()">'
+        ))
+	}
+	function send_ecode(val){
+		layer.prompt({
+            title: '请输入图形码',
+            formType: 3
+
+        }, function (chkcode) {
+            $('#btn').off('click');
+            $.post('/admin/test/send_ecode', {
+                chkcode: chkcode,
+                email: $("#way").val(),
+            }, function (ret) {
+                if (ret['status'] === 1) {
+                    layer.closeAll();
+                    layer.msg(ret['msg']);
+                    time(val);
+                } else {
+                    layer.msg(ret['msg']);
+                    <!-- $('#btn').on('click', send_pcode); -->
+                }
+            }, 'json');
+        })
+        $('.layui-layer-prompt .layui-layer-content').prepend($(
+            '<img style="cursor:pointer;height: 60px;" id="chkcode_img" src="/chkcode" onclick="javascript:this.src=\'/chkcode\'+\'?time=\'+Math.random()">'
+        ))
+	}
+	function time(val){
+		if (countdown == 0) { 
+			val.removeAttribute("disabled"); 
+			val.value="获取验证码";
+			countdown=60;
+		} else { 
+			val.setAttribute("disabled", true); 
+			val.value="重新发送(" + countdown + ")"; 
+			countdown--; 
+			setTimeout(function() { 
+				time(val);
+			},1000) 
+		} 
+	}
+	function check_code(){
+		var phone = $("#way").val();
+		var code = $("#code").val();
+		if(phone != ''){
+			if(code != ''){
+				$.ajax({
+					url:"/admin/test/checkcode",    //请求的url地址
+					dataType:"json",   //返回格式为json
+					async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+					data:{"phone":phone,"code":code},    //参数值
+					type:"POST",   //请求方式
+					success:function(req){
+						//请求成功时处理
+						layer.msg(req['msg']);
+						if(req['status'] == 1){
+							window.location.href = '/admin';
+						}
+					},
+				});
+			}else{
+				layer.msg('请输入验证码');
+			}
+		}else{
+			layer.msg('缺少必要参数');
+		}
+	}
+	function check_ecode(){
+		var email = $("#way").val();
+		var code = $("#code").val();
+		if(email != ''){
+			if(code != ''){
+				$.ajax({
+					url:"/admin/test/checkecode",    //请求的url地址
+					dataType:"json",   //返回格式为json
+					async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+					data:{"email":email,"code":code},    //参数值
+					type:"POST",   //请求方式
+					success:function(req){
+						//请求成功时处理
+						layer.msg(req['msg']);
+						if(req['status'] == 1){
+							window.location.href = '/admin';
+						}
+					},
+				});
+			}else{
+				layer.msg('请输入验证码');
+			}
+		}else{
+			layer.msg('缺少必要参数');
+		}
+	}
+</script>	
+{block name="script"}
+
+
+{/block}

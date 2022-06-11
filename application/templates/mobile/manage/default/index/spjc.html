@@ -1,0 +1,96 @@
+{extend name='./content'}
+
+{block name="content"}
+
+
+<form onsubmit="return false;" data-auto="true" method="post">
+    <input type="hidden" value="resort" name="action"/>
+    <table class="layui-table" lay-skin="line" lay-size="sm">
+        <thead>
+        <tr>
+            <th>视频名称</th>
+            
+        
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+     
+        <tr>
+            <td>第一课：邮箱如何配置教程</td>
+            <td>
+                <a data-title="第一课：邮箱如何配置教程" data-modal="{:url('video',array('id'=>1))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>第二课：阿里云短信配置教程</td>
+            <td>
+                <a data-title="第二课：阿里云短信配置教程"  data-modal="{:url('video',array('id'=>2))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>第三课：支付接口配置教程（码支付配置教程）</td>
+            <td>
+                <a data-title="第三课：支付接口配置教程（码支付配置教程）"  data-modal="{:url('video',array('id'=>3))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>第四课：商品池置顶视频支付配置教程</td>
+            <td>
+                <a data-title="第四课：商品池置顶视频支付配置教程"  data-modal="{:url('video',array('id'=>4))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>第五课：如何设置代理商品和下级如何代理商品视频教程</td>
+            <td>
+                <a data-title="第五课：如何设置代理商品和下级如何代理商品视频教程"  data-modal="{:url('video',array('id'=>5))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>第六课：定时任务配置教程</td>
+            <td>
+                <a data-title="第六课：定时任务配置教程"  data-modal="{:url('video',array('id'=>6))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>第七课：微信公众配置视频教程</td>
+            <td>
+                <a data-title="第七课：微信公众配置视频教程"  data-modal="{:url('video',array('id'=>7))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+		
+		<tr>
+            <td>第八课：支付宝接口配置视频教程</td>
+            <td>
+                <a data-title="第八课：支付宝接口配置视频教程"  data-modal="{:url('video',array('id'=>8))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+		
+		<tr>
+            <td>第九课：自动发卡平台安全配置与七牛云配置视频教程</td>
+            <td>
+                <a data-title="第九课：自动发卡平台安全配置与七牛云配置视频教程"  data-modal="{:url('video',array('id'=>9))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+		
+		<tr>
+            <td>第十课：支付宝批量结算视频教程</td>
+            <td>
+                <a data-title="第十课：支付宝批量结算视频教程"  data-modal="{:url('video',array('id'=>10))}" href="javascript:void(0)">点击播放</a> 
+            </td>
+        </tr>
+        
+       <script type="text/javascript" src="/static/app/js/ckplayer.js"></script>
+        </tbody>
+    </table>
+</form>
+
+
+{/block}

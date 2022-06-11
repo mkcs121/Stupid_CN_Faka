@@ -1,0 +1,47 @@
+html,body{
+	font-family: "微软雅黑" !important;
+}
+header{
+	background: url(../images/zcbj.jpg) no-repeat !important;
+	background-size:cover  !important;
+	background-position:center  !important;
+}
+.app_center{
+	padding:70px 0 45px 0;
+}
+header .center .app_cen{
+	position: relative;
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+	transform:translate(-50%);
+	-ms-transform:translate(-50%); 	/* IE 9 */
+	-moz-transform:translate(-50%); 	/* Firefox */
+	-webkit-transform:translate(-50%); /* Safari 和 Chrome */
+	-o-transform:translate(-50%); 	/* Opera */
+	display: inline-block;
+	font-size: ;
+}
+.app_rg{
+	color: #fff;
+	padding: 80px 0 80px 20px;
+}
+.app_rg h3{
+	font-size: 36px;
+	font-weight: 400;
+}
+.app_rg p.app_rg_title{
+	height: 60px;
+	line-height: 60px;
+}
+.app_rg_btn p{
+	margin-right:30px ;
+	margin-top: 20px;
+	padding: 10px 20px;
+	border: 1px solid #fff;
+	border-radius: 20px;
+	cursor: pointer;
+}
+.app_rg_btn p img{
+	padding-right: 10px;
+}

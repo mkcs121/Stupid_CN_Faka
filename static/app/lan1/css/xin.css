@@ -1,0 +1,210 @@
+body{
+    /*background: url(../images/bg.png)  center ;*/
+    color: #ffffff;
+    font-family:PingFang SC;
+}
+.top{
+    height:38px;
+    background: url(../images/app_002.png) center / contain;
+    /*background-size: 100% 100%;*/
+}
+.top2{
+    height:180px;
+    background: url(../images/app_001.png);
+    background-size: 100% 100%;
+}
+.seller_form{
+    background: url(../images/app_003.png);
+}
+.choose .panel{
+    background:0;
+    /*padding: 0 20px 10px 20px;*/
+    padding: 0 5% 2% 5%;
+}
+.pay_bottom{
+    border-top:0;
+}
+.top_bg{
+    height:150px;
+}
+.pay_bottom{
+    background:#0071FF;
+}
+.choose .category .categorys .item.active {
+    background:#0071FF;
+    color: rgba(46,248,255,1);
+}
+.float-bar .item {
+    background: linear-gradient(0deg,#0FBFF8,#0071FF 60%);
+    padding: 5px 5px 5px 8px;
+}
+.float-bar .item img{
+    width: 12px;
+    vertical-align: middle;
+}
+.float-bar a{
+    font-family:PingFangSC-Regular;
+}
+.choose .goods .item.active {
+    background: #0071FF;
+    border: 2px solid #0071FF;
+}
+.choose .goods .item {
+    max-width:100%;
+    min-width:32%;
+    border:2px solid rgba(0,113,255,1);
+}
+.choose .goods .item .name {
+    font-family:PingFang SC;
+    font-weight:500;
+    color: #ffffff;
+    /*color:rgba(46,248,255,1);*/
+    /*text-shadow:0px 2px 0px rgba(255,255,255,1);*/
+}
+.title{
+    font-family:Tensentype MeiHeiJ;
+    font-weight:bold;
+    color:rgba(22,229,245,1);
+}
+.choose .goods .item.active img {
+    width: 32px;
+    right: 2px;
+    bottom: 2px;
+}
+.choose .goods .item{
+    background:0;
+}
+.choose .category .categorys .item.active img {
+    right: 2px;
+    bottom: 2px;
+}
+.choose .category .categorys .item {
+    background:0;
+    color: #FFFFFF;
+    margin: 2%;
+    padding:0 5%;
+    border:2px solid rgba(0,113,255,1);
+    min-width:34.5%;
+    max-width:100%;
+}
+.choose .goods .item.active .name {
+    color: rgba(46,248,255,1);
+    font-weight: bold;
+
+}
+.choose-tip{
+    background:0;
+}
+.choose-tip{
+    padding: 0;
+}
+input{
+    background:0;
+    color: #FFFFFF;
+}
+.form-field .value{
+    border-bottom:0;
+    padding: 2px 8px;
+}
+[class*=css-icon][class*=circle]{
+    border:0;
+    color:#FFFFFF;
+}
+.form-field .form_title{
+    color: #CCCCCC;
+    font-weight:100;
+}
+:-moz-placeholder {
+    text-align: right;
+}
+
+::-moz-placeholder {
+    text-align: right;
+}
+
+::-webkit-input-placeholder {
+    text-align: right;
+}
+
+:-ms-input-placeholder {
+    text-align: right;
+}
+.form-tab{
+    border:1px solid rgba(0,113,255,1);
+    border-radius: 5px
+}
+.form-tab .form-field{
+    padding:0 10px;
+    min-height: 36px;
+}
+#pwdforsearch{
+    border-top:1px solid #0071FF;
+}
+input[type='checkbox'], input[type='radio']{
+    --active:#0071FF;
+    --background:0;
+    border:1px solid #0071FF;
+    --input-border-hover:#0071FF;
+}
+.pay_all{
+    color: #FFFFFF;
+}
+.payments li{
+    background:0;
+    text-align: center;
+}
+.payments li img{
+    margin-right:0;
+}
+.pay_chooses{
+    /*border:2px solid rgba(0,113,255,1);*/
+    box-shadow:1px 1px 2px 2px #0071ff
+}
+.seller_form li{
+    border:1px solid rgba(0,113,255,1);
+}
+.layui-layer{
+    color: #CCCCCC;
+    /*background: #0b0b0b;*/
+}
+.choose-span{
+    text-align: center;
+    width: 100%;
+    color: #CCCCCC;
+}
+.required img{
+    width: 9px;
+    height: 9px;
+}
+.choose .category .categorys .item{
+    line-height:20px;
+}
+.choose .goods .item .store{
+    color: #12f0ff;
+}
+#verify_pwdforbuy{
+    color: #0b0b0b;
+}
+.input{
+    color: #0b0b0b;
+}
+.btnStyle4{
+    border-radius: 10px;
+    background: 0;
+    border:1px solid rgba(0,113,255,1);
+    color: #FFFFFF;
+}
+.top_menu li{
+    line-height: 14px;
+}
+.top_menu{
+    width: 100%;
+    margin: 0;
+    padding-top: 20px;
+}
+.red{
+    color: red;
+}
+#buy-protocol p{
+    color: #000000;
+}

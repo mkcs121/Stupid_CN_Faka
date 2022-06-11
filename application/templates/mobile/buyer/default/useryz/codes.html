@@ -1,0 +1,49 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<div class="main">
+    <div class="content">
+
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">安全码验证</a></li>
+        </ul><br>
+
+				<div class="col-sm-12">
+					<div class="alert alert-info btn-bordred btn-info">
+                      
+                        安全码可以联系客服QQ：{:sysconf('site_info_qq')}   进行重置
+                    </div>
+                    <div class="alert alert-info btn-bordred btn-info">
+                      
+                        安全码可在【商家设置】内关闭，【不推举关闭】
+                        
+                    </div>
+				</div>
+		
+			<!-- end row -->
+
+					<form class="form-horizontal" role="form" action="" method="post">
+						<div class="form-group">
+							<label class="col-md-2 control-label">请输入安全码才能继续操作</label>
+							<div class="col-md-9">
+                                <input name="password" type="password" class="form-control" value="">
+							</div>
+							
+							</div>
+							
+                            <div class="col-md-4">
+	                       		<button type="submit" class="btn btn-primary btn-block">继续操作</button>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+				<!-- end col -->
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+	<!-- end col -->
+</div>
+{/block}

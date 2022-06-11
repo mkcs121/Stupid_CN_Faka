@@ -1,0 +1,213 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">上级商户</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.parent.username}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.id}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.username}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.email}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.mobile}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">QQ</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.qq}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">子域名</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.subdomain}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">统计代码</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.statis_code}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">店铺名称</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.shop_name}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">店铺公告</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.shop_notice}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核状态</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{if $user.status==1}正常{else/}禁用{/if}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">冻结状态</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{if $user.is_freeze==1}已冻结{else/}未冻结{/if}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">被投诉次数</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.complaint_count}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">手续费</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.poundage}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">余额</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.money}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">佣金</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.rebate}" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">下级商户数</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.sub_user_count}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">注册时间</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.create_at|date='Y-m-d H:i:s',###}" class="layui-input" readonly>
+        </div>
+    </div>
+
+
+
+       <div class="layui-form-item">
+        <label class="layui-form-label">微信openid</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.openid}" class="layui-input" readonly>
+        </div>
+        <label class="layui-form-label">安全码</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.codes}" class="layui-input" readonly>
+        </div>
+    </div>
+
+
+
+
+
+	<div class="layui-form-item">
+        <label class="layui-form-label">代理对接码</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.daili_duijiema}" class="layui-input daili_duijiema" readonly>
+            <button class="layui-btn layui-btn-normal btn_daili_duijiema" data-id="{$user.id}" type="button">生成对接码</button>
+        </div>
+        <label class="layui-form-label">支付api秘钥</label>
+        <div class="layui-input-inline">
+            <input type="text" value="{$user.key}" class="layui-input key" readonly>
+            <div class="layui-btn-group">
+			  <a class="layui-btn layui-btn-normal btn_key" data-id="{$user.id}" type="button">生成秘钥</a>
+			  <a class="layui-btn layui-btn-normal btn_key_clear" data-id="{$user.id}" type="button">关闭接口</a>
+
+
+			</div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+	function randomPassword(size){
+		  var seed = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z',
+		  'a','b','c','d','e','f','g','h','i','j','k','m','n','p','Q','r','s','t','u','v','w','x','y','z',
+		  '2','3','4','5','6','7','8','9'
+		  );//数组
+		  seedlength = seed.length;//数组长度
+		  var createPassword = '';
+		  for (i=0;i<size;i++) {
+		    j = Math.floor(Math.random()*seedlength);
+		    createPassword += seed[j];
+		  }
+		  return createPassword;
+	}
+
+	jQuery(document).on('click','.btn_daili_duijiema',function () {
+		var the=jQuery(this);
+		var id=the.attr('data-id');
+		$pwd=randomPassword(16);
+		jQuery('.daili_duijiema').val($pwd);
+		jQuery.ajax({
+			url:"/manage/user/dailiDuijiema",
+		    data:{
+		    	id:id,
+		    	daili_duijiema:$pwd
+		    },
+		    dataType: "json",
+		    type: "post",
+		    timeout: 10000,
+		    success: function(res) {
+		    },
+		    error: function() {
+		    }
+		});
+	})
+
+	jQuery(document).on('click','.btn_key',function () {
+		var the=jQuery(this);
+		var id=the.attr('data-id');
+		$pwd=randomPassword(20);
+		jQuery('.key').val($pwd);
+		jQuery.ajax({
+			url:"/manage/user/apikey",
+		    data:{
+		    	id:id,
+		    	apikey:$pwd
+		    },
+		    dataType: "json",
+		    type: "post",
+		    timeout: 10000,
+		    success: function(res) {
+		    },
+		    error: function() {
+		    }
+		});
+	})
+	jQuery(document).on('click','.btn_key_clear',function () {
+		var the=jQuery(this);
+		var id=the.attr('data-id');
+		$pwd='';
+		jQuery('.key').val($pwd);
+		jQuery.ajax({
+			url:"/manage/user/apikey",
+		    data:{
+		    	id:id,
+		    	apikey:$pwd
+		    },
+		    dataType: "json",
+		    type: "post",
+		    timeout: 10000,
+		    success: function(res) {
+		    },
+		    error: function() {
+		    }
+		});
+	})
+
+</script>

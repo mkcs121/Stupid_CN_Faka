@@ -1,0 +1,131 @@
+{extend name="base"}
+{block name="content"}
+
+<link rel="stylesheet" href="/static/app/css/all.min.css">
+<link rel="stylesheet" href="/static/app/css/styleshang.css">
+<div class="row">
+
+	<div class="col-lg-12">
+      
+		<div class="card-box">
+
+	
+			<div style="display:flex;">
+				<div style="flex:100%;height:100px;text-align: center;">
+					 <div style="height:70px;line-height:70px;text-align:center;">我的积分: <span style="font-size:21px;font-weight:900;color:#dca955">{$_user.jifen}</span>
+					 </div>
+                     
+                     <div class="form-group">
+
+                            <label class="col-md-2  control-label">收货地址</label>
+
+                            <div class="col-md-8">
+
+                                <input id="address" class="form-control"  name="address" type="text"  value="{$_user.address}"  placeholder="兑换前请先设置收货地址！"/>
+
+                            </div>
+                             <label class="col-md-2  control-label"><a href="javascript:void(0)" onclick="address()"><font class="label label-danger">设置</font></a></label>
+                        </div>
+</a>
+</div>
+</div>
+<br><br>
+
+<br>
+<br><br>
+<h4 class="header-title m-t-0" style="padding-bottom:3px;border-bottom:1px solid #eee"></h4>
+<div class="container">
+	<div class="row">
+    {volist name="goodsList" id="v"}
+       <div class="col-md-3 col-sm-6">
+			<div class="product-grid ">
+				<div class="product-image ">
+					<a href="#" class="flex:1;height:100px;text-align: center;">
+						<img class="pic-1" src="{$v['img']}">
+							<h3 class="pic-2" href="javascript:void(0)" onclick="del(this,'{$v['id']}','{$v['counts']}','{$v['title']}')"></h3>
+					</a>
+					<span class="product-discount-label" ><li class="fas fa-taxi"></li> 库存：{$v['counts']}</span>
+					<a class="product-like-icon" href="#"><i class="far fa-heart"></i></a>
+				</div>
+				<div class="product-content">
+					<h3 class="title"><a href="#">{$v['title']}</a></h3>
+					<ul class="rating">
+						<li class="fas fa-star"></li>
+						<li class="fas fa-star"></li>
+						<li class="fas fa-star"></li>
+						<li class="fas fa-star"></li>
+						<li class="fas fa-star"></li>
+					</ul>
+					<div class="price"><li class="fas fa-bomb"></li>所需积分：{$v['money']}</div>
+					                <a  class="add-to-cart data-title"  href="javascript:void(0)" onclick="del(this,'{$v['id']}','{$v['counts']}','{$v['title']}')">兑换商品</a>
+				</div>
+			</div>
+		</div>
+      {/volist}
+	</div>
+</div>	
+
+</div>
+</div>
+</div>
+{/block}
+
+{block name="appendJS"}
+
+<script>
+	function del(obj, id,csk,timec) {
+		
+		swal({
+				title: "确定要兑换☆ "+timec+" ☆吗？",
+				text: "兑换该商品将会扣除★ "+csk+" ★积分。",
+		       showCancelButton: true, 
+		       closeOnConfirm: false, 
+		       confirmButtonText: "确认", 
+		       cancelButtonText: "取消", 
+			},
+			function () {
+				$.post('/merchant/shang/dddui', {
+					id: id,
+					userid:'{$_user.id}',
+				}, function (res) {
+					if (res.code != 0) {
+						swal(res.msg,'兑换失败,积分自动返还', "error");
+					} else {
+						swal('兑换成功,积分已扣除', '', "success");
+						setTimeout(function () {
+							location.href='/merchant/shang/orders';
+						}, 2000);
+					}
+				});
+			});
+	}
+	
+	
+	function address(){
+		
+		var address=$("#address").val();
+		if (address==''){
+					swal('收货地址不能为空','请先填收货地址', "error");
+					return false;
+				}
+		
+				
+				$.post('/merchant/shang/setting', {
+					address: address,
+					userid:'{$_user.id}',
+				}, function (res) {
+					if (res.code != 0) {
+						swal(res.msg,'设置失败', "error");
+					} else {
+						swal('设置成功', '', "success");
+						setTimeout(function () {
+							location.href='/merchant/shang/index';
+						}, 2000);
+					}
+				});
+			
+	}
+
+</script>
+
+{/block}

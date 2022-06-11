@@ -1,0 +1,1233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> {if condition="$shop['shop_name']"}{$shop.shop_name} - {/if}{:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}" />
+    <meta name="description" content="{:sysconf('site_desc')}" />
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <!--    模版页面样式文件开始-->
+     <script src="__RES__/app/js/jquery.min.js"></script>
+    <script src="__RES__/app/js/layer.js"></script>
+
+
+     <style>
+    .jsTitle{color:#000;padding-left:40px;padding-bottom:8px;}
+    .jhBtn,.jsTab{padding-left:40px;}
+    .jhBtn a{ color:#FFF; border:1px solid #FFF; padding:2px 5px; float:left; width:80px;}
+    .jsTab a{ background:#fff; float:left; display:block; border-radius:5px; border:3px solid green; color:#000; padding:2px 3px; line-height:20px; margin-right:10px; margin-bottom:8px; }
+    .jsTab { padding:15px 0px 0px 40px;}
+    .jsTab a.act{background:green; color:#FFF;}
+    .jsDetail{ background:#FFF; margin-left:40px; margin-bottom:10px;}
+    .jsDetailBox{padding:0px 5px 5px 0px;}
+    .jsDetailBox table td{ padding-left:3px;}
+    .h_zdy{height:20px;}
+
+    .goodscards{
+        width: 695px;
+        background: rgba(255,255,255,.8);
+        /*margin-left: -151px;*/
+        border: 1px solid #ddd;
+        font-size: 13px;
+    }
+    .goodscards > thead > tr > th, .goodscards > tbody > tr > th, .goodscards > thead > tr > td, .goodscards > tbody > tr > td {
+        border: 1px solid green;
+        line-height: 1.2;
+        padding: 2px;
+        vertical-align: middle;
+    }
+video{position: fixed;right: 0px;bottom: 0px;min-width: 100%;min-height: 100%;height: auto;width: auto;z-index: -11;}
+</style>
+
+    <link href="__RES__/app/bai/css/nyro.css" rel="stylesheet" type="text/css">
+    <link href="__RES__/app/bai/css/pay.css" rel="stylesheet" type="text/css">
+    <link href="__RES__/app/bai/css/iconfont.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__RES__/app/bai/css/izitoast.min.css">
+    <link rel="stylesheet" href="__RES__/app/bai/css/style.css">
+    <script src="__RES__/app/bai/js/nyro.js"></script>
+    <script src="__RES__/app/bai/js/base.js?_v={:date('YmdHi')}"></script>
+    <link href="__RES__/app/bai/css/icons.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__RES__/app/all.css">
+
+
+    <script src="__RES__/app/bai/js/izitoast.min.js"></script>
+
+    <script>
+        var user_popup_message = '';
+        var is_display = '0';
+        var userid = "{$shop.id}";
+        var cateid = 0;
+        var static_url = '__PUBLIC__';
+        var dis_pwd_content = '<div style="padding:10px;color:#cc3333;line-height:24px"><p style="float:left;font-size:14px;font-weight:bold;color:blue;">访问密码：</p><div style="float:right; font-size:14px; padding-left:20px;"><a href="#" style="color:#0064ff;text-decoration:none;display:inline-block;display:none;background:url(static/images/x.png) left no-repeat;padding-left:15px;" class="nyroModalClose" onclick="closeNyro()">关闭</a></div><p style="clear:both;font-size:12px;font-weight:bold;color:red;"><input type="password" name="pwdforbuy" class="input" maxlength="20"><input type="submit"  onclick="verify_pwdforbuy()" id="verify_pwdforbuy" style="font-size:12px;padding:3px 3px" value="验证密码"><span id="verify_pwdforbuy_msg" style="display:none"><img src="static/images/load.gif"> 正在验证...</span><ul><li>1.本商品购买设置了安全密码</li><li>2.只有成功验证密码后才能继续购买</li></ul></p></div>';
+        var goodid = "{$goods.id|default=0}";
+        var is_contact_limit ='{$goods.contact_limit|default=""}';
+        var is_contact_limit_default ='{$goods.contact_limit|default=""}';
+        var limit_quantity_tip = '无法修改购买数量，是因为本商品限制了购买数量。';
+        function closeNyro() {
+            let goodsid = $('[name="goodid"]').val();
+            $("#goodslist .item.goods-${goodid} .pwd-success").hide();
+            $("#goodslist .item.goods-${goodid} .pwd").show();
+            // $('#price').val(0);
+            $('[name="goodid"]').val('');
+            // getrate();
+            // goodDiscount();
+            $('[name="goodid"]').change();
+        }
+        /*  */
+
+        var isLogin = "{$allowBuy}";
+    </script>
+    <style type="text/css">
+        .lab1 input {
+            display: none !important;
+        }
+    </style>
+    <script>
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#categorys .item').click(function () {
+                selectcateid2($(this).attr('value'));
+            });
+
+            $("#goodslist .item .show-dis-price").hover(
+                function () {
+                    showDprice($(this));
+                },
+                //4.关闭显示
+                function () {
+                    layer.close($(this).attr("data-index"));
+                }
+            );
+
+            iziToast.settings({
+                maxWidth: '500px',
+                titleSize: '18px',
+                titleLineHeight: '22px',
+                timeout: 3000,
+                resetOnHover: false,
+                position: 'bottomRight',
+                transitionIn: 'fadeInLeft',
+                transitionOut: 'fadeOutRight',
+                zindex: 999999999999,
+                close: false
+            });
+        });
+
+  function getJiaose(goodid,page,pages){
+    document.getElementById('quantity').value = 1;
+    document.getElementById('quantity').readOnly=false;
+
+    var jsprice=$('#jiaoseprice').html();
+    if(document.getElementById('jiaosesize')!=null){
+        var jssize = $('#jiaosesize').html();
+    }else{
+        var jssize = 10;
+    }
+    $.post(
+        "/ajax/getgoodinfo",
+        {goodid: goodid,jssize:jssize,page:page,pages:pages},
+        function (data) {
+            if (data) {
+                var jiaoListStr = '';
+                var jiaoList = data.jiaoList;
+                // jiaoList = eval('('+jiaoList+')');
+                if(jiaoList.length>0){
+                    jiaoListStr = '<div class="jsTitle">自选角色加'+jsprice+'元 (选中自动复制，可到WeGame查看战绩)</div>';
+                    if(data.cardPages>1){
+                        jiaoListStr = jiaoListStr + '<div class="jhBtn">';
+                        jiaoListStr = jiaoListStr + '<a href="javascript:void(0);" onclick="getJiaose('+goodid+','+data.prepage+','+data.cardPages+')" style="margin-right:10px;">上一组</a>';
+                        jiaoListStr = jiaoListStr + '<a href="javascript:void(0);"  onclick="getJiaose('+goodid+','+data.nextpage+','+data.cardPages+')">下一组</a>';
+                        jiaoListStr = jiaoListStr + '<div style="clear:both;"></div>';
+                        jiaoListStr = jiaoListStr + '</div>';
+                    }
+                    jiaoListStr = jiaoListStr + '<div class="jsTab">';
+
+                    jiaoListStr = jiaoListStr + '<table class="goodscards">';
+                    jiaoListStr = jiaoListStr + '<tbody><tr><td>昵称</td><td>其他</td></tr>';
+                    for(var i=0;i<jiaoList.length; i++){
+                        jiaoListStr +='<tr><td><a href="javascript:void(0);" class="copyBtn" style="margin:0 auto;" data-clipboard-text="'+ jiaoList[i]['jiaose'] +'" id="jst_'+i+'" pid="'+jiaoList[i]['id']+'" onclick="getDetailInfo('+ jiaoList[i]['id']+','+i+')">'+jiaoList[i]['jiaose'] +'</a></td>';
+                        jiaoListStr +='<td>'+jiaoList[i]['other']+'</td></tr>';
+                    }
+                    jiaoListStr += '</tbody></table>'
+
+                    // for(var i=0;i<jiaoList.length; i++){
+                    //     jiaoListStr = jiaoListStr + '<a href="javascript:void(0);" class="copyBtn" data-clipboard-text="'+jiaoList[i]['jiaose']+'" id="jst_'+i+'" pid="'+jiaoList[i]['id']+'" onClick="getDetailInfo('+jiaoList[i]['id']+','+i+')">'+jiaoList[i]['jiaose']+'</a>';
+                    // }
+                    // jiaoListStr = jiaoListStr + '<div style="clear:both;"></div>';
+                    // jiaoListStr = jiaoListStr + '</div>';
+                    // for(var i=0;i<jiaoList.length; i++){
+                    //     jiaoListStr = jiaoListStr + '<div class="jsDetail" id="tab_info_'+i+'" style="display:none">';
+                    //     jiaoListStr = jiaoListStr + '<div class="jsDetailBox">';
+                    //     jiaoListStr = jiaoListStr + '<table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#00BB00">';
+                    //     jiaoListStr = jiaoListStr + '<tr>';
+                    //     jiaoListStr = jiaoListStr + '<td width="50%" bgcolor="#FFFFFF">大区:'+jiaoList[i]['qu']+'</td>';
+                    //     jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">等级:'+jiaoList[i]['dengji']+'</td>';
+                    //     jiaoListStr = jiaoListStr + '</tr>';
+                    //     jiaoListStr = jiaoListStr + '<tr>';
+                    //     jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">金币:'+jiaoList[i]['jinbi']+'</td>';
+                    //     jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">段位:'+jiaoList[i]['duanwei']+'</td>';
+                    //     jiaoListStr = jiaoListStr + '</tr>';
+                    //     jiaoListStr = jiaoListStr + '<tr>';
+                    //     jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">英雄:'+jiaoList[i]['yingxiong']+'</td>';
+                    //     jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">其他:'+jiaoList[i]['url']+'</td>';
+                    //     jiaoListStr = jiaoListStr + '</tr>';
+                    //     jiaoListStr = jiaoListStr + '</table>	';
+                    //     jiaoListStr = jiaoListStr + '</div>';
+                    //     jiaoListStr = jiaoListStr + '</div>';
+                    // }
+                }
+                $('#jiaose_box').html(jiaoListStr+'<div class="h_zdy"></div>');
+            }
+        },
+        "json"
+    );
+}
+
+        function selectcateid2(cateid) {
+            $("[name=couponcode]").val("");
+            $("#jiaose_box").html('');
+            $('#loading').show();
+            $('#categorys .active').removeClass('active');
+            $('#categorys .category-' + cateid).addClass('active');
+            let html = '';
+            if (cateid > 0) {
+                $.post('/ajax/getgoodlist3', {
+                        cateid: cateid,
+                        type: 'json'
+                    },
+                    function (data) {
+                        if (data == '') {
+                            $('#goodslist').html('');
+                            $('[name="goodid"]').val('');
+                            layer.msg('此分类下没有商品！');
+                        } else {
+                            // showToast('info', '', '请选择商品！');
+                            // $('#goodid').html(option + data);
+
+                            $('#loading').hide();
+                            $('#goodslist').html(data);
+                            selectgoodid2(data[0].id);
+
+                            $("#goodslist .item .show-dis-price").hover(
+                                function () {
+                                    showDprice($(this));
+                                },
+                                //4.关闭显示
+                                function () {
+                                    layer.close($(this).attr("data-index"));
+                                }
+                            );
+                        }
+                    });
+            }
+            getrate();
+            $('.pinfo1').show();
+            $('.pinfo2').hide();
+            $('.pinfo3').hide();
+        }
+
+
+        function getDetailInfo(cid,b){
+            $('.jsDetail').hide();
+            if($('#jst_'+b).hasClass('act')){
+                $('#jst_'+b).removeClass('act');
+            }else{
+                $('#jst_'+b).addClass('act');
+                $('#tab_info_'+b).show();
+            }
+            var ids = '';
+            var ico = '';
+            $('.jsTab a').each(function(){
+                if($(this).hasClass('act')){
+                    ids = ids + ico + $(this).attr('pid');
+                    ico = ',';
+                }
+            });
+            var n = 1;
+            var m = 0;
+            if(ids.indexOf(',')!=-1){
+                var tt = ids.split(',');
+                n = tt.length;
+                m = 1;
+            }
+            document.getElementById('quantity').value = n;
+            document.getElementById('quantity').readOnly=true;
+            goodschk();
+        }
+
+        function selectgoodid2(goodid) {
+            $('#goodslist .item.active').removeClass('active');
+            $('#goodslist .item.goods-' + goodid).addClass('active');
+            $('#goodid').val(goodid);
+
+
+               var jsprice=$('#jiaoseprice').html();
+
+             if(document.getElementById('jiaosesize')!=null){
+                    var jssize = $('#jiaosesize').html();
+                }else{
+                    var jssize = 10;
+                }
+
+            if ($("[name=couponcode]").val() != "") {
+                checkCoupon();
+            }
+            $.post(
+                "/ajax/getgoodinfo", {
+                    goodid: goodid,jssize:jssize
+                },
+                function (data) {
+                    if (data) {
+                       var videourl = data.videourl;
+                        $('#videourl').attr('src',videourl);
+                        document.getElementById("videourl").play();
+                         var jiaoListStr = '';
+                var jiaoList = data.jiaoList;
+                // jiaoList = eval('('+jiaoList+')');
+                if(jiaoList.length>0){
+                    jiaoListStr =  '<div class="jsTitle">自选角色加'+jsprice+'元 (选中自动复制，可到WeGame查看战绩)</div>';
+                    if(data.cardPages>1){
+                        jiaoListStr = jiaoListStr + '<div class="jhBtn">';
+                        jiaoListStr = jiaoListStr + '<a href="javascript:void(0);" onclick="getJiaose('+goodid+',1,'+data.cardPages+')" style="margin-right:10px;">上一组</a>';
+                        jiaoListStr = jiaoListStr + '<a href="javascript:void(0);"  onclick="getJiaose('+goodid+',2,'+data.cardPages+')">下一组</a>';
+                        jiaoListStr = jiaoListStr + '<div style="clear:both;"></div>';
+                        jiaoListStr = jiaoListStr + '</div>';
+                    }
+                    jiaoListStr = jiaoListStr + '<div class="jsTab">';
+                    jiaoListStr = jiaoListStr + '<table class="goodscards">';
+                    jiaoListStr = jiaoListStr + '<tbody><tr><td>昵称</td><td>其他</td></tr>';
+                    for(var i=0;i<jiaoList.length; i++){
+                        jiaoListStr +='<tr><td><a href="javascript:void(0);" class="copyBtn" style="margin:0 auto;" data-clipboard-text="'+ jiaoList[i]['jiaose'] +'" id="jst_'+i+'" pid="'+jiaoList[i]['id']+'" onclick="getDetailInfo('+ jiaoList[i]['id']+','+i+')">'+jiaoList[i]['jiaose'] +'</a></td>';
+                        jiaoListStr +='<td>'+jiaoList[i]['other']+'</td></tr>';
+                    }
+                    jiaoListStr += '</tbody></table>'
+
+                        // jiaoListStr = jiaoListStr + '<a href="javascript:void(0);" class="copyBtn" data-clipboard-text="'+jiaoList[i]['jiaose']+'" id="jst_'+i+'" pid="'+jiaoList[i]['id']+'" onClick="getDetailInfo('+jiaoList[i]['id']+','+i+')">'+jiaoList[i]['jiaose']+'</a>';
+                    // }
+
+
+
+                //     for(var i=0;i<jiaoList.length; i++){
+                //         jiaoListStr = jiaoListStr + '<a href="javascript:void(0);" class="copyBtn" data-clipboard-text="'+jiaoList[i]['jiaose']+'" id="jst_'+i+'" pid="'+jiaoList[i]['id']+'" onClick="getDetailInfo('+jiaoList[i]['id']+','+i+')">'+jiaoList[i]['jiaose']+'</a>';
+                //     }
+                //     jiaoListStr = jiaoListStr + '<div style="clear:both;"></div>';
+                //     jiaoListStr = jiaoListStr + '</div>';
+                //     for(var i=0;i<jiaoList.length; i++){
+                //         jiaoListStr = jiaoListStr + '<div class="jsDetail" id="tab_info_'+i+'" style="display:none">';
+                //         jiaoListStr = jiaoListStr + '<div class="jsDetailBox">';
+                //         jiaoListStr = jiaoListStr + '<table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#00BB00">';
+                //         jiaoListStr = jiaoListStr + '<tr>';
+                //         jiaoListStr = jiaoListStr + '<td width="50%" bgcolor="#FFFFFF">大区:'+jiaoList[i]['qu']+'</td>';
+                //         jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">等级:'+jiaoList[i]['dengji']+'</td>';
+                //         jiaoListStr = jiaoListStr + '</tr>';
+                //         jiaoListStr = jiaoListStr + '<tr>';
+                //         jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">金币:'+jiaoList[i]['jinbi']+'</td>';
+                //         jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">段位:'+jiaoList[i]['duanwei']+'</td>';
+                //         jiaoListStr = jiaoListStr + '</tr>';
+                //         jiaoListStr = jiaoListStr + '<tr>';
+                //         jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">英雄:'+jiaoList[i]['yingxiong']+'</td>';
+                //         jiaoListStr = jiaoListStr + '<td bgcolor="#FFFFFF">其他:'+jiaoList[i]['url']+'</td>';
+                //         jiaoListStr = jiaoListStr + '</tr>';
+                //         jiaoListStr = jiaoListStr + '</table>	';
+                //         jiaoListStr = jiaoListStr + '</div>';
+                //         jiaoListStr = jiaoListStr + '</div>';
+                //     }
+                }
+                $('#jiaose_box').html(jiaoListStr+'<div class="h_zdy"></div>');
+
+                        $("#price").val(data.price);
+                        $("#remark").html(data.remark);
+                        $("#gonggao").html(data.gonggao);
+                        $('[name=feePayer]').val(data.fee_payer);
+                        $('.submit-bar .goods-name span').text($("#goodslist .item.goods-"+goodid+" .name").text());
+                        limit_quantity = data.limit_quantity;
+                        if (data.remark != "") {
+                            $("#buy_border1").css("display", "block");
+                        }
+                        if (data.is_coupon == 0) {
+                            //取消掉优惠券码
+                            $("[name=couponcode]").val("");
+                            $("#goodCoupon").hide();
+                        }
+                        if (data.is_coupon == 1) {
+                            $("#goodCoupon").show();
+                        }
+                        if (data.is_pwdforsearch == 0) {
+                            $("#pwdforsearch2").hide();
+                            $("#pwdforsearch1").hide();
+                        }
+                        if (data.is_pwdforsearch == 1) {
+                            $("#pwdforsearch2").hide();
+                            $("#pwdforsearch1").show();
+                        }
+                        if (data.is_pwdforsearch == 2) {
+                            $("#pwdforsearch1").hide();
+                            $("#pwdforsearch2").show();
+                        }
+                        //显示批发价格
+                        if (data.is_discount == 1) {
+                            $("#isdiscount").css("display", "inline");
+                            var discountdetail2 = '';
+                            $.ajax({
+                                url: '/ajax/getdiscountdetails',
+                                data: {
+                                    goodid: goodid,
+                                },
+                                type: 'post',
+                                dataType: 'json',
+                                async: false,
+                                success: function (data) {
+                                    // console.log(data);
+                                    $('#isdiscount_span').html(data);
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    layer.msg('连接错误');
+                                }
+                            });
+                            $("#isdiscount_span").css("display", "inline");
+                            $("#discountdetail").css("display", "inline");
+                        }
+                        //隐藏批发价格标签
+                        if (data.is_discount == 0) {
+                            $("#isdiscount_span").css("display", "none");
+                            $("#discountdetail").css("display", "none");
+                        }
+                        if (data.limit_quantity > 0) {
+                            $("[name=quantity]").val(data.limit_quantity);
+                            $("[name=quantity]").attr({
+                                title: "本商品最少购买数量为" + limit_quantity + "件！"
+                            });
+                            $("#limit_quantity_tip").show();
+                        } else {
+                            $("[name=quantity]").val(1);
+                            $("[name=quantity]").removeAttr("title");
+                            $("#limit_quantity_tip").hide();
+                        }
+                        is_contact_limit = data.contact_limit;
+                        $('[name="is_contact_limit"]').val(data.contact_limit);
+                        $(".contact_limit_tip").text(data.contact_limit);
+                        $("[name=danjia]").val(data.price);
+                        $("#goodInvent_"+goodid).html(data.goodinvent);
+                        $("[name=is_discount]").val(data.is_discount);
+                        getrate();
+                        goodDiscount();
+                        $(".pinfo1").hide();
+                        $(".pinfo2").show();
+                        $(".pinfo3").hide();
+                        if (data.is_pwdforbuy == 1 && !$("#goodslist .item.goods-"+goodid).hasClass('validate-yet')) {
+                            getPwdforbuy();
+                        }
+                    }
+                },
+                "json"
+            );
+        }
+
+
+        function showDprice(node) {
+            //1.获取数据
+            var discountdetail2 = '';
+            var goodid = node.data('id');
+            $.post('/ajax/getdiscountdetails', {
+                goodid: goodid
+            }, function (data) {
+                //2.组装数据
+                console.log(data);
+                if (data != '') {
+                    //显示样式
+                    var index = layer.tips(data, $("#goodslist .item.goods-"+goodid+" .show-dis-price"), {
+                        tips: [2, '#4B4B4B'],
+                        time: 0
+                    });
+                    //显示数据
+                    $("#goodslist .item.goods-" + goodid + " .show-dis-price").attr("data-index", index);
+                }
+            });
+        }
+
+
+
+        function changequantity2() {
+            goodDiscount();
+            goodschk();
+            var quantity = $("input[name='quantity']").val();
+            var kucun = $("input[name='kucun']").val();
+            if (quantity < 1) {
+                showToast('error', '', '您忘了输入购买数量！');
+                $('[name=quantity]').focus();
+
+            } else if ((quantity - kucun) > 0) {
+                showToast('error', '', '您输入的购买数量超过库存数量，请重新输入！');
+                $('[name=quantity]').focus();
+            } else if ((quantity >= 1 && quantity - kucun) <= 0) {
+                showToast('success', '', '您输入的购买数量 填写正确^_^');
+            }
+        }
+
+        function checkcontact2() {
+            var contact = $("input[name='contact']").val();
+            if ($("input[name='is_rev_sms']").is(":checked")) {
+                var reg = /^(\d){11}$/;
+                if (contact.length < 1) {
+                    showToast('error', '', '手机号码 必填哦！');
+                    $('[name=contact]').focus();
+                }
+                if ((contact.length >= 1 && contact.length < 11) || (contact.length >= 1 && !reg.test(contact))) {
+                    showToast('error', '', '您输入的手机号码 不是11位数字！');
+                    $('[name=contact]').focus();
+                } else if (contact.length == 11 && reg.test(contact)) {
+                    showToast('success', '', '您输入的手机号码 填写正确^_^');
+                }
+            } else {
+                if (!contact || contact == null || contact == "" || contact == 0) {
+                    showToast('error', '', '联系方式 必填哦！');
+                    $('[name=contact]').focus();
+                } else if (contact.length >= 6) {
+                    showToast('success', '', '您输入的联系方式 填写正确^_^');
+                } else {
+                    showToast('error', '', '您输入的联系方式 少于6位！');
+                    $('[name=contact]').focus();
+                }
+            }
+        }
+
+        function checkis_rev_sms2() {
+            $('#email').parent().removeClass('checked');
+            var contact = $("input[name='contact']").val();
+            if ($("input[name='is_rev_sms']").is(":checked")) {
+                var reg = /^(\d){11}$/;
+                if (contact.length == 11 && reg.test(contact)) {
+                    showToast('success', '', '您输入的手机号码 填写正确^_^');
+                } else {
+                    showToast('info', '', '请重新输入11位数字 填写手机号码哦');
+                    $('[name=contact]').focus();
+                }
+            } else {
+                if (contact.length >= 6) {
+                    showToast('success', '', '您输入的联系方式 填写正确^_^');
+                } else if (!contact || contact == null || contact == "" || contact == 0) {
+                    showToast('error', '', '联系方式 必填哦！');
+                    $('[name=contact]').focus();
+                } else {
+                    showToast('error', '', '您输入的联系方式 少于6位！');
+                    $('[name=contact]').focus();
+                }
+            }
+
+        }
+
+        function checkis_email2() {
+            $('#is_rev_sms').parent().removeClass('checked');
+            $('.email_show').toggle();
+            var email = $("input[name='email']").val();
+            var reg = /^([0-9a-zA-Z_-])+@([0-9a-zA-Z_-])+((\.[0-9a-zA-Z_-]{2,3}){1,2})$/;
+            if ($("input[name='isemail']").is(":checked")) {
+                if (reg.test(email)) {
+                    showToast('success', '', '您输入的邮箱地址 填写正确^_^');
+                } else if (email.length > 0 && !reg.test(email)) {
+                    showToast('error', '', '您输入的邮箱地址 填写有误！');
+                    $('[name=email]').focus();
+                } else {
+                    showToast('info', '', '邮箱地址 必填哦！');
+                    $('[name=email]').focus();
+                }
+                $('[name=sms_price]').val(0);
+                $('.choose_sms').removeClass('on');
+                $('.choose_email').addClass('on');
+                $('.email-show').show();
+                $("#is_rev_sms").prop("checked", false);
+            } else {
+                $('.choose_email').removeClass('on');
+                $('.email-show').hide();
+            }
+            goodDiscount();
+            goodschk();
+            updateContactLimit();
+        }
+
+        function checkemail2() {
+            var email = $("input[name='email']").val();
+            var reg = /^([0-9a-zA-Z_-])+@([0-9a-zA-Z_-])+((\.[0-9a-zA-Z_-]{2,3}){1,2})$/;
+            if (!email || email == null || email == "" || email == 0) {
+                showToast('error', '', '邮箱地址 必填哦！');
+                $('[name=email]').focus();
+            } else if (reg.test(email)) {
+                showToast('success', '', '您输入的邮箱 填写正确^_^');
+            } else {
+                showToast('error', '', '您输入的邮箱地址 填写有误！');
+                $('[name=email]').focus();
+            }
+        }
+
+        function checkpwdsearch2() {
+            var pwdforsearch1 = $("input[name='pwdforsearch1']").val();
+            if (!pwdforsearch1 || pwdforsearch1 == null || pwdforsearch1 == "" || pwdforsearch1 == 0) {
+                showToast('warning', '', '取卡密码 必填哦！');
+                $('[name=pwdforsearch1]').focus();
+            } else if (pwdforsearch1.length < 6 || pwdforsearch1.length > 20) {
+                showToast('error', '', '您输入的取卡密码 不是6-20位！');
+                $('[name=pwdforsearch1]').focus();
+            }
+        }
+
+        function checkpwdsearch1() {
+            var pwdforsearch2 = $("input[name='pwdforsearch2']").val();
+            if (!pwdforsearch2 || pwdforsearch2 == null || pwdforsearch2 == "" || pwdforsearch2 == 0) {
+                showToast('info', '', '如有需要 取卡密码 可以填哦');
+            } else if ((pwdforsearch2.length >= 1 && pwdforsearch2.length < 6) || (pwdforsearch1.length > 20)) {
+                showToast('error', '', '您输入的取卡密码 不是6-20位！');
+                $('[name=pwdforsearch1]').focus();
+            } else if (pwdforsearch2.length >= 6 && pwdforsearch2.length <= 20) {
+                showToast('success', '', '您输入的取卡密码 填写正确^_^');
+            }
+        }
+
+        function tipCoupon() {
+            var couponcode = $("input[name='couponcode']").val();
+            if (!couponcode || couponcode == null || couponcode == "" || couponcode == 0) {
+                showToast('info', '', '如有优惠卷 可以使用哦');
+            } else if (couponcode.length >= 1 && couponcode.length != 16) {
+                showToast('error', '', '您输入的优惠券 不是16位！');
+                $('[name=couponcode]').focus();
+            } else if (couponcode.length == 18) {
+                showToast('success', '', '您输入的优惠券 填写正确^_^');
+            }
+        }
+
+        function checkform2() {
+            var quantity = $("input[name='quantity']").val();
+            var kucun = $("input[name='kucun']").val();
+            if (quantity < 1) {
+                showToast('error', '', '您忘了输入购买数量！');
+                return false;
+            } else if ((quantity - kucun) > 0) {
+                showToast('error', '', '输入的购买数量超过库存数量，请重新输入！');
+                return false;
+            }
+            var contact = $("input[name='contact']").val();
+            if ($("input[name='is_rev_sms']").is(":checked")) {
+                var reg = /^(\d){11}$/;
+                if (contact.length < 11 || !reg.test(contact)) {
+                    showToast('error', '', '您输入的手机号码 不是11位数字！');
+                    return false;
+                }
+            } else {
+                if (!contact || contact == null || contact == "" || contact == 0) {
+                    showToast('error', '', '您忘了填写联系方式！');
+                    return false;
+                } else if (contact.length < 6) {
+                    showToast('error', '', '您输入的联系方式 少于6位！');
+                    return false;
+                }
+            }
+            if ($('#email').is(":checked")) {
+                var email = $("input[name='email']").val();
+                var reg = /^([0-9a-zA-Z_-])+@([0-9a-zA-Z_-])+((\.[0-9a-zA-Z_-]{2,3}){1,2})$/;
+                if (!email || email == null || email == "" || email == 0) {
+                    showToast('error', '', '\'邮箱地址 必填哦！');
+                    return false;
+                } else if (email.length >= 1 && !reg.test(email)) {
+                    showToast('error', '', '您输入的邮箱地址 填写有误！');
+                    return false;
+                }
+            }
+            if ($('#pwdforsearch1').is(":visible")) {
+                var pwdforsearch1 = $("input[name='pwdforsearch1']").val();
+                if (!pwdforsearch1 || pwdforsearch1 == null || pwdforsearch1 == "" || pwdforsearch1 == 0) {
+                    showToast('error', '', '请填写取卡密码！');
+                    return false;
+                } else if (pwdforsearch1.length < 6 || pwdforsearch1.length > 20) {
+                    showToast('error', '', '请填写6-20位取卡密码！');
+                    return false;
+                }
+            }
+            if ($('#pwdforsearch2').is(":visible")) {
+                var pwdforsearch2 = $("input[name='pwdforsearch2']").val();
+                if ((pwdforsearch2.length >= 1 && pwdforsearch2.length < 6) || (pwdforsearch2.length > 20)) {
+                    showToast('error', '', '您输入的取卡密码 不是6-20位！');
+                    return false;
+                }
+            }
+            var couponcode = $("input[name='couponcode']").val();
+            if (couponcode.length >= 1 && couponcode.length != 16) {
+                showToast('error', '', '您输入的优惠券 不是16位！');
+                return false;
+            } else {
+                showToast('success', '', '您输入全部正确^_^ 正在提交订单...');
+                return true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input type="hidden" name="is_contact_limit" value="{$goods.contact_limit|default=""}">
+    <input type="hidden" name="limit_quantity" value="{$goods.limit_quantity|default=1}">
+
+
+    <div class="header">
+        <div class="wrapper">
+            <div class="shop">
+                <div class="name"> {:sysconf('site_name')}</div>
+                <div class="qq"><img src="__RES__/app/bai/images/icon-kefu.png" class="icon" />商家QQ：<a
+                        href="//wpa.qq.com/msgrd?v=1&uin={$shop.qq}&site=mjfaka.com&menu=yes'"
+                        target="_blank">{$shop.qq}</a></div>
+            </div>
+            <div class="header-nav">
+                <a class="item on" target="_blank" href="/orderquery"><img
+                        src="__RES__/app/bai/images/icon-search.png" />购买记录</a>
+                <a class="item" target="_blank" href="/complaint"><img
+                        src="__RES__/app/bai/images/icon-tousu.png" />投诉订单</a>
+                {if sysconf('site_buyer_register_status') == 1 }
+                        {if isset($buyer.id)}
+                        <!--{$buyer.username}-->
+                        <a class="item" target="_blank" href="/buyer"><img
+                        src="__RES__/app/bai/images/icon-tousu.png" />进入买家中心</a><!--{$buyer.username}-->
+                        {else/}
+                        <a class="item" target="_blank" href="/buyer"><img
+                        src="__RES__/app/bai/images/icon-tousu.png" />买家登陆</a>
+                        {/if}
+                        {/if}
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="shop-notice">
+            <div class="title">店铺公告</div>
+            <div  id="notice">{$shop.shop_notice}
+            </div>
+        </div>
+    </div>
+
+
+    <form name="p" method="post" action="/pay/order" target="_blank" class="nyroModal">
+        <div class="choose">
+            <div class="wrapper">
+                <div class="choose-wrap">
+                    <div class="choose-form">
+
+                        {block name="content"} {/block}
+
+
+                        <input type="hidden" name="buyerid" value="{$buyer.id|default=''}"/>
+                        <input type="hidden" name="userid" value="{$shop.id}">
+                        <input type="hidden" name="token" value="">
+                        <input type="hidden" name="cardNoLength" value="0">
+                        <input type="hidden" name="cardPwdLength" value="0">
+                        <input type="hidden" name="is_discount" id="is_discount" value="0">
+                        <input type="hidden" name="coupon_ctype" value="0">
+                        <input type="hidden" name="coupon_value" value="0">
+                        <input type="hidden" name="sms_price" value="0">
+                        <input type="hidden" id="price" value="0">
+                        <div id="discountdetail" style="display: none;"></div>
+
+                        <input type="hidden" name="paymoney" value="">
+                        <input type="hidden" name="danjia" value="">
+<div id="jiaosesize" style="display:none;">10</div>
+        <div id="jiaoseprice" style="display:none;">{:sysconf('site_jiaoseprice')}</div>
+
+        <input type="hidden" name="c_ids" value="" id="c_ids">
+                        <div class="panel info">
+
+                            <div id="jiaose_box" style="clear:both;"></div>
+                            <div class="title"><img src="__RES__/app/bai/images/icon-lanzi.png" /> 填写信息/购买方式
+                            </div>
+                            <div class="form-field">
+                                <div class="label"><span class="required">*</span>联系方式 </div>
+                                <div class="value">
+                                    <div class="input">
+                                        <input type="text" onmouseout="checkcontact2()" name="contact"
+                                               placeholder="推荐填写QQ号或手机号 订单查询的重要凭证!" />
+                                    </div>
+                                </div>
+                                <div class="remark">联系方式特别重要,可用来查询订单,如果您选择短信提醒，请填写手机号码，我们会将信息发送至该手机号码</div>
+                            </div>
+
+                            <div class="form-field" id="pwdforsearch1" style="display: none;">
+                                <div class="label"><span class="required">*</span>取卡密码 </div>
+                                <div class="value">
+                                    <div class="input">
+                                        <input onmouseout="checkpwdsearch2()" onblur="is_pwdforsearch()" type="text"
+                                               name="pwdforsearch1" placeholder="[必填]请输入取卡密码（6-20位）">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-field" id="pwdforsearch2" style="display: none;">
+                                <div class="label"><span class="required">*</span>取卡密码 </div>
+                                <div class="value">
+                                    <div class="input">
+                                        <input onmouseout="checkpwdsearch2()" onblur="is_pwdforsearch()" type="text"
+                                               name="pwdforsearch2" placeholder="[选填]请输入取卡密码（6-20位）">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="label">提醒方式 </div>
+                                <div class="value notice-type">
+                                    <div class="choose_sms">
+                                        <label class="lab1">
+                                            <input type="checkbox" name="is_rev_sms" value="1" id="is_rev_sms"
+                                                   onclick="checkis_rev_sms2()"
+                                                   data-cost="{if isset($goods) && $goods.sms_payer==1}0{else}{:get_sms_cost()}{/if}">短信提醒[{if
+                                            isset($goods) && $goods.sms_payer==1}商家赠送{else}收费{:get_sms_cost()}元{/if}]
+                                        </label>
+                                    </div>
+                                    <div class="choose_email">
+                                        <label class="lab1">
+                                            <input type="checkbox" name="isemail" value="1" id="email"
+                                                   onclick="checkis_email2()">邮箱提醒[免费]
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-field email-show" style="display: none;">
+                                <div class="label"><span class="required">*</span>邮箱地址 </div>
+                                <div class="value">
+                                    <div class="input">
+                                        <input type="text" onmouseout="checkemail2()" name="email"
+                                               placeholder="填写你常用的邮箱地址" />
+                                    </div>
+                                </div>
+                                <div class="remark" style="color: red;">注：如果没收到邮件，请在邮件垃圾箱查找。</div>
+                            </div>
+
+                            <div class="form-field" id="goodCoupon" style="display: none;">
+                                <div class="label">优惠券 </div>
+                                <div class="value">
+                                    <div class="input">
+                                        <input type="text" name="couponcode" placeholder="请填写你的优惠券"
+                                               onblur="checkCoupon2()" onmouseout="tipCoupon()">
+                                    </div>
+                                </div>
+                                <div class="remark" id="checkcoupon" style="display:none; color: red"><img
+                                        src="__RES__/app/bai/images/load.gif"> 正在查询...</div>
+                            </div>
+
+                            <div class="form-field" id="couponcode" style="display: none;">
+                                <div class="label">优惠券详情 </div>
+                                <div class="value">
+                                    <span id="checkcoupon" style="display:none">正在查询...</span>
+                                </div>
+                            </div>
+
+                            <div class="paytype">
+                                <div class="title">选择支付方式</div>
+                                <div class="items">
+                                    <input type="hidden" name="feePayer" value="{$shop.fee_payer|default=1}">
+                                    <input type="hidden" name="fee_rate" value="{$userChannels[0]['rate']|default=0}">
+                                    <input type="hidden" name="min_fee" value="{:sysconf('transaction_min_fee')}">
+                                    <!-- {$n=0} -->
+                                    <!--{foreach $userChannels as $v}-->
+                                    <!--{if $v.status==1}-->
+                                    <label for="pay_item_{$v.channel_id}" class="paytype-item" data-pid="{$v.channel_id}">
+                                        <div style="background: white;">
+                                            <label>
+                                                <input {if !empty($v.children)} data-children={$v.fields_value} {/if} id="pay_item_{$v.channel_id}" name="pid" style="display:none;border:0;" onclick="javascript:setFeeRate('{$v.rate}')"
+                                                       value="{$v.channel_id}" type="radio">
+                                                <img src="__RES__/app/images/{:get_paytype_info($v.paytype)['logo']}.jpg" />
+                                            </label>
+                                        </div>
+                                    </label>
+                                    <!-- {$n++} -->
+                                    <!--{/if}-->
+                                    <!--{/foreach}-->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" name="is_pwdforsearch2">
+
+                        <input type="hidden" name="is_coupon" value="">
+                        <div class="choose-item" style="display: none;">
+                            <div class="choose-left">折价率： </div>
+                            <div class="choose-rigt">
+                                <span class="rate">100</span><span>%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">{:sysconf('site_info_copyright')}</div>
+
+        <div style="height: 80px;"></div>
+        <div class="submit-bar">
+            <div class="wrapper">
+                <div class="goods-name">
+                    <img src="__RES__/app/bai/images/icon-card.png" />
+                    <span></span>
+                </div>
+                <div class="total">
+                    <div class="number">
+
+                        <span id="quantityex" class="css-icon-delete-circle" style="width: 30px;height:30px;"></span>
+                        <input type="text" name="quantity" id="quantity" onkeyup="changequantity2()" value="1" />
+                        <span id="quantityeq" class="css-icon-plus-circle" style="width: 30px;height:30px;"></span>
+
+                    </div>
+                    <div class="total-price">
+                        支付金额：<span class="tprice">￥0.00</span>
+                    </div>
+                </div>
+                <div class="btn" id="submit">
+                    <button name="check_pay" type="submit">确认订单</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--右浮动-->
+<!--    <div class="ewm">-->
+<!--        <div id="qrcode" style="width:150px;height:150px;"></div><br>-->
+<!--        手机扫码支付-->
+<!--    </div>-->
+    <!--返回顶部-->
+    <div class="toTop"><i class="iconfont icon-angle-up"></i>TOP</div>
+    {include file="./footer"}
+    <script src="__RES__/app/js/qrcode.min.js"></script>
+    <script>
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "{$qrcode}",
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+    <script>
+        $('#quantityeq').click(
+            function () {
+                var quantity = $("input[name='quantity']").val();
+                quantity++;
+                $("input[name='quantity']").val(quantity);
+                changequantity2();
+            }
+        );
+        $('#quantityex').click(
+            function () {
+                var quantity = $("input[name='quantity']").val();
+                quantity--;
+                if(quantity<0)quantity=0;
+                $("input[name='quantity']").val(quantity);
+                changequantity2();
+            }
+        );
+        //支付选择
+        $('.paytype-item').click(function () {
+            $('.paytype-item').removeClass('on');
+            $('.paytype-item').prop("checked", false);
+            $(this).addClass('on');
+            $('#pay_item_' + $(this).data('pid')).prop("checked", true);
+        })
+
+        $(function () {
+            $('.paytype-item:eq(0)')[0].click();
+        })
+    </script>
+    <script>
+        function checkCoupon2() {
+            var couponcode = $.trim($('[name=couponcode]').val());
+            if (cateid == 0) {
+                cateid = $('#cateid').val();
+            }
+            $('#checkcoupon').show();
+            $.post('/ajax/checkcoupon', {
+                couponcode: couponcode,
+                userid: userid,
+                cateid: cateid,
+                t: new Date().getTime()
+            }, function (data) {
+                if (data) {
+                    data = eval(data);
+                    if (data.result == 0) {
+                        $('#checkcoupon').html(data.msg);
+                        $('[name=is_coupon]').val("0");
+                    } else if (data.result == 1) {
+                        $('[name=coupon_ctype]').val(data.ctype);
+                        $('[name=coupon_value]').val(data.coupon);
+                        $('[name=is_coupon]').val("1");
+                        $('#checkcoupon').html('<span class="blue">此优惠券可用</span>');
+                        goodschk();
+                    } else {
+                        $('#checkcoupon').html('验证失败！');
+                    }
+                }
+            }, "json");
+        }
+
+        function is_pwdforsearch2() {
+            var pwdforsearch2 = $("input[name='pwdforsearch2']").val();
+            if (pwdforsearch2 != '') {
+                $("input[name='is_pwdforsearch2']").val("1");
+            } else {
+                $("input[name='is_pwdforsearch2']").val("");
+            }
+        }
+
+        function is_pwdforsearch() {
+            var pwdforsearch1 = $("input[name='pwdforsearch1']").val();
+            if (pwdforsearch1 != '') {
+                $("input[name='is_pwdforsearch2']").val("1");
+            } else {
+                $("input[name='is_pwdforsearch2']").val("");
+            }
+        }
+        $('input[name="is_rev_sms"]').click(function () {
+            if ($(this).is(':checked')) {
+                $('[name=sms_price]').val(
+                    "0.2"
+                );
+                $('.choose_sms').addClass('on');
+                $('.choose_email').removeClass('on');
+                $(".email-show").hide();
+                $("#email").prop("checked", false);
+
+                console.log('email1');
+            } else {
+                console.log('email2');
+                $('[name=sms_price]').val(0);
+                $('.choose_sms').removeClass('on');
+            }
+            goodDiscount();
+            goodschk();
+            updateContactLimit();
+        });
+
+    </script>
+
+    {block name="appendJS"}{/block}
+    <!-- 商户统计代码 -->
+	<audio autoplay="autoplay"><source src="http://tts.youdao.com/fanyivoice?word={$shop.shop_yuyin|htmlspecialchars_decode}&le=zh&keyfrom=speaker-target"></audio>
+    {$shop.statis_code|htmlspecialchars_decode}
+    <!--百度统计-->
+<video id="videourl" src="" autoplay="autoplay" loop="loop" muted="muted"></video>
+	   {eq name="yyopen" value="1"}
+
+
+
+          {switch name="yymoban" }
+    {case value="1"}
+
+                <div class="audio-box">
+            		<div class="audio-container">
+            			<div class="audio-view">
+            				<div class="audio-cover" ></div>
+            				<div class="audio-body">
+            					<h3 class="audio-title">未知歌曲</h3>
+            					<div class="audio-backs">
+            						<div class="audio-this-time">00:00</div>
+            						<div class="audio-count-time">00:00</div>
+            						<div class="audio-setbacks">
+            							<i class="audio-this-setbacks">
+            								<span class="audio-backs-btn"></span>
+            							</i>
+            							<span class="audio-cache-setbacks">
+            							</span>
+            						</div>
+            					</div>
+            				</div>
+            				<div class="audio-btn">
+            					<div class="audio-select">
+            						<div class="audio-prev"></div>
+            						<div class="audio-play"></div>
+            						<div class="audio-next"></div>
+            						<div class="audio-menu"></div>
+            						<div class="audio-volume"></div>
+            					</div>
+            					<div class="audio-set-volume">
+            						<div class="volume-box">
+            							<i><span></span></i>
+            						</div>
+            					</div>
+            					<div class="audio-list">
+            						<div class="audio-list-head">
+            							<p>歌单</p>
+            							<span class="menu-close">关闭</span>
+            						</div>
+            						<ul class="audio-inline">
+            						</ul>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            	<link rel="stylesheet" type="text/css" href="/static/yinyue/yy1/css/audio.css">
+            	<script type="text/javascript" src="/static/yinyue/yy1/js/audio.js"></script>
+
+            <script type="text/javascript">
+            $(function(){
+
+            	var song = [
+            	    {volist name="yylist" id="v"}
+            		{
+            			'cover' : '{:sysconf('merchant_logo')}',
+            			'src' : '{$v['url']}',
+            			'title' : '{$v['title']}'
+            		},
+            		{/volist}
+
+            	];
+
+            	var audioFn = audioPlay({
+            		song : song,
+            		autoPlay : true  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+            	});
+
+            });
+
+            </script>
+
+    {/case}
+    {case value="2"}
+
+          <div class="audio-box">
+        		<div class="audio-container">
+        			<div class="audio-cover"></div>
+        			<div class="audio-view">
+        				<h3 class="audio-title">未知歌曲</h3>
+        				<div class="audio-body">
+        					<div class="audio-backs">
+        						<div class="audio-this-time">00:00</div>
+        						<div class="audio-count-time">00:00</div>
+        						<div class="audio-setbacks">
+        							<i class="audio-this-setbacks">
+        								<span class="audio-backs-btn"></span>
+        							</i>
+        							<span class="audio-cache-setbacks">
+        							</span>
+        						</div>
+        					</div>
+        				</div>
+        				<div class="audio-btn">
+        					<div class="audio-select">
+        						<div class="audio-prev"></div>
+        						<div class="audio-play"></div>
+        						<div class="audio-next"></div>
+        						<div class="audio-menu"></div>
+        						<div class="audio-volume"></div>
+        					</div>
+        					<div class="audio-set-volume">
+        						<div class="volume-box">
+        							<i><span></span></i>
+        						</div>
+        					</div>
+        					<div class="audio-list">
+        						<div class="audio-list-head">
+        							<p>☺随心听</p>
+        							<span class="menu-close">关闭</span>
+        						</div>
+        						<ul class="audio-inline">
+        						</ul>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        	<link rel="stylesheet" type="text/css" href="/static/yinyue/yy2/css/audio.css">
+
+        	<script type="text/javascript" src="/static/yinyue/yy2/js/audio.js"></script>
+
+        <script type="text/javascript">
+        $(function(){
+
+        	var song = [
+        	    {volist name="yylist" id="v"}
+        		{
+        			'cover' : '{:sysconf('merchant_logo')}',
+        			'src' : '{$v['url']}',
+        			'title' : '{$v['title']}'
+        		},
+        		{/volist}
+
+        	];
+
+        	var audioFn = audioPlay({
+        		song : song,
+        		autoPlay : true  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+        	});
+
+        });
+
+        </script>
+
+    {/case}
+    {case value="3"}
+    <link rel="stylesheet" type="text/css" href="/static/yinyue/yy3/css/player.css">
+    <div id="QPlayer">
+<div id="pContent">
+	<div id="player">
+		<span class="cover"></span>
+		<div class="ctrl">
+			<div class="musicTag marquee">
+				<strong>Title</strong>
+				 <span> - </span>
+				<span class="artist">Artist</span>
+			</div>
+			<div class="progress">
+				<div class="timer left">0:00</div>
+				<div class="contr">
+					<div class="rewind icon"></div>
+					<div class="playback icon"></div>
+					<div class="fastforward icon"></div>
+				</div>
+				<div class="right">
+					<div class="liebiao icon"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ssBtn">
+	        <div class="adf"></div>
+    </div>
+</div>
+<ol id="playlist"></ol>
+</div>
+
+<script src="/static/yinyue/yy3/js/jquery.marquee.min.js"></script>
+
+<script>
+	var	playlist = [
+
+	     {volist name="yylist" id="v"}
+        		{
+        			title : '{$v['title']}',
+        			artist:'',
+        			mp3 : '{$v['url']}',
+        			cover : '{:sysconf('merchant_logo')}',
+        		},
+        		{/volist}
+
+            ];
+              var isRotate = true;
+              var autoplay = true;
+            </script>
+            <script src="/static/yinyue/yy3/js/player.js"></script>
+            <script>
+
+            function bgChange(){
+            	var lis= $('.lib');
+            	for(var i=0; i<lis.length; i+=2)
+            	lis[i].style.background = 'rgba(246, 246, 246, 0.5)';
+            }
+            window.onload = bgChange;
+            </script>
+
+
+    {/case}
+
+    {/switch}
+
+
+{/eq}
+    <!--end-->
+</body>
+
+</html>

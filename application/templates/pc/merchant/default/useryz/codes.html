@@ -1,0 +1,45 @@
+{extend name="base"}
+
+{block name="content"}
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="alert alert-info btn-bordred btn-info">
+                      
+                        安全码可以联系客服QQ：{:sysconf('site_info_qq')}   进行重置
+                    </div>
+                    <div class="alert alert-info btn-bordred btn-info">
+                      
+                        安全码可在【商家设置】内关闭，【不推举关闭】
+                        
+                    </div>
+				</div>
+		
+			<!-- end row -->
+
+					<form class="form-horizontal" role="form" action="" method="post">
+						<div class="form-group">
+							<label class="col-md-2 control-label">请输入安全码才能继续操作</label>
+							<div class="col-md-6">
+                                <input name="password" type="password" class="form-control" value="">
+							</div>
+                            <div class="col-md-4">
+	                       		<button type="submit" class="btn btn-danger waves-effect waves-light">继续操作</button>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+				<!-- end col -->
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+	<!-- end col -->
+</div>
+{/block}
+
+{block name="appendJS"}
+{/block}

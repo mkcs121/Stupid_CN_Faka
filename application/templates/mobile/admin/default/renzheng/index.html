@@ -1,0 +1,185 @@
+{extend name="./content"}
+
+
+
+{block name="content"}
+
+<form onsubmit="return false;" action="__SELF__" data-auto="true" method="post" class='form-horizontal' style='padding-top:20px'>
+						<div class="form-group">
+
+                        <label class="col-sm-2 control-label">开启实名认证</label>
+
+                        <div class='col-sm-8'>
+                        <label>
+
+                                <input type="radio" name="renzheng_kqsm" value="1" {if sysconf('renzheng_kqsm')==1}checked{/if}
+
+                                    title="是">是
+
+                            </label>
+
+                            <label>
+
+                                <input type="radio" name="renzheng_kqsm" value="0" {if sysconf('renzheng_kqsm')==0}checked{/if}
+
+                                    title="否">否
+
+                            </label>
+                            
+                          </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">强制开启实名认证</label>
+
+                        <div class='col-sm-8'>
+                         <label>
+
+                                <input type="radio" name="renzheng_qzkqsm" value="1" {if sysconf('renzheng_qzkqsm')==1}checked{/if}
+
+                                    title="是">是
+
+                            </label>
+
+                            <label>
+
+                                <input type="radio" name="renzheng_qzkqsm" value="0" {if sysconf('renzheng_qzkqsm')==0}checked{/if}
+
+                                    title="否">否
+
+                            </label>
+
+                             
+                          </div>
+
+                    </div>
+
+     <div class="form-group">
+
+                        <label class="col-sm-2 control-label">认证支付商户ID</label>
+
+                        <div class='col-sm-8'>
+
+                            <input name="renzheng_mchid"  required="required" class="layui-input" value="{:sysconf('renzheng_mchid')}">
+                          </div>
+
+                    </div>
+                    
+          <div class="form-group">
+
+                        <label class="col-sm-2 control-label">认证支付商户KEY</label>
+
+                        <div class='col-sm-8'>
+
+                            <input name="renzheng_mchkey"  required="required" class="layui-input" value="{:sysconf('renzheng_mchkey')}">
+                          </div>
+
+                    </div>
+    
+    
+    <div class="form-group">
+
+        <label class="col-sm-2 control-label">认证方式</label>
+
+        <div class='col-sm-8'>
+        
+        
+
+            <select name="renzheng_fs" class="layui-input" required>
+                   <option value="1" {if  sysconf('renzheng_fs')=='1' }selected{/if}>身份证识别认证</option>
+                   <option value="2" {if  sysconf('renzheng_fs')=='2' }selected{/if}>三网认证</option> 
+            </select> </div> </div> 
+                     
+
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">认证Appcode</label>
+
+                        <div class='col-sm-8'>
+
+                            <input name="renzheng_appcode"  required="required" class="layui-input" value="{:sysconf('renzheng_appcode')}">
+                          </div>
+
+                    </div>
+
+                    
+
+
+
+
+                    
+
+
+
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">认证费用</label>
+
+                        <div class='col-sm-8'>
+
+                            <input type="number" onkeyup="gt0(this)" name="renzheng_money" required="required"
+
+                                title="请输入认证费" placeholder="请输入认证费" value="{:sysconf('renzheng_money')}"
+
+                                class="layui-input" min="0">
+
+                            <p class="help-block red" style="color: red;">每次认证收取。</p>
+
+                        </div>
+
+                    </div>
+                    
+ 
+
+                                                <div class="hr-line-dashed"></div>
+
+
+
+                                                <div class="col-sm-4 col-sm-offset-2">
+
+                                                    <div class="layui-form-item text-center">
+
+                                                        <button class="layui-btn" type="submit">保存配置</button>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+</form>
+
+<script>
+
+   
+
+    function gt0(ob) {
+
+        if (!/^[\d]+\.?[\d]*$/.test(ob.value) && ob.value != '') {
+
+            console.log('s');
+
+            ob.value = 0;
+
+        }
+
+    }
+
+
+
+    require(['ckeditor'], function () {
+
+        var editor = window.createEditor('[name="buy_protocol"]');
+
+        // 获取内容
+
+        var content = editor.getData();
+
+        console.log(content);
+
+    });
+
+</script>
+
+{/block}

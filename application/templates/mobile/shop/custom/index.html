@@ -1,0 +1,34 @@
+
+{extend name="./layout"}
+
+{block name="content"}
+<script>
+    $(function() {
+        selectcateid2({$categorys.0.id|default=0});
+    });
+
+</script>
+<input type="hidden" name="goodid" id="goodid" value="{$goods.id|default=0}">
+<input type="hidden" name="cateid" id="cateid" value="{$categorys.0.id|default=0}">
+<div class="panel">
+<div class="title"><img src="__RES__/app/lan1/images/icon_001.png" /> 选择分类</div>
+<div class="category">
+    <div class="categorys" id="categorys">
+
+        {foreach $categorys as $v}
+        <div class="item category-{$v.id} " value="{$v.id|default=0}" onclick="selectcateid2({$v.id})">
+            <div style="padding-top: 12px;font-size: 13px">{$v.name}</div>
+            <div style="font-size: 12px"></div>
+            <img src="__RES__/app/lan1/images/icon_002.png" />
+        </div>
+        {/foreach}
+        
+    </div>
+</div>
+
+<div class="title"><img src="__RES__/app/lan1/images/icon_004.png" /> 选择商品</div>
+<div class="goods">
+    <div class="list" id="goodslist"></div>
+</div>
+
+{/block}

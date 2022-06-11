@@ -1,0 +1,120 @@
+{extend name="base/detail"}
+
+{block name="content"}
+   <link href="/static/app/css/help.css" rel="stylesheet" type="text/css" />
+   <link href="/static/app/css/shang.css" rel="stylesheet" type="text/css" />
+   <link href="/static/app/css/sweetalert.css" rel="stylesheet" type="text/css" />
+   <script src="/static/app/js/sweetalert.min.js"></script>
+<div class="main">
+    <div class="content">
+
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">积分商城</a></li>
+        </ul><br>
+           <div class="aui-flex">
+      <div class="aui-flex-box">
+        <img src="/static/app/images/ac007.png" alt="">
+      </div>
+    </div>
+       <div class="aui-flex">
+                <div class="aui-flex-box">
+                    <h1>您还有{$_user.jifen} 积分！</h1> 收货地址：<input id="address" class="form-control"  name="address" type="text"  value="{$_user.address}"  placeholder="兑换前请先设置收货地址！"/><label class="col-md-2  control-label"><a href="javascript:void(0)" onclick="address()"><font class="label label-danger">设置</font></a></label>
+                </div>
+            </div>
+     <div class="aui-flex">
+                <div class="aui-flex-box">
+                    <h1>大家都在兑换</h1>
+                </div>
+            </div>
+            <div class="aui-slide-list aui-slide-list-one">
+                <ul class="aui-slide-item-list">
+                
+               
+                    <li class="aui-slide-item-item">
+ 						{volist name="goodsList" id="v"}
+                              <a href="#" class="aui-flex b-line">
+                            <div class="aui-for-img">
+                                <span>免费</span>
+                                <img src="{$v['img']}" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <h2>{$v['title']}</h2>
+                                <span>
+									<em>库存：{$v['counts']}</em>
+									<em>积分：{$v['money']}</em>
+								</span>
+                                <p></p>
+                            </div>
+                            <div class="aui-button-on">
+
+                                <button onclick="del(this,'{$v['id']}','{$v['counts']}','{$v['title']}')" style="padding:8px 12px;background: linear-gradient(0deg,#2a62ff,#4e7dff);box-shadow: 0 5px 6px 0 rgba(73,105,230,.22);border-radius: 23px;background: linear-gradient(0deg,#2a62ff,#4e7dff);color:white">兑换</button>
+                            </div>
+                        </a>
+                         {/volist}
+
+
+                                      </li>
+                </ul>
+            </div>
+
+    </div>
+</div>
+{/block}
+{block name="appendJS"}
+ <script>
+	function del(obj, id,csk,timec) {
+		
+		swal({
+				title: "确定要兑换☆ "+timec+" ☆吗？",
+				text: "兑换该商品将会扣除★ "+csk+" ★积分。",
+		       showCancelButton: true, 
+		       closeOnConfirm: false, 
+		       confirmButtonText: "确认", 
+		       cancelButtonText: "取消", 
+			},
+			function () {
+				$.post('/merchant/shang/dddui', {
+					id: id,
+					userid:'{$_user.id}',
+				}, function (res) {
+					if (res.code != 0) {
+						swal(res.msg,'兑换失败,积分自动返还', "error");
+					} else {
+						swal('兑换成功,积分已扣除', '', "success");
+						setTimeout(function () {
+							location.href='/merchant/shang/orders';
+						}, 2000);
+					}
+				});
+			});
+	}
+	
+	
+	function address(){
+		
+		var address=$("#address").val();
+		if (address==''){
+					swal('收货地址不能为空','请先填收货地址', "error");
+					return false;
+				}
+		
+				
+				$.post('/merchant/shang/setting', {
+					address: address,
+					userid:'{$_user.id}',
+				}, function (res) {
+					if (res.code != 0) {
+						swal(res.msg,'设置失败', "error");
+					} else {
+						swal('设置成功', '', "success");
+						setTimeout(function () {
+							location.href='/merchant/shang/index';
+						}, 2000);
+					}
+				});
+			
+	}
+
+</script>
+{/block}

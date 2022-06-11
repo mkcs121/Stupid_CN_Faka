@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <title>订单投诉_{:sysconf('site_name')}</title>
+      <meta name="keywords" content="{:sysconf('site_keywords')}" />
+      <meta name="description" content="{:sysconf('site_desc')}" />
+      <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/css/main.css">
+    <link rel="stylesheet" href="/static/app/css/main_mobile.css">
+    <link rel="stylesheet" href="/static/app/css/iconfont.css">
+    <link rel="stylesheet" href="/static/app/css/animate.min.css">
+    <link rel="stylesheet" href="/static/app/css/swiper.min.css">
+    <link rel="stylesheet" href="/static/plugs/layui/css/layui.css"></link>
+    <link rel="stylesheet" type="text/css" href="/static/app/996fk/font/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/app/996fk/css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/app/996fk/css/animate.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/app/996fk/css/qietu.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/app/996fk/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/app/996fk/css/responsive.css"/>
+    <script src="/static/app/js/jquery-2.2.1.min.js"></script>
+    <script src="/static/app/js/swiper.min.js"></script>
+    <script src="/static/app/js/formvalidator_min.js"></script>
+    <script src="/static/app/js/formvalidatorregex.js"></script>
+    <script src="/static/app/js/layer.js"></script>
+    
+<style>
+    .buy_info>p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .buy_info>p>span {
+        color: orangered;
+    }
+</style>
+
+</head>
+<body>
+
+ {include file="./header"}
+
+
+
+
+<div class="user_form buy_info">
+    <div class="user_tab">
+        <ul>
+            <li class="actived" style="width: 100%;margin-bottom: 30px"><a style="cursor: none">{$channel['title']}</a></li>
+        </ul>
+    </div>
+    <p>订单号码：{$order.trade_no}</p>
+    <p>付款金额：<span>{$order.total_price}</span>元</p>
+    {eq name="is_qpay" value="1"}
+    <p align="center" style="font-size: 16px;color:orangered;margin-bottom: 0;">请支付上方所显示的金额，否则订单支付失败！</p>
+    {/eq}
+    <p align="center" style="font-size: 14px">
+        <div id="qrcode" style="margin: 0 auto;width: 210px;"></div>
+        <!--<img src="{:generate_qrcode_link($order.pay_url)}" width="210px" height="210px">-->
+    </p>
+    <p align="center" style="font-size: 14px"><span>请扫描二维码支付。</span><br></p>
+</div>
+
+
+<!--返回顶部-->
+<div class="toTop"><i class="iconfont icon-angle-up"></i>TOP</div>
+
+
+ {include file="./footer"}
+
+
+<script src="/static/app/js/main.js"></script>
+<script src="/static/app/js/main_mobile.js"></script>
+<script>
+    var mySwiper = new Swiper ('.swiper-container', {
+        slidesPerView : 'auto',
+        autoplay : 3000,
+        direction: 'horizontal',
+        loop: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    })
+</script>
+
+<script src="__RES__/app/js/qrcode.min.js"></script>
+<script>
+    function oderquery(t) {
+        var orderid = '{$order.trade_no}';
+        $.post('/pay/getOrderStatus', {
+            orderid: orderid,
+            token: "{$token}"
+        }, function (ret) {
+            if (ret == 1) {
+                $('#msgContent p').html('请稍候，正在处理付款结果...');
+                window.location.href = '/orderquery?orderid=' + orderid;
+            }
+        });
+        t = t + 1;
+        setTimeout('oderquery(' + t + ')', 3000);
+    }
+    setTimeout('oderquery(1)', 3000);
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: "{$order.pay_url}",
+        width: 210,
+        height: 210,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+</script>
+
+
+</body>
+</html>

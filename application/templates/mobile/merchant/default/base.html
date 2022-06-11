@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="ui-mobile">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+    <title>商户面板 - {:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}" />
+    <meta name="description" content="{:sysconf('site_desc')}" />
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link href="/static/theme/mobile/css/help.css" rel="stylesheet" type="text/css">
+    <link href="/static/theme/mobile/css/style.css" rel="stylesheet" type="text/css">
+    <script src="/static/theme/mobile/js/jquery-2.1.4.js"></script>
+    <script src="/static/theme/mobile/js/layer.js"></script>
+    <link rel="stylesheet" href="/static/theme/mobile/css/layer.css" id="layuicss-skinlayercss">
+    <link rel="stylesheet" href="/static/theme/mobile/css/sweetalert.css">
+    <link rel="stylesheet" href="/static/theme/mobile/css/user_mobile.css" type="text/css">
+    <link rel="stylesheet" href="/static/theme/mobile/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/static/theme/mobile/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/theme/mobile/css/loading.css">
+     <style type="text/css">
+        /*border-bottom: 1px solid #F0F0F0;*/
+        .huadong {
+            width: 60rem;
+            height: 4rem;
+            border-bottom: 1px solid #f4f4f4;
+            margin: 0 auto;
+        }
+
+        .huadong .huabox {
+            margin: 0 auto;
+            width: 98%;
+            line-height: 4rem;
+        }
+
+        .huadong .notice_active {
+            float: left;
+            width: 44%;
+            height: 4rem;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .huadong .notice_active li.notice_active_ch span {
+            color: #656972;
+            width: 80%;
+        }
+        .logo{
+            display: block;
+            float: left;
+            width: 40%;
+        }
+        .aui-flex{
+            display: block;
+            overflow: hidden;
+        }
+
+    </style>
+    
+    <script>(function () { if (('standalone' in window.navigator) && window.navigator.standalone) { var noddy, remotes = false; document.addEventListener('click', function (event) { noddy = event.target; while (noddy.nodeName !== 'A' && noddy.nodeName !== 'HTML') noddy = noddy.parentNode; if ('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)) { event.preventDefault(); document.location.href = noddy.href; } }, false); } }());</script>
+
+    
+    
+    {block name="CSS"}{/block}
+    {block name="JS"}{/block}
+</head>
+
+<body class="ui-mobile-viewport ui-overlay-c">
+    {block name="content"}{/block}
+    {block name="appendJS"}{/block}
+    {notempty name="common_announce"}
+    <div id="common_announce" style="display: none"><div style="padding:15px;font-size: 14px;">{$common_announce.content|htmlspecialchars_decode}</div></div>
+    <script>
+        layer.open({
+            type: 1,
+            skin: 'layui-layer-rim',
+            title: '公告',
+            area: ['320px', '200px'],
+            content: $('#common_announce').html()
+        });
+    </script>
+    {/notempty}
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+* {
+  box-sizing: border-box;
+  font-family: "微软雅黑";
+}
+.login {
+  background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.login .center {
+  background: #fff;
+  padding: 25px;
+  min-width: 370px;
+  -webkit-box-shadow: 0 0 5px #333;
+  box-shadow: 0 0 5px #333;
+}
+.login .center h1 {
+  color: #66a6ff;
+  font-weight: bold;
+  padding-bottom: 15px;
+  text-align: center;
+  -webkit-animation: moveTopBottom 2s linear forwards;
+  animation: moveTopBottom 2s linear forwards;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.login .center .inputLi {
+  margin-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.login .center .inputLi input {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border: 1px solid #ddd;
+  height: 45px;
+  padding: 0 10px 0 40px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #66a6ff;
+  font-size: 18px;
+  outline: none;
+}
+.login .center .inputLi input::-webkit-input-placeholder {
+  color: #999;
+  font-size: 12px;
+}
+.login .center .inputLi input:-ms-input-placeholder {
+  color: #999;
+  font-size: 12px;
+}
+.login .center .inputLi input::-ms-input-placeholder {
+  color: #999;
+  font-size: 12px;
+}
+.login .center .inputLi input::placeholder {
+  color: #999;
+  font-size: 12px;
+}
+.login .center .inputLi input:focus {
+  border: 1px solid #66a6ff;
+}
+.login .center .inputLi .user {
+  background: #fff url(../imgs/user.png) left 10px center no-repeat;
+  background-size: 20px 20px;
+}
+.login .center .inputLi .pwd {
+  background: #fff url(../imgs/pwd.png) left 10px center no-repeat;
+  background-size: 20px 20px;
+}
+.login .center .inputLi button {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#09203f), to(#537895));
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  border: none;
+  height: 45px;
+  color: #fff;
+  outline: none;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-family: "微软雅黑";
+  font-size: 18px;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.login .center .inputLi button:active {
+  opacity: 0.8;
+}
+.login .center .tip {
+  font-size: 12px;
+  color: #999;
+}
+@-webkit-keyframes moveTopBottom {
+  0% {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
+  20% {
+    -webkit-filter: grayscale(80%);
+    filter: grayscale(80%);
+  }
+  40% {
+    -webkit-filter: grayscale(60%);
+    filter: grayscale(60%);
+  }
+  60% {
+    -webkit-filter: grayscale(40%);
+    filter: grayscale(40%);
+  }
+  80% {
+    -webkit-filter: grayscale(20%);
+    filter: grayscale(20%);
+  }
+  100% {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+  }
+}
+@keyframes moveTopBottom {
+  0% {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
+  20% {
+    -webkit-filter: grayscale(80%);
+    filter: grayscale(80%);
+  }
+  40% {
+    -webkit-filter: grayscale(60%);
+    filter: grayscale(60%);
+  }
+  60% {
+    -webkit-filter: grayscale(40%);
+    filter: grayscale(40%);
+  }
+  80% {
+    -webkit-filter: grayscale(20%);
+    filter: grayscale(20%);
+  }
+  100% {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+  }
+}

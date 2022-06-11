@@ -1,0 +1,106 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">费率分组</label>
+        <div class="layui-input-block">
+            <select id="group" name="group">
+                <option value="">不设置费率分组</option>
+                {foreach $rate_group as $v}
+                <option data-rate={:json_encode($srate_rules[$v.id])} value="{$v.id}" {if $v.id == $d_group_id} selected {/if}>{$v.title}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    {foreach $channels as $v}
+    <div class="layui-form-item-channel layui-form-item channel-row-{$v['id']}">
+        <label class="layui-form-label">{$v.title}</label>
+        <div class="layui-input-inline" style="width:40%">
+            <input id="channel_ids{$v.id}" data-value="" type="number" name="channel_ids[{$v.id}]"
+                   value="{$d_srate_rules[$v.id]['poundage']|default=''}" title="请输入{$v.title}费率" placeholder="请输入{$v.title}费率"
+                   class="layui-input channel-ids">
+        </div>
+        <div class="layui-input-inline" style="width: 30%">
+            <input id="status{$v.id}" type="hidden" data-value="" name="status[{$v.id}]" value="{$d_srate_rules[$v.id]['status']|default=$v.status}"
+                   class="layui-input channel-status">
+            <button type="button" id="btn-open-{$v.id}"
+                    class='layui-btn {if $d_srate_rules[$v.id]['status'] == 1 }layui-btn-normal{else/}layui-btn-primary{/if}   btn-status-open'
+                    onclick="changeStatus(this,1)">开启
+            </button>
+            <button type="button" id="btn-close-{$v.id}"
+                    class='layui-btn {if $d_srate_rules[$v.id]['status'] == 0}layui-btn-normal{else/}layui-btn-primary{/if}   btn-status-close'
+                    onclick="changeStatus(this,0)">关闭
+            </button>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    {/foreach}
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-block">
+            <span>单位：千分率，如千分之三，设置为 3 即可。</span>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        <input name="yifl" type="checkbox" value="1" checked="checked"  style="display:none;"/>
+        <button class="layui-btn" type='submit'>一键设置费率</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消吗？" data-close>取消</button>
+    </div>
+
+</form>
+
+<script>
+    group = {};
+    var lastSelectedIndex = {$d_group_id|default=0};
+    layui.use('form', function () {
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+
+        form.on('select', function (data) {
+
+            if (data.elem.selectedIndex == lastSelectedIndex)
+                return;
+
+            lastSelectedIndex = data.elem.selectedIndex;
+
+            var rate = data.elem[ data.elem.selectedIndex ].dataset.rate;
+
+            if (!rate) {
+                $(".layui-form-item-channel").each(function (i) {
+                    var vi = $(this).find(".channel-ids");
+                    var vs = $(this).find(".channel-status");
+                    vi.prop('value', vi.data('value'));
+                    if (vs.data('value') == 1) {
+                        $(this).find('.btn-status-open').click();
+                    } else {
+                        $(this).find('.btn-status-close').click();
+                    }
+                })
+            } else {
+                $(".channel-status").prop("value","");
+                $(".channel-ids").prop("value","");
+                var d = JSON.parse(rate);
+                $.each(d, function (i) {
+                    var channelElem = $(".channel-row-" + d[ i ].channel_id);
+                    channelElem.find(".channel-ids").prop('value', d[ i ].poundage );
+                    if (d[ i ].status == 1) {
+                        channelElem.find(".btn-status-open").click();
+                    } else {
+                        channelElem.find(".btn-status-close").click();
+                    }
+                })
+
+            }
+        })
+    });
+
+    function changeStatus(obj, status) {
+        var parent = $(obj).parents('div.layui-input-inline');
+        parent.find('.layui-btn-normal').removeClass('layui-btn-normal').addClass('layui-btn-primary');
+        $(obj).addClass('layui-btn-normal').removeClass('layui-btn-primary');
+        parent.find('input[type="hidden"]').val(status);
+    }
+</script>

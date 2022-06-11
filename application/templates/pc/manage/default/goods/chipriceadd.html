@@ -1,0 +1,51 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+    <div class="layui-form-item">
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">有效期</label>
+        <div class="layui-input-block">
+            <input type="text" name="hours" value="" title="请输入有效期" placeholder="请输入有效期，按小时计算例如24小时就填写24" class="layui-input">
+            
+        </div>
+    </div>
+        <label class="layui-form-label">金额</label>
+        <div class="layui-input-block">
+            <input type="text" name="money" value="" title="请输入金额" placeholder="请输入金额-不要带元，例如：10" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">说明</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" value="" required="required" title="说明" placeholder="说明 例如：置顶1天" class="layui-input">
+        </div>
+    </div>
+       <div class="layui-form-item">
+        <label class="layui-form-label">颜色</label>
+        <div class="layui-input-block">
+            <input type="text" name="colors" value="" required="required" title="颜色" placeholder="颜色 例如您想设置为红色请填写：#f00" class="layui-input">
+			红色：#f00 | 紫色：#f0f | 浅蓝：#0ff | 绿色：#0C9 | 蓝色：#00F | 黄色：#FF0 | 橙色：#F90
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input type="text" name="sorts" value="1" required="required" title="排序" placeholder="排序" class="layui-input">
+			<p><span style="color:#f00;">注意：此处分类ID和其他分类ID不能重复，如果重复置顶分类会乱套。</span></p>
+			
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type='submit'>保存</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消吗？" data-close>取消</button>
+    </div>
+
+</form>
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    });
+</script>

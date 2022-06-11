@@ -1,0 +1,135 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<div class="main">
+	<div class="content">
+
+		<ul class="nav nav-tabs">
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+			<li role="presentation" class="active"><a href="javascript:;">我的卡密</a></li>
+		
+		</ul><br>
+		
+			<form class="form-inline" role="form" action="" method="get">
+			<div class="form-group">
+				
+				<select name="type" class="form-control">
+								<option value="0" {if $Think.get.type=='0'}selected{/if}>订单编号</option>
+								<option value="1" {if $Think.get.type=='1'}selected{/if}>商品名称</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				支付状态：
+				<select name="status" class="form-control">
+					<option value="" {if $Think.get.status==''}selected{/if}>全部状态</option>
+					<option value="1" {if $Think.get.status=='1'}selected{/if}>已付款</option>
+					<option value="0" {if $Think.get.status=='0'}selected{/if}>未付款</option>
+				</select>
+			</div>
+			<div class="form-group">
+				订单号：
+				<input class="form-control"  style="width:200px;" type="text" name="trade_no" value="{$Think.get.trade_no}" placeholder="请输入订单编号">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span>&nbsp;立即查询</button>
+			
+			</div>
+		</form>
+		
+		
+	 {foreach $orders as $v}
+		<div class="mt20">
+			<div class="selltable">
+				<table class="table table-hover ">
+					<tbody>
+						<tr class="lightbox" id="">
+							<td>订单号：<a href="/orderquery?orderid={$v.order.trade_no}" target="_blank">{$v.order.trade_no}</a></td>
+						</tr>
+						<tr>
+							<td>商品名称：{$v.order.goods_name}</td>
+						</tr>
+						<tr>
+							<td>支付方式：{:get_paytype_name($v.order.paytype)}</td>
+						</tr>
+						<tr>
+							<td>卡号：{$v.number}</td>
+						</tr>
+						<tr>
+							<td>卡密：{$v.secret}</td>
+						</tr>
+						<tr>
+							<td>取卡密码：{$v.order.take_card_password}</td>
+						</tr>
+						<tr>
+							<td>交易时间：{$v.order.create_at|date="Y-m-d H:i:s",###}</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{/foreach}
+		
+
+
+		
+					</tbody>
+				</table>
+<!--			</div><div class="row">交易总金额:{$jyzmoney|default='0'}元  成功总金额:{$jycgmoney|default='0'}元</div>-->
+			<!-- end row -->
+		</div>
+		{$page}
+	</div>
+
+</div>
+{/block}
+
+{block name="appendJS"}
+
+<script>
+
+	function change_status(obj,id)
+	{
+		var status=$(obj).prop('checked');
+		if(status){
+			status=1;
+		}else{
+			status=0;
+		}
+		$.post('/merchant/order/changeStatus',{
+			id:id,
+			status:status
+		},function(res){
+			if(res.code!=0){
+				alert(res.msg);
+			}
+		});
+	}
+
+	function del(obj,id)
+	{
+		swal({
+			title: "确定删除吗？",
+			text: "你将无法恢复该操作！",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确定删除！",
+			closeOnConfirm: false
+		},
+		function(){
+			$.post('/merchant/order/fetch',{
+				id:id
+			},function(res){
+				if(res.code!=0){
+					swal('删除失败', res.msg, "error");
+				}else{
+					swal(res.msg, '', "success");
+				}
+			});
+		});
+	}
+</script>
+
+{/block}

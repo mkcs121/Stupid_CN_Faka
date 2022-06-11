@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+     <title>投诉查询_{:sysconf('site_name')}</title>
+      <meta name="keywords" content="{:sysconf('site_keywords')}" />
+      <meta name="description" content="{:sysconf('site_desc')}" />
+      <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+  {include file="./header"}
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                投诉查询
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="odsrch-wp">
+    <div class="wrapper" style="min-height: 300px;">
+        <form action="/Index/order/complaintpass.html" method="get" style="padding: 0 20px;" onsubmit="return checker()">
+		  <input type="hidden" name="token" value="{$token}">
+            <div class="odsrch-bd">
+                <div class="odsrch-type">
+                    <h3>订单编号</h3>
+                </div>
+                <div class="odsrch-txt">
+                    <input type="text" class="txt" name="trade_no" id="orderid_input2" value=""/>
+                </div>
+                <div class="odsrch-btn">
+                    <input type="submit" value="查 询"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{include file="./footer"}
+
+</body>
+</html>
+

@@ -1,0 +1,73 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" value="{$user.username|default=''}" required="required" title="请输入用户名" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" value="{$user.email|default=''}" required="required" title="请输入邮箱" placeholder="请输入邮箱" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" name="mobile" value="{$user.mobile|default=''}" required="required" title="请输入紧急联系手机号" placeholder="请输入紧急联系手机号" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">QQ</label>
+        <div class="layui-input-block">
+            <input type="text" name="qq" value="{$user.qq|default=''}" required="required" title="请输入QQ" placeholder="请输入QQ" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">统计代码</label>
+        <div class="layui-input-block">
+            <textarea name="statis_code" id="" cols="30" rows="5" class="layui-textarea" title="请输入统计代码" placeholder="请输入统计代码" >{$user.statis_code|default=''}</textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" value="" title="请输入密码" placeholder="请输入密码" class="layui-input">
+        </div>
+    </div>
+
+     <div class="layui-form-item">
+        <label class="layui-form-label">安全验证</label>
+        <div class="layui-input-block">
+            <select class="layui-input" style="display:block;" name="iscode" required>
+
+                    <option value="0" {if isset($user) &&   0==$user.iscode}selected{/if}>关闭</option>
+                    <option value="1" {if isset($user) &&   1==$user.iscode}selected{/if}>开启</option>
+
+            </select>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        <input type="hidden" name="user_id" value="{$user.id|default='0'}">
+        <button class="layui-btn" type='submit'>保存</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消吗？" data-close>取消</button>
+    </div>
+
+</form>
+
+<script>
+    // layui.use('form', function(){
+    //     var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+    //     form.render();
+    // });
+</script>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>买家登录 - {:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}" />
+    <meta name="description" content="{:sysconf('site_desc')}" />
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/muban/index/css/iconfont.css">
+    <link rel="stylesheet" href="/static/muban/index/css/animate.min.css">
+    <link rel="stylesheet" href="/static/muban/index/css/qietu.css">
+    <link rel="stylesheet" href="/static/muban/index/css/style.css">
+    <link rel="stylesheet" href="/static/muban/index/css/responsive.css">
+    <script src="__RES__/app/js/jquery-2.2.1.min.js"></script>
+    <script src="__RES__/app/js/formvalidator_min.js"></script>
+    <script src="__RES__/app/js/formvalidatorregex.js"></script>
+    <script src="__RES__/app/js/layer.js"></script>
+</head>
+<body class="reg-bg-2">
+<div class="regist middle">
+    <div class="regfm regfm-register">
+        <div class="reg-hd">
+            <h2>买家登录	</h2>
+            <!--            <h4><i class="iconfont icon-jinggao"></i>提示：买家无需注册账号</h4>-->
+        </div>
+        <div class="reg-bd">
+            <form method="post" action="/buyer/login" id="reg" name="reg">
+                <input type="hidden" name="__token__" value="{$Request.token}" />
+                <input type="hidden" name="spread_userid" value="{$Think.get.user_id}">
+                <input type="hidden" id='login_type' name="login_type" value="" />
+                <input type="hidden" id='pass_type' name="pass_type" value="0" />
+                <input type="hidden" id='from_url' name="from_url" value="{$from_url}" />
+                <ul class="buyer-tabs clearfix">
+                    {foreach $register_tabs_type as $v}
+                    <li><a {$v.active} data-value="{$v.value}" href="javascript:;">{$v.text}</a></li>
+                    {/foreach}
+                </ul>
+
+                {if in_array('0', $register_type) }
+                <div class="buyer-tabs-content">
+                    <ul>
+                        <li class="iphone">
+                            <div class="fm-txt">
+                                <div class="fm-ico">
+                                    <i class="iconfont icon-icon--"></i>
+                                </div>
+                                <input class="fm-ipt" type="tel" id="newmobile" name="reginfo0[username]"  value="" placeholder="11位手机号码" />
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="fm-txt code-input">
+                                <div class="fm-ico">
+                                    <i class="iconfont icon-anquanbaozhang1"></i>
+                                </div>
+                                <input class="fm-ipt" type="text" name="reginfo0[chkcode]" value="" placeholder="验证码" />
+                                <a class="verification-code" id="click_checkcode_phone" href="#">发送验证码</a>
+                                <!-- {if sysconf('site_register_code_type') == 'sms'}
+                                 <a class="verification-code" id="click_checkcode_phone" href="#">发送验证码</a>
+                                 {elseif sysconf('site_register_code_type') == 'email'}
+                                 <a class="verification-code" id="click_checkcode_email" href="#">发送验证码</a>
+                                 {/if}-->
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="fm-txt pass-input hide">
+                                <div class="fm-ico">
+                                    <i class="iconfont icon-anquanbaozhang1"></i>
+                                </div>
+                                <input class="fm-ipt" type="password" name="reginfo0[password]" value="" placeholder="请输入密码" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                {/if}
+                {if in_array('1', $register_type)}
+                <div class="buyer-tabs-content">
+                    <ul>
+                        <li class="iphone">
+                            <div class="fm-txt">
+                                <div class="fm-ico">
+                                    <i class="iconfont icon-icon--"></i>
+                                </div>
+                                <input class="fm-ipt" type="email" id="newemail" name="reginfo1[username]"  value="" placeholder="请填写邮箱" />
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="fm-txt code-input">
+                                <div class="fm-ico">
+                                    <i class="iconfont icon-anquanbaozhang1"></i>
+                                </div>
+                                <input class="fm-ipt" type="text" name="reginfo1[chkcode]" value="" placeholder="验证码" />
+                                <a class="verification-code" id="click_checkcode_email" href="#">发送验证码</a>
+                                <!--{if sysconf('site_register_code_type') == 'sms'}
+                                <a class="verification-code" id="click_checkcode_phone" href="#">发送验证码</a>
+                                {elseif sysconf('site_register_code_type') == 'email'}
+                                <a class="verification-code" id="click_checkcode_email" href="#">发送验证码</a>
+                                {/if}-->
+                            </div>
+                        </li>
+                        <li>
+                            <div class="fm-txt pass-input hide">
+                                <div class="fm-ico">
+                                    <i class="iconfont icon-anquanbaozhang1"></i>
+                                </div>
+                                <input class="fm-ipt" type="password" name="reginfo1[password]" value="" placeholder="请输入密码" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                {/if}
+                {if in_array('2', $register_type)}
+                <div class="buyer-tabs-content wx">
+                   <div class="loading" style="background:white;position:relative;text-align:center;line-height:200px;height:200px;width:200px; padding:10px; border: #ccc solid 1px;">
+                       
+                       <p>正在获取二维码请稍候...</p>
+                       <img id="wxscanlogin" class="hide" style="position:absolute;top:10px;left:10px;height:200px;width:200px;" src="###"/>
+                   </div>
+                </div>
+                
+                {/if}
+                <p><a href="javascript:;" id="passLogin">密码登录</a></p>
+                <li class="fm-rule fm-rule-resg">
+                    <label>
+                        <input type="checkbox" name="agree" id="check" value="" />
+                        <i class="iconfont icon-fuxuansel"></i>
+                        我已阅读并接受 <a id="agreement" href="#">《服务协议》</a>
+                    </label>
+
+                </li>
+                <li>
+                    <input type="button" class="fm-btn" id="regBtn" name="" value="登 录" />
+                </li>
+                </ul>
+            </form>
+        </div>
+        <div class="reg-ft">
+<!--            已有账号， <a href="/login">立即登录</a>-->
+        </div>
+    </div>
+</div>
+<footer class="footer reg-footer">
+    <div class="wrapper">
+        <p>  {:sysconf('site_info_copyright')}
+            <a style="color: #cedcf6;" href="javascript:void(0)" onclick="window.open('http://www.miitbeian.gov.cn/');" >
+                {:htmlspecialchars_decode(sysconf('site_info_icp'))}</a>
+        </p>
+   
+    </div>
+</footer>
+
+<script type="text/javascript">
+    $('#agreement').click(function () {
+        layer.open({
+            type: 2,
+            title: '服务协议',
+            area: ['60%'],
+            anim: 2,
+            content: ['/index/index/agreement']
+
+        });
+    });
+    var checkWechatTimer = null ;
+    //检测微信登录
+    function checkWechatLogining(){
+        $.post("{:url('checkWechatLogining')}",function(data){
+            console.log(data);
+            if( data.code == 0 ){
+                clearInterval(checkWechatTimer);
+                layer.msg('验证成功，请稍候...');
+                var index = layer.load();
+                $.post("{:url('doLoginByOpenid')}",{from_url:$("#from_url").val()},function(res){
+                    console.log(res);
+                    layer.close(index);
+                    if (res.code == 1) {
+                        layer.alert(res.msg, function () {
+                            window.location.href = res.url;
+                        });
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                })
+            }
+        },'json')
+    }
+    $(function () {
+        $('#click_checkcode_phone').on('click', getCode);
+        $('#click_checkcode_email').on('click', getEmailCode);
+        $(".buyer-tabs a").on('click',function(){
+
+            $('.buyer-tabs a.active').removeClass('active');
+            $('.buyer-tabs-content.active').removeClass('active');
+
+            if( !$(this).hasClass('active') ){
+                $(this).addClass('active');
+                $("#login_type").prop('value',$(this).data('value'));
+                $(".buyer-tabs-content").eq($(this).parents('li').index()).addClass('active');
+
+                if( $(".buyer-tabs-content").eq($(this).parents('li').index()).hasClass('wx') ){
+                    initWechatQr();
+                }else{
+                    descWechatQr();
+                }
+            }
+        });
+
+        $('.buyer-tabs-content').eq(0).addClass('active');
+        if($('.buyer-tabs-content').eq(0).hasClass('wx')){
+            initWechatQr();
+        }
+        $("#login_type").prop('value',$('.buyer-tabs a.active').data('value'));
+    });
+    var token = "{$sms_token}";
+
+    function initWechatQr(){
+        $.get('{:url("getWechatQr")}',function(data){
+            if( data.url ){
+                $("#wxscanlogin").prop('src',data.url).removeClass('hide');
+                checkWechatTimer = setInterval(checkWechatLogining,3000);
+            }else{
+                layer.msg('二维码获取失败');
+            }
+        });
+
+    }
+
+    // 销毁二维码
+    function descWechatQr(){
+        $("#wxscanlogin").prop('src',"").addClass('hide');
+        clearInterval(checkWechatTimer);
+    }
+
+    // 密码登录
+    $("#passLogin").on('click',function(){
+
+        if( $("#pass_type").val() == 0 ){
+            $(this).text('验证码登录');
+            $("#pass_type").prop('value',1);
+            $(".buyer-tabs-content").find(".code-input").addClass('hide');
+            $(".buyer-tabs-content").find(".pass-input").removeClass('hide');
+        }else{
+            $(this).text('密码登录');
+            $("#pass_type").prop('value',0);
+            $(".buyer-tabs-content").find(".code-input").removeClass('hide');
+            $(".buyer-tabs-content").find(".pass-input").addClass('hide');
+        }
+    });
+
+
+    function getCode() {
+        var phone = $('#newmobile').val();
+        //var name=$('#newusername').val();
+        var reg = /\d{11}/;
+        if (phone == '' || !reg.test(phone)) {
+            alert('请填写正确的手机号码！');
+            $('#newmobile').focus();
+            return false;
+        }
+        layer.prompt({
+            title: '请输入验证码',
+            formType: 3
+        }, function (chkcode) {
+            $('#click_checkcode_phone').off('click');
+            $.post('/loginbuyer/sms', {
+                chkcode: chkcode,
+                token: token,
+                phone: phone,
+                t: new Date().getTime()
+            }, function (ret) {
+                //                        console.log(ret);
+                if (ret.code === 1) {
+                    layer.closeAll();
+                    layer.msg(ret.msg);
+                    token = ret.data.token;
+                    $('#click_checkcode_phone').html('<i class="times">80</i> 秒后重发');
+                    timeC(80, '#click_checkcode_phone');
+                } else {
+                    alert(ret.msg);
+                    $('#click_checkcode_phone').on('click', getCode);
+                }
+            }, 'json');
+            layer.closeAll();
+        })
+        $('.layui-layer-prompt .layui-layer-content').prepend($(
+            '<img style="cursor:pointer;height: 60px;" id="chkcode_img" src="/chkcode" onclick="javascript:this.src=\'/chkcode\'+\'?time=\'+Math.random()">'
+        ))
+    }
+    //邮箱验证
+    function getEmailCode() {
+
+        var email = $('#newemail').val();
+        var reg =
+            /^([\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$/;
+        if (email == '' || !reg.test(email)) {
+            alert('请填写正确的邮箱！');
+            $('#newemail').focus();
+            return false;
+        }
+        $('#click_checkcode_email').off('click');
+        $.post('/loginbuyer/email', {
+            email: email,
+            t: new Date().getTime()
+        }, function (ret) {
+            console.log(ret);
+            if (ret.code === 1) {
+                layer.closeAll();
+                layer.msg(ret.msg);
+                $('#click_checkcode_email').html('<i class="times">80</i> 秒后重发');
+                timeC(80, "#click_checkcode_email",getEmailCode);
+            } else {
+                alert(ret.msg);
+                $('#click_checkcode_email').on('click', getEmailCode);
+            }
+        }, 'json');
+    }
+
+    function timeC(t, obj , func ) {
+
+        if (t == 0) {
+            var buildFunc = func || getCode
+            $(obj).on('click', buildFunc);
+            $(obj).text('获取验证码');
+        } else {
+            t = t - 1;
+            $(obj + ' i.times').text(t);
+            setTimeout('timeC(' + t + ',"' + obj + '",'+func+')', 1000);
+        }
+    }
+
+    $(function () {
+        $("#newusername").focus();
+
+        $("#r2").click(function () {
+            $(".btn-code").attr("disabled", true);
+            $(".btn-code").addClass('notallowsubmit');
+        });
+
+        $("#r1").click(function () {
+            $(".btn-code").attr("disabled", false);
+            $(".btn-code").removeClass('notallowsubmit');
+        });
+
+        $.formValidator.initConfig({
+            formid: "reg",
+            onerror: function (msg) {
+                alert(msg)
+            },
+            onsuccess: function () {
+                return true;
+            }
+        });
+        //验证手机的
+        $("#newmobile").formValidator({
+            onshow: " ",
+            onfocus: "请输入11位手机号",
+            onempty: "手机一定要填写哦",
+            oncorrect: "<font color=green>√该手机可以注册</font>"
+        })
+            .inputValidator({
+                min: 11,
+                max: 11,
+                onerror: "你填写的手机长度不正确,请确认"
+            })
+            .regexValidator({
+                regexp: "^1[3-9](\\d){9}$",
+                onerror: "你输入的不是11位手机号码"
+            })
+            .ajaxValidator({
+                type: "get",
+                url: "/register/checkinfo",
+                success: function (data) {
+                    if (data == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                buttons: $(".btn_zc"),
+                error: function () {
+                    alert("服务器没有返回数据，可能服务器忙，请重试！");
+                },
+                onerror: "<font color=red> * 该手机号码已被使用，请更换！</font>",
+                onwait: "正在对手机号码进行合法性校验，请稍候..."
+            });
+        //用户名验证
+        $("#newusername").formValidator({
+            onshow: " ",
+            onfocus: "请输入正确的用户名",
+            onempty: "用户名是您登录账户的凭证，一定要填写哦",
+            oncorrect: "<font color=green>√该用户名可以注册</font>"
+        })
+            .inputValidator({
+                min: 4,
+                max: 11,
+                onerror: "你填写的用户名长度不正确,请确认"
+            })
+            .ajaxValidator({
+                type: "get",
+                url: "/register/checkuser",
+                success: function (data) {
+                    if (data == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                buttons: $(".btn_zc"),
+                error: function () {
+                    alert("服务器没有返回数据，可能服务器忙，请重试！");
+                },
+                onerror: "<font color=red> * 该用户名已被使用，请更换！</font>",
+                onwait: "正在对用户名进行合法性校验，请稍候..."
+            });
+
+        $("#newemail").formValidator({
+            onshow: " ",
+            onfocus: "用于找回密码、接收校验信息等操作",
+            oncorrect: "<font color=green> √ 邮箱地址填写完成</font>",
+            defaultvalue: ""
+        })
+            .inputValidator({
+                min: 6,
+                max: 100,
+                onerror: "你填写的邮箱地址长度不正确,请确认"
+            })
+            .regexValidator({
+                regexp: "^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$",
+                onerror: "你填写的邮箱格式不正确"
+            })
+            .ajaxValidator({
+                type: "get",
+                url: "/register/checkinfo",
+                success: function (data) {
+                    if (data == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                buttons: $(".btn_zc"),
+                error: function () {
+                    alert("服务器没有返回数据，可能服务器忙，请重试！");
+                },
+                onerror: "<font color=red> * 该邮箱已被使用，请更换！</font>",
+                onwait: "正在对邮箱进行合法性校验，请稍候..."
+            });
+        $("#newidcard").formValidator({
+            empty: true,
+            onshow: "身份证",
+            onfocus: "身份证",
+            oncorrect: "请确认无误，注册后不能修改。",
+            onempty: "注册后不能修改"
+        }).inputValidator({
+            max: 18,
+            onerror: "最多18位字符"
+        });
+        $("#newqq").formValidator({
+            onshow: " ",
+            onfocus: "请填写联系QQ号码",
+            oncorrect: "<font color=green> √ QQ填写完成</font>",
+            onempty: "QQ一定填写哦"
+        }).inputValidator({
+            min: 5,
+            max: 12,
+            onerror: "QQ号最少5位，最多11位数字"
+        }).regexValidator({
+            regexp: "qq",
+            datatype: "enum",
+            onerror: "您输入的QQ帐号不正确"
+        });
+        $("#password1").formValidator({
+            onshow: " ",
+            onfocus: "密码不能为空",
+            oncorrect: "<font color=green> √ 密码填写完成</font>"
+        }).inputValidator({
+            min: 6,
+            empty: {
+                leftempty: false,
+                rightempty: false,
+                emptyerror: "密码两边不能有空符号"
+            },
+            onerror: "密码不能为空,请确认"
+        });
+        $("#password2").formValidator({
+            onshow: " ",
+            onfocus: "两次密码必须一致哦",
+            oncorrect: "<font color=green> √ 密码一致</font>"
+        }).inputValidator({
+            min: 6,
+            empty: {
+                leftempty: false,
+                rightempty: false,
+                emptyerror: "重复密码两边不能有空符号"
+            },
+            onerror: "重复密码不能为空,请确认"
+        }).compareValidator({
+            desid: "password1",
+            operateor: "=",
+            onerror: "2次密码不一致,请确认"
+        });
+    });
+    $('#regBtn').click(function () {
+        if ($(".onError").length > 0) {
+            layer.msg($(".onError").first().text());
+            return false;
+        }
+        if (false === $("#check").is(':checked')) {
+            layer.msg('请先同意服务协议');
+            return false;
+        }
+        var loading = '';
+        $.ajax({
+            type: 'post',
+            url: '/index/buyer/doLogin',
+            dataType: "json",
+            data: $("form").serialize(),
+            beforeSend: function (xhr) {
+                loading = layer.load()
+            },
+            success: function (res) {
+                console.log(res);
+                layer.close(loading);
+                if (res.code == 1) {
+                    layer.alert(res.msg, function () {
+                        window.location.href = res.url;
+                    });
+                }else{
+                    layer.msg(res.msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                layer.close(loading);
+                layer.msg('连接错误');
+            }
+        });
+    })
+</script>
+</section>
+
+
+
+<script src="__RES__/app/js/main.js"></script>
+<script src="__RES__/app/js/main_mobile.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="__RES__/plugs/bootstrap/js/bootstrap.min.js"></script>
+<script src="__RES__/app/default/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="__RES__/app/default/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="__RES__/app/default/js/wow.js"></script>
+<script src="__RES__/app/default/js/custom.js"></script>
+</body>
+
+</html>

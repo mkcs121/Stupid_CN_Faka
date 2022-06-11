@@ -1,0 +1,93 @@
+{extend name="./content"}
+
+
+
+{block name="content"}
+
+<form onsubmit="return false;" action="__SELF__" data-auto="true" method="post" class='form-horizontal' style='padding-top:20px'>
+						
+                    
+
+     <div class="form-group">
+
+                        <label class="col-sm-1 control-label">上级积分</label>
+                         <label class="col-sm-1 control-label">满</label>
+                        <div class='col-sm-1'>
+                            <input name="shang_jifen_xf"  required="required" class="layui-input" value="{:sysconf('shang_jifen_xf')}">
+                          </div>
+                          <label class="col-sm-1 control-label">积</label>
+                          <div class='col-sm-1'>
+                            <input name="shang_jifen_ji"  required="required" class="layui-input" value="{:sysconf('shang_jifen_ji')}">
+                          </div>
+ 
+                            <label class="col-sm-6 control-label">（例如：设置满100  积分设置1，那就是交易100元可以获得1积分）</label>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+
+                        <label class="col-sm-1 control-label">下级积分</label>
+                         <label class="col-sm-1 control-label">满</label>
+                        <div class='col-sm-1'>
+                            <input name="xia_jifen_xf"  required="required" class="layui-input" value="{:sysconf('xia_jifen_xf')}">
+                          </div>
+                          <label class="col-sm-1 control-label">积</label>
+                          <div class='col-sm-1'>
+                            <input name="xia_jifen_ji"  required="required" class="layui-input" value="{:sysconf('xia_jifen_ji')}">
+                          </div>
+ 
+                            <label class="col-sm-6 control-label">（例如：设置满100  积分设置1，那就是交易100元可以获得1积分）</label>
+                    </div>
+          
+       
+                                                <div class="hr-line-dashed"></div>
+
+
+
+                                                <div class="col-sm-4 col-sm-offset-2">
+
+                                                    <div class="layui-form-item text-center">
+
+                                                        <button class="layui-btn" type="submit">保存配置</button>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+</form>
+
+<script>
+
+   
+
+    function gt0(ob) {
+
+        if (!/^[\d]+\.?[\d]*$/.test(ob.value) && ob.value != '') {
+
+            console.log('s');
+
+            ob.value = 0;
+
+        }
+
+    }
+
+
+
+    require(['ckeditor'], function () {
+
+        var editor = window.createEditor('[name="buy_protocol"]');
+
+        // 获取内容
+
+        var content = editor.getData();
+
+        console.log(content);
+
+    });
+
+</script>
+
+{/block}

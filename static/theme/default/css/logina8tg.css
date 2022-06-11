@@ -1,0 +1,877 @@
+/* 
+* @Author: Administrator
+* @Date:   2018-01-10 16:43:02
+* @Last Modified by:   Administrator
+* @Last Modified time: 2018-02-26 18:04:02
+*/
+/*公安备案 start*/
+.foot-record {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #646464;
+  font-size: 14px;
+  background:#f0f0f0;
+}
+.foot-record .record-num{
+  color: #646464;
+  font-size: 14px;
+}
+.foot-record .record-num img{
+  display: inline-block;
+  width:auto;
+  height:auto;
+  vertical-align: middle;
+  margin-top:-6px;
+}
+/*公安备案 end*/
+/*网站维护 start*/
+.website-modify{
+  background:#FDEDC1;
+  height:35px;
+  line-height:35px;
+  text-align: center;
+  padding:0 10px;
+  font-size:12px;
+  color:red;
+}
+/*网站维护 end*/
+/*登录页面 start*/
+.ico-logo{
+  width:58px;
+  height:58px;
+  background:url(../images/logo.png) 0 0 no-repeat;
+  background-size:100% 100%;
+  margin-right:10px;
+}
+.login-page{
+  margin: 0 auto;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.login-page .login-block{
+  display: block;
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+}
+.login-block .login-pop{
+  width:400px;
+  min-height:100px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  z-index:100;
+  box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.1);
+  background: rgba(255,255,255,.8);
+}
+.login-pop .platform-name{
+  text-align: center;
+  color:#6D93DF;
+  font-size: 32px;
+  padding:30px 0;
+}
+.login-pop .login-body{
+  padding:15px 0;
+}
+.login-body .login-info,
+.login-body .login-right{
+  float:left;
+}
+.login-body .login-info{
+  width:400px;
+  padding:10px 0;
+  position: relative;
+}
+.login-info .form-error{
+  position: absolute;
+  top:-5px;
+  left:4px;
+  width:335px;
+  margin:0 30px;
+}
+
+.form-error .btn.btn-error{
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  display: block;
+  margin-top: -8px;
+  width: 17px;
+  height: 17px;
+  overflow: hidden;
+  background: url(../images/ico_erroe.png) 0 0 no-repeat;
+}
+.login-info .li{
+  padding:13px 30px;
+  border-left:4px solid transparent;
+}
+/*.login-info .li.focus{
+  background:rgba(242,246,249,.4);
+  border-left:4px solid #FFAA64;
+}*/
+.login-info .li .form-control{
+  width:100%;
+  height: 42px;
+  line-height:42px;
+  font-size:14px;
+  color: #555555;
+  padding:0px 10px 0 42px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  box-shadow: 0px 5px 6px 0 rgba(0,0,0,.05);
+  outline: none;
+}
+.login-info .li .ele-wrap{
+  position: relative;
+}
+.login-info .li .ele-wrap .ico-user,
+.login-info .li .ele-wrap .ico-password,
+.login-info .li .ele-wrap .ico-code{
+  position: absolute;
+  top:50%;
+  margin-top:-11px;
+  left:10px;
+  width:22px;
+  height:22px;
+}
+.login-info .li .ele-wrap .ico-user{
+  background:url(../images/ico_user.png) 0 0 no-repeat;
+}
+.login-info .li .ele-wrap .ico-password{
+  background:url(../images/ico_password.png) 0 0 no-repeat;
+}
+.login-info .li .ele-wrap .ico-code{
+  background:url(../images/ico_code.png) 0 0 no-repeat;
+}
+.login-info .li .code-img{
+  width:94px;
+  height:42px;
+  float:right;
+  cursor: pointer;
+}
+.login-info .li .code-img img{
+  width:100%;
+  height:100%;
+}
+.login-info .li .proving-code{
+  position: relative;
+  margin-right:104px;
+}
+.login-info .proxyinput-group{
+  font-size: 0;
+  margin-top:-10px;
+}
+.login-info .proxyinput-group .proxyinput{
+  display: inline-block;
+  text-align: center;
+  color:#B4B4B4;
+  font-size: 14px;
+  line-height:25px;
+  padding-left:35px;
+  visibility: hidden;
+}
+.login-info .proxyinput-group .proxy-checkbox{
+  background:url(../images/checkbox.png)left center no-repeat;
+}
+.login-info .proxyinput-group .proxy-checkbox.checked{
+  background:url(../images/checkbox_checked.png)left center no-repeat;
+}
+.login-info .btn{
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 5px;
+  padding: 0 15px;
+  font-family: "微软雅黑";
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.login-info .btn-blue{
+  width:100%;
+  height:42px;
+  line-height:42px;
+  border:none;
+  background: #6D93DF;
+  border-radius: 0px;
+  margin-top:-10px;
+  box-shadow: 0px 5px 10px 0 rgba(109,147,223,.5);
+}
+.login-info .btn-blue:hover,
+.login-info .btn-blue:focus{
+  color:#ffffff;
+}
+.login-body .login-right{
+  width:300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  border-left:1px solid #E9E9E9;
+}
+.login-right .login-ewm{
+  text-align: center;
+}
+.login-right .login-ewm .ewm-img{
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  padding:10px;
+  margin:0 auto;
+}
+.login-right .login-ewm .ewm-img img{
+  width:145px;
+  height:145px;
+}
+.login-right .login-ewm .ewm-txt{
+  display: inline-block;
+  padding-top:15px;
+  color:#B8B8B8;
+  font-size: 14px;
+}
+/*登录页面 end*/
+/*超级管理 start*/
+.cjgl-login .login-pop{
+  width:700px;
+}
+.cjgl-login .banner{
+  height:100%;
+  overflow: hidden;
+}
+.cjgl-login .img-list{
+  height:100%;
+  position: relative;
+}
+.cjgl-login .img-list li{
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  display: none; 
+}
+.cjgl-login .img-list li:first-child{
+  display: block;
+}
+.cjgl-login .img-list li a{
+  display: block;
+  width:100%;
+  height:100%;
+  background:url(../images/cjgl_login/banner.png) 0 0 no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+}
+.cjgl-login .img-list li:nth-child(2) a {
+  background:url(../images/cjgl_login/banner02.png) 0 0 no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+}
+.cjgl-login .login-info .li.focus .form-control{
+  border: 1px solid #5A859C;
+}
+.cjgl-login .login-info .li.focus .ico-user{
+  background:url(../images/cjgl_login/ico_user.png) 0 0 no-repeat;
+}
+.cjgl-login .login-info .li.focus .ico-password{
+  background:url(../images/cjgl_login/ico_password.png) 0 0 no-repeat;
+}
+.cjgl-login .login-info .li.focus .ico-code{
+  background:url(../images/cjgl_login/ico_code.png) 0 0 no-repeat;
+}
+.cjgl-login .foot-record{
+  position: absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  background: transparent;
+  color:#ffffff;
+  z-index: 10;
+}
+.cjgl-login .foot-record .record-num{
+  color:#ffffff;
+}
+/*超级管理 end*/
+/*集团管理 start*/
+.login-head {
+  height:84px;
+  background:#ffffff;
+}
+.login-head-con{
+  width:1200px;
+  margin:0 auto;
+}
+.login-head-con h3{
+  line-height:84px;
+  color:#5A859C;
+  font-size: 38px;
+  font-family: 宋体;
+}
+.login-head-con .phone-title{
+  display: inline-block;
+  text-align: right;
+  color:#70B149;
+  font-size:26px;
+  line-height:30px;
+  margin-top:10px;
+}
+.login-head-con .phone-title .ico-phone{
+  width:28px;
+  height:28px;
+  background:url(../images/ico_phone.png) 0 0 no-repeat;
+  background-size:100% 100%;
+  margin-top:-7px;
+}
+.login-head-con .phone-num{
+  color:#5A859C;
+  font-family: Georgia;
+  margin-top:3px;
+}
+.jtgl-login{
+  background:#60A0C3;
+  overflow: hidden;
+}
+.jtgl-login .jtgl-bg{
+  background:url(../images/jtgl_login/yey.png)0 0 no-repeat;
+  background-size:100% 100%;
+  position: absolute;
+  bottom:-50px;
+  right:360px;
+  animation: myfirst 0.5s ease-in;
+  -moz-animation: myfirst 0.5s ease-in; /*Firefox*/
+  -webkit-animation: myfirst 0.5s ease-in;  /*Safari 和 Chrome*/
+  -o-animation: myfirst 0.5s ease-in; /*Opera*/
+}
+@keyframes myfirst
+{
+  0%   {transform:scale(0.1);}
+  100% {transform:scale(1);}
+}
+@-moz-keyframes myfirst /* Firefox */
+{
+  0%   {transform:scale(0.1);}
+  100% {transform:scale(1);}
+}
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+  0%   {transform:scale(0.1);}
+  100% {transform:scale(1);}
+}
+.jtgl-login .login-block{
+  width:1200px;
+  left:50%;
+  margin-left:-600px;
+}
+.jtgl-login .login-pop{
+  left:auto;
+  right:0;
+  -webkit-transform: translate(0,-50%);
+  -moz-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+  background: #ffffff;
+}
+.jtgl-login .platform-name{
+  font-weight: normal;
+  color:#5A859C;
+  padding:20px 0;
+  font-size: 28px;
+}
+.jtgl-login .login-body,
+.jtgl-login .login-info{
+  padding:0;
+}
+.jtgl-login .login-body{
+  padding-bottom:30px;
+}
+.jtgl-login .login-info .form-error {
+    top: -15px;
+}
+.jtgl-login .login-info .li.focus .form-control{
+  border: 1px solid #5A859C;
+}
+.jtgl-login .login-info .li.focus .ico-user{
+  background:url(../images/jtgl_login/ico_user.png) 0 0 no-repeat;
+}
+.jtgl-login .login-info .li.focus .ico-password{
+  background:url(../images/jtgl_login/ico_password.png) 0 0 no-repeat;
+}
+.jtgl-login .login-info .li.focus .ico-code{
+  background:url(../images/jtgl_login/ico_code.png) 0 0 no-repeat;
+}
+.jtgl-login .btn-blue{
+  background: #5A859C;
+  box-shadow: 0px 5px 10px 0 rgba(90,133,156,.5)
+}
+/*集团管理 end*/
+/*健康管理平台 start*/
+.jkgl-login{
+  background: #B3F6FF;
+}
+.jkgl-login .bottom-bg{
+  position: absolute;
+  left:0;
+  bottom:0;
+  z-index: 10;
+  width:100%;
+  animation: scale 0.5s ease-in;
+  -moz-animation: scale 0.5s ease-in; /*Firefox*/
+  -webkit-animation: scale 0.5s ease-in;  /*Safari 和 Chrome*/
+  -o-animation: scale 0.5s ease-in; /*Opera*/
+}
+@keyframes scale
+{
+  0%   {transform:scale(0.1);}
+  100% {transform:scale(1);}
+}
+@-moz-keyframes scale /* Firefox */
+{
+  0%   {transform:scale(0.1);}
+  100% {transform:scale(1);}
+}
+@-webkit-keyframes scale /* Safari 和 Chrome */
+{
+  0%   {transform:scale(0.1);}
+  100% {transform:scale(1);}
+}
+.jkgl-login .yun-img{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+.jkgl-login .yun-img .yun-list{
+  position: relative;
+  top:0;
+  left:0;
+  width:200%;
+  height:100%;
+  animation: yun 150s  linear infinite;
+  -moz-animation: yun 150s  linear infinite; /*Firefox*/
+  -webkit-animation: yun 150s  linear infinite;  /*Safari 和 Chrome*/
+  -o-animation: yun 150s  linear infinite; /*Opera*/
+}
+@keyframes yun
+{
+  0%   {left:0;}
+  100% {left:-100%;}
+}
+@-moz-keyframes yun /* Firefox */
+{
+  0%   {left:0;}
+  100% {left:-100%;}
+}
+@-webkit-keyframes yun /* Safari 和 Chrome */
+{
+  0%   {left:0;}
+  100% {left:-100%;}
+}
+.jkgl-login .yun-list .yun {
+  float:left;
+  width:50%;
+  height:100%;
+  position: relative;
+}
+.jkgl-login .ico-yun1,
+.jkgl-login .ico-yun2,
+.jkgl-login .ico-yun3,
+.jkgl-login .ico-yun4,
+.jkgl-login .ico-yun5,
+.jkgl-login .ico-yun6{
+  position: absolute;
+  top:50%;
+  left:-60px;
+  width:160px;
+  height:102px;
+  background:url(../images/jkgl_login/yun.png) 0 0 no-repeat;
+  background-size:80% 80%!important;
+}
+.jkgl-login .ico-yun1,
+.jkgl-login .ico-yun6{
+  margin-top:-150px;
+}
+.jkgl-login .ico-yun2{
+  top:10%;
+  left:20%;
+  background:url(../images/jkgl_login/yun.png) 0 0 no-repeat;
+  background-size:100% 100%!important;
+}
+.jkgl-login .ico-yun3{
+  top:45%;
+  left:28%;
+  background:url(../images/jkgl_login/yun.png) 0 0 no-repeat;
+  background-size:50% 50%!important;
+}
+.jkgl-login .ico-yun4{
+  top:10%;
+  left:85%;
+  background:url(../images/jkgl_login/yun.png) 0 0 no-repeat;
+  background-size:100% 100%!important;
+}
+.jkgl-login .ico-yun5{
+  top:40%;
+  left:75%;
+  background:url(../images/jkgl_login/yun.png) 0 0 no-repeat;
+  background-size:50% 50%!important;
+}
+.jkgl-login .login-pop{
+  width:700px;
+  background: #ffffff;
+  margin-top:-50px;
+}
+.jkgl-login .platform-name{
+  color:#35C36E;
+  font-weight: normal;
+  padding:0;
+  padding-top:20px;
+}
+.jkgl-login .login-info .li.focus .ico-user {
+  background: url(../images/jkgl_login/ico_user.png) 0 0 no-repeat;
+}
+.jkgl-login .login-info .li.focus .ico-password {
+  background: url(../images/jkgl_login/ico_password.png) 0 0 no-repeat;
+}
+.jkgl-login .login-info .li.focus .ico-code {
+  background: url(../images/jkgl_login/ico_code.png) 0 0 no-repeat;
+}
+.jkgl-login .login-info .li.focus .form-control{
+  border: 1px solid #35C36E;
+}
+.jkgl-login .login-body .login-right {
+  border-left-color:#E9E9E9;
+}
+.jkgl-login .login-body .login-right .ewm-img{
+  border: 1px solid #E9E9E9;
+}
+.jkgl-login .btn-blue{
+  background: #35C36E;
+  box-shadow: 0px 5px 10px rgba(53,195,110,.5)
+}
+.jkgl-login .foot-record{
+  color:#BBBBBB;
+  /*color:#000;*/
+  font-size: 14px;
+  background: #F2F6F9;
+  background: #dddddd;
+}
+.jkgl-login .foot-record .record-num{
+  color: #BBBBBB;
+  /*color:#000;*/
+  font-size: 14px;
+}
+/*健康管理平台 end*/
+/*大数据 start*/
+.dsj-login{
+  background:url(../images/dsj_login/bg.jpg) 0 0 no-repeat;
+  background-size:100% 100%;
+}
+.dsj-login .ico-star1{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  width:788px;
+  height:788px;
+  background:url(../images/dsj_login/center_center.png) 0 0 no-repeat;
+  background-size:100% 100%;
+}
+.dsj-login .ico-star2,
+.dsj-login .ico-star4{
+  position:absolute;
+  top:-50px;
+  left:-50px;
+  width:200px;
+  height:200px;
+  background:url(../images/dsj_login/left_top.png) 0 0 no-repeat;
+  background-size:100% 100%;
+}
+.dsj-login .ico-star4{
+  top:100px;
+  left:auto;
+  right:50px;
+  background:url(../images/dsj_login/right_bottom.png) 0 0 no-repeat;
+  background-size:100% 100%;
+}
+.dsj-login .ico-star3,
+.dsj-login .ico-star5{
+  position:absolute;
+  bottom:50px;
+  left:50px;
+  width:233px;
+  height:233px;
+  background:url(../images/dsj_login/left_bottom.png) 0 0 no-repeat;
+  background-size:100% 100%;
+}
+.dsj-login .ico-star5{
+  bottom:-100px;
+  left:auto;
+  right:200px;
+  background:url(../images/dsj_login/right_top.png) 0 0 no-repeat;
+  background-size:100% 100%;
+}
+.dsj-login .ico-star1{
+  animation: rotatecenter 500s linear infinite;
+  -moz-animation: rotatecenter 500s linear infinite; /* Firefox */
+  -webkit-animation: rotatecenter 500s linear infinite;  /* Safari 和 Chrome */
+  -o-animation: rotatecenter 500s linear infinite; /* Opera */
+}
+@keyframes rotatecenter
+{
+  0%   {transform:translate(-50%,-50%) rotate(0deg);}
+  50%  {transform:translate(-50%,-50%) rotate(360deg);}
+  100% {transform:translate(-50%,-50%) rotate(720deg);}
+}
+@-moz-keyframes rotatecenter /* Firefox */
+{
+  0%   {transform:translate(-50%,-50%) rotate(0deg);}
+  50%  {transform:translate(-50%,-50%) rotate(360deg);}
+  100% {transform:translate(-50%,-50%) rotate(720deg);}
+}
+@-webkit-keyframes rotatecenter /* Safari 和 Chrome */
+{
+  0%   {transform:translate(-50%,-50%) rotate(0deg);}
+  50%  {transform:translate(-50%,-50%) rotate(360deg);}
+  100% {transform:translate(-50%,-50%) rotate(720deg);}
+}
+.dsj-login .ico-star2,
+.dsj-login .ico-star3,
+.dsj-login .ico-star4,
+.dsj-login .ico-star5{
+  animation: rotate 300s linear infinite;
+  -moz-animation: rotate 300s linear infinite; /* Firefox */
+  -webkit-animation: rotate 300s linear infinite;  /* Safari 和 Chrome */
+  -o-animation: rotate 300s linear infinite; /* Opera */
+}
+@keyframes rotate
+{
+  0%   {transform:rotate(0deg);}
+  50%  {transform:rotate(360deg);}
+  100% {transform:rotate(720deg);}
+}
+@-moz-keyframes rotate /* Firefox */
+{
+  0%   {transform:rotate(0deg);}
+  50%  {transform:rotate(360deg);}
+  100% {transform:rotate(720deg);}
+}
+@-webkit-keyframes rotate /* Safari 和 Chrome */
+{
+  0%   {transform:rotate(0deg);}
+  50%  {transform:rotate(360deg);}
+  100% {transform:rotate(720deg);}
+}
+.dsj-login .platform-name{
+  color:#02e7ff;
+  font-size:25px;
+  position: absolute;
+  top:30px;
+  left:30px;
+}
+.dsj-login .login-block{
+  /*background: rgba(0,0,0,.3);*/
+}
+.dsj-login .login-pop{
+  width:490px;
+  background:rgba(0,0,0,.3);
+  box-shadow:none;
+}
+.dsj-login .login-body{
+  padding:35px 0;
+}
+.dsj-login .login-body .login-info{
+  float:none;
+  width:364px;
+  margin:0 auto;
+}
+.dsj-login .login-info .form-error{
+  top:-12px;
+  width: 358px;
+  line-height:24px;
+  margin:0;
+}
+.dsj-login .login-info .form-error .msg-error{
+  background:rgba(255,255,255,.8);
+  color: #ff5757;
+  border:none;
+  border-radius: 2px;
+}
+.dsj-login .login-info .li{
+  padding: 6px 0px;
+  border-left:none;
+}
+.dsj-login .li .form-control{
+  height:50px;
+  color:#ffffff;
+  padding:3px 10px 0;
+  box-shadow:none;
+  background:rgba(0,0,0,.3);
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,.2);
+  margin-top:0;
+}
+.dsj-login .li .form-control::-webkit-input-placeholder { /* WebKit browsers */
+  color: rgba(255,255,255,.7);
+}
+.dsj-login .li .form-control::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: rgba(255,255,255,.7);
+}
+.dsj-login .li .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: rgba(255,255,255,.7);
+}
+.dsj-login .li .code-img{
+  height:46px;
+}
+.dsj-login .btn-blue{
+  height:50px;
+  line-height:50px;
+  background: #02dcff;
+  box-shadow:none;
+  border-radius: 5px;
+  margin-top:12px;
+}
+.dsj-login .foot-record{
+  position: absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  background:#000000;
+  color:#dddddd;
+  z-index: 100;
+}
+.dsj-login .foot-record .record-num{
+  color:#dddddd;
+}
+canvas{
+  display:block;
+  vertical-align:bottom;
+}
+#particles-js{
+  position:fixed;
+  top:35px;
+  left:0;
+  z-index:99;
+  width:100%;
+  height:100%;
+}
+/*大数据 end*/
+/*徽章 start*/
+.record-block{
+  text-align: center;
+  background: #F2F6F9;
+}
+.badge-bloak{
+  position: relative;
+  width:100%;
+}
+.badge-bloak .badge-cell{
+  display: inline-block;
+}
+.badge-bloak .ico-badge{
+  display: inline-block;
+  padding:10px 3px 0;
+}
+.badge-bloak .badg-con{
+  position: absolute;
+  bottom:46px;
+  left:-4px;
+  width:100%;
+  display: none;
+}
+.badg-con .badg-details{
+  background: #ffffff;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
+}
+.badg-details .ico-arrow{
+  width:20px;
+  height:18px;
+  background:url(../images/jkgl_login/sanjiaoxing.png) 0 0 no-repeat;
+  position: absolute;
+  left: 0px;
+  bottom:-17px;
+  margin-left:-10px;
+}
+.badg-details .badg-details-con{
+  position: relative;
+  height:100%;
+  padding:30px;
+}
+.badg-details-con .badg-state{
+  position: absolute;
+  top:0;
+  left:30px;
+  width:34px;
+  font-size: 18px;
+  color:#ffffff;
+  padding:5px 8px 8px;
+  background: #FFAA64;
+}
+.badg-details-con .badg-state .ico-arrow-two{
+  position: absolute;
+  left:0;
+  bottom:-14px;
+  width:34px;
+  height:15px;
+  background: url(../images/jkgl_login/tongguo.png) 0 0 no-repeat;
+}
+.badg-details-con .badg-con-left,
+.badg-details-con .badg-con-right{
+  float:left;
+  width:50%;
+  height:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+}
+.badg-left img{
+  width:auto;
+  height:auto;
+  margin:0 auto;
+}
+.badg-left p{
+  color:#35C36E;
+  font-size: 14px;
+  padding:15px 0;
+}
+.badg-left .btn-green{
+  display: inline-block;
+  width:120px;
+  height:38px;
+  line-height:38px;
+  color:#35C36E;
+  font-size: 14px;
+  border: 1px solid #35C36E;
+  background:transparent;
+  margin-top:15px;
+}
+.badg-con-right .badg-right{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+}
+.badg-right p{
+  text-align: left;
+  line-height:22px;
+  color:#787878;
+  font-size: 12px;
+}
+/*徽章 end*/

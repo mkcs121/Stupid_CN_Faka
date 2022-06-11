@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>订单查询_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}" />
+    <meta name="description" content="{:sysconf('site_desc')}" />
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}" /	
+    <link rel="stylesheet" href="/static/app/510fk/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/510fk/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/510fk/css/header.css">
+    <link rel="stylesheet" href="/static/app/510fk/css/style.css">
+    <link rel="stylesheet" href="/static/app/510fk/css/responsive.css">
+    <script type="text/javascript" src="/static/app/510fk/js/jquery.js"></script>
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+     {include file="./header"} 
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                查询订单
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="odsrch-wp">
+    <div class="wrapper">
+        <div action="" method="">
+         <input type="hidden" id="query-type" value="2">
+        <div class="odsrch-bd">
+            <div class="odsrch-type">
+                <h3>
+                    订单号查询                </h3>
+                <ul>
+                    <li data-type="1" ><a href="javascript:;" title="浏览器缓存查询">浏览器缓存查询</a></li>
+                    <li data-type="2"><a href="javascript:;" title="订单号查询">订单号查询</a></li>
+                    <li data-type="3"><a href="javascript:;" title="联系方式查询">联系方式查询</a></li>
+                </ul>
+            </div>
+            <div class="odsrch-txt">
+                <input type="text" class="txt" name="orderid" id="orderid_input2" value="" placeholder="请输入订单号查询订单"/>
+            </div>
+            <div class="odsrch-btn">
+                <input type="button" value="查 询" onclick="orderid_or_contact()"/>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+{if $trade_no ==null}
+<div class="wrapper">
+    <div class="odnotice">
+        <h3>510发卡网防骗提醒：</h3>
+        <p>1、卡密为“联系QQ拿货，加QQ群拿货”2、卡密为“付款成功，等待充值”3、购买的商品有问题，卖家且不售后4、以各种理由推脱到第二天遇到以上或售后问题，请及时联系我们QQ客服：<span>800048852</span></p>
+    </div>
+</div>
+{/if}
+            {if $trade_no!==null}
+            {if empty($order)}
+			{if $is_verify}
+<div class="oderr">
+        <img src="/static/app/510fk/imgs/ico_06.png">
+        <p>没有查询到订单信息</p>
+    </div>
+	  {else/}
+	<div class="wrapper">
+    <div class="odtips">
+        免责声明：平台为次日结算，款项结算给商户后所出现的售后问题请自行与卖家协商。订单投诉：通过订单号查询订单，可在【订单投诉】等待平台处理。</br>
+		<span style="color:red;">防骗提示：平台为24点解冻卖家资金，卡密有问题的请在24点前点击投诉按钮，否则我们将打款给卖家、或避开24点前选择00:01后购买卡密防止被骗！</span>	
+    </div>
+</div>
+	
+	
+	{/if}
+	{else/}
+		<div class="wrapper">
+    <div class="odtips">
+        免责声明：平台为次日结算，款项结算给商户后所出现的售后问题请自行与卖家协商。订单投诉：通过订单号查询订单，可在【订单投诉】等待平台处理。</br>
+		<span style="color:red;">防骗提示：平台为24点解冻卖家资金，卡密有问题的请在24点前点击投诉按钮，否则我们将打款给卖家、或避开24点前选择00:01后购买卡密防止被骗！</span>	
+    </div>
+</div>
+	
+	
+	<div class="q-result">
+    <div class="wrapper">
+        <div class="q-result-bd q-remind-bd">
+            <div class="q-result-bd-txt">
+                <ul>
+                    <li>订单号：{$trade_no}</li>
+                    <li>订单日期：{$order.create_at|date="Y-m-d H:i:s",###}</li>
+                    <li>付款方式：{:get_paytype_name($order.paytype)}</li>
+                    <li>付款信息：<lable style="color: orangered" id="paystatus">{if $order.status==1}付款成功{else/}未付款{/if}</lable></li>
+                    <li>订单金额：2.00</li>
+                    <li>实付款：2.00</li>
+                    <li>卖家QQ： <a target="_blank" href="//wpa.qq.com/msgrd?v=3&amp;uin={$order.user.qq}&amp;site=qq&amp;menu=yes">{$order.user.qq}</a></li>
+                                        <li class="q-result-btn">{if condition="isset($canComplaint) && $canComplaint" }<a href="/complaint?trade_no={$order.trade_no}">订单投诉</a>{/if}</li>
+                                        <li class="q-result-card">卡密信息：</li>
+                    					<!--导出卡密-->
+                                <a style="padding:5px 8px;background-color:#c667f7;color:white" href="/orderexport?trade_no=A1906021740582424220" target="_blank">导出卡密</a>
+                				<!--end导出卡密 -->
+                    <li class="q-result-card"><font><b id="tips0" style="color: rgb(251,55,55)"></b></font></li>
+                    <li class="q-result-card"><font><b id="cardinfo0" style="color: rgb(251,55,55)"></b></font> </li>
+                </ul>
+            </div>
+            <p><span style="color:red;">平台提示：</span>如对您购买的产品不熟悉或不会用的请联系卖家QQ：<b><a target="_blank" href="//wpa.qq.com/msgrd?v=3&amp;uin=254291879&amp;site=qq&amp;menu=yes"><span style="color:red;">254291879</span></a></b><br>
+			</p><p><span style="color:blue;">以下情况均为骗子行为请买家注意防骗：<br></span>
+						1、卡密为“联系QQ拿货，加QQ群拿货”；<br>
+						2、卡密为“付款成功，等待充值”；<br>
+						3、购买的商品有问题，卖家且不售后；<br>
+						4、以各种理由推脱到第二天处理或退款（24点后为第二天）；<br>
+						如遇到以上情况请在当天24点前点击上方投诉按钮，超过当天24点前订单不在受理，
+						有疑问请及时联系510卡平台客服QQ：800048852。</p>						
+        </div>
+    </div>
+</div>
+	
+	
+	{/if}{/if}
+
+
+
+
+</div>
+<!--验证码-->
+<div class="vft-code" id="vft-code">
+    <div class="bd">
+        <input type="text" name="chkcode" id="chkcode" value="" placeholder="请输入验证码"/>
+        <span id="Vcode"></span>
+    </div>
+    <div class="ft">
+        <input type="button" id="submitChkCode" value="确定" />
+    </div>
+</div>
+ {include file="./footer"} 
+<script type="text/javascript" src="/static/app/510fk/js/script.js"></script>
+<script src="/static/app/js/layer.js"></script>
+<!-- 弹窗开始 -->
+<!-- 弹窗结束 -->
+<script>
+    function getgoods(orderid, id) {
+        setTimeout(function () {
+            $.getJSON('/checkgoods', {
+                orderid: orderid,
+                t: new Date().getTime(),
+                token: "{$token}"
+            }, function (data) {
+                if (data) {
+                    $('#cardinfo' + id).html(data.msg);
+                    if (data.status == 1) {
+                        $('#tips' + id).html('(已发货/购买数：<font color="green">' + data.quantity +
+                            '</font>/' + data.quantity + ')');
+                    }
+                }
+            });
+        }, 1000);
+    };
+</script>
+<script>
+    function orderid_or_contact() {
+        var queryType = $('#query-type').val();
+        var input_val = $('#orderid_input2').val() || '';
+
+        if (queryType != 1 && input_val == '') {
+            if (queryType == 2) {
+                layer.msg('订单号为空！', {
+                    icon: 2,
+                    time: 2000
+                });
+            } else {
+                layer.msg('联系方式为空！', {
+                    icon: 2,
+                    time: 2000
+                });
+            }
+        } else {
+            var needChkcode = "0";
+            if (needChkcode == 1) {
+                // $('#chkcode_img').show().attr('src', '/chkcode');
+                chkcode(input_val, queryType);
+            } else {
+                window.location.href = '/orderquery?orderid=' + input_val + '&querytype=' + queryType;
+            }
+        }
+    }
+
+    function oderquery(t) {
+        if (flag == false) return false;
+        var orderid = '';
+        $.post('/pay/getOrderStatus', {
+            orderid: orderid,
+            token: "{$token}"
+        }, function (ret) {
+            if (ret == 1) {
+                layer.close(loading);
+                flag = false;
+                stop = true;
+                $('#paystatus').html('付款成功');
+                getgoods('', '0');
+            }
+        });
+        t = t + 1;
+        setTimeout('oderquery(' + t + ')', 3000);
+    }
+
+    function request_stop() {
+        if (stop == true) return false;
+        flag = false;
+        layer.close(loading);
+        layer.alert('系统未接收到付款信息，如您已付款请联系客服处理！');
+    }
+
+    function chkcode(input_val, queryType) {
+        $('#chkcode').val('');
+        layer.open({
+            type:1,
+            title:false,
+            maxmin:false,
+            area: $(window).width() < 1200 ? "auto" : "425px",
+            content: $('#vft-code'),
+            shadeClose :true,
+            skin: 'dissolve',
+            closeBtn:0,
+            yes:function(index,layero){
+
+            },
+            end:function(){
+
+            }
+        });
+        $('#Vcode').html($(
+            '<img style="cursor:pointer;height: 44px;" id="chkcode_img" src="/chkcode" onclick="javascript:this.src=\'/chkcode\'+\'?time=\'+Math.random()">'
+        ))
+    }
+    
+    $(function() {
+        $(".odsrch-type ul li").on("click",function(){
+            $('#orderid_input').val('');
+            var text = $(this).text();
+            $(".odsrch-type h3").text(text);
+            $('#query-type').val($(this).data('type'));
+            $(".odsrch-type ul").slideUp();
+            if($(this).data('type') == 1) {
+                orderid_or_contact();
+            } else if($(this).data('type') == 2) {
+                $('#orderid_input2').attr('placeholder',"请输入订单号查询订单");
+            } else if($(this).data('type') == 3) {
+                $('#orderid_input2').attr('placeholder',"请输入联系方式查询订单");
+            }
+        });
+
+        $('#submitChkCode').click(function(){
+            var input_val = $('#orderid_input2').val();
+            var queryType = $('#query-type').val();
+            var chkcode = $('#chkcode').val();
+            $.post('/orderquery/checkverifycode', {
+                chkcode: chkcode
+            }, function (data) {
+                if (data == 'ok') {
+                    layer.msg('验证码输入正确', {
+                        icon: 1
+                    }, function () {
+                        window.location.href = '/orderquery?orderid=' + input_val +
+                            '&chkcode=' + chkcode + '&querytype=' + queryType;
+                        //                        window.parent.location.reload(); //刷新父页面
+                    });
+                } else {
+                    layer.msg('验证码输入错误', {
+                        icon: 2,
+                        time: 3000
+                    }, function () {
+                        //                        window.parent.location.reload(); //刷新父页面
+                    });
+                }
+            });
+        });
+    });
+
+  //   $(document).keyup(function(event){
+  //       if(event.keyCode ==13){
+		// orderid_or_contact();
+  //           <!-- if($('#vft-code').is(':hidden')) { -->
+  //               <!-- $('#queryBtn').trigger("click"); -->
+  //           <!-- } else { -->
+  //               <!-- //$('#submitChkCode').trigger("click"); -->
+		// 		<!-- orderid_or_contact(); -->
+  //           <!-- } -->
+  //       }
+  //   });
+</script>
+
+
+
+</body>
+</html>
+

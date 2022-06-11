@@ -1,0 +1,94 @@
+{extend name="base"}
+
+
+{block name="content"}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="header-title m-t-0 m-b-30">通道信息</h4>
+
+                    <form class="form-horizontal" role="form" action="" method="post">
+                        <input type="hidden" name="id" value="{$id}" />
+                        <input type="hidden" name="channel_id" value="{$channel_id}" />
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">接口名称</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static">{$channel.title}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">备注名</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static">
+                                    <input type="text" class="form-control" name="name" value="{$mChannel.name}"/>
+                                </p>
+                            </div>
+                        </div>
+
+                        {foreach $fields as $k => $v}
+                        {if $v['type'] == ''}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{$v['name']}</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static">
+                                    <textarea class="form-control" name="params[{$k}]" cols="30" rows="1" placeholder="请输入{$v['name']}">{$v['value']|default=''}</textarea>
+                                </p>
+                                {if isset($placeholders[$k])}
+                                <p class="help-block">{$placeholders[$k]}</p>
+                                {/if}
+                            </div>
+
+                        </div>
+                        {/if}
+                        {/foreach}
+                        <div align="center"><br>温馨提示：网关通道可以对接任何支付平台，例如：<a href="https://mzf.losie.net/" target="_blank">https://mzf.losie.net/ </a><br><br></div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-9">
+                                <button type="submit" class="btn btn-purple waves-effect waves-light">保存设置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+    </div>
+    <!-- end col -->
+</div>
+
+{/block}
+
+{block name="appendJS"}
+
+<script>
+</script>
+
+<script type="text/javascript">
+
+
+    function change_status(obj, id) {
+        var status = $(obj).prop('checked');
+        if (status) {
+            status = 1;
+        } else {
+            status = 0;
+        }
+        $.post('/merchant/user/changeChannelStatus', {
+            id: id,
+            status: status
+        }, function (res) {
+            if (res.code != 0) {
+                alert(res.msg);
+                location.reload();
+            }
+        });
+    }
+
+</script>
+{/block}

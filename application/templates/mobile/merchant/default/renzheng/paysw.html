@@ -1,0 +1,115 @@
+{extend name="base/detail"}
+{block name="content"}
+<div class="main">
+    <div class="content">
+
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">认证中心</a></li>
+        </ul><br>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="row">
+				<form class="form-horizontal" role="form" action="{:url('payswok')}" method="post">
+					<input type="hidden" name="user_id" value="{$user_id}">
+                    <div class="form-group">
+						<label class="col-md-2 control-label">支付金额</label>
+						<div class="col-md-10">
+                        <input type="text" class="form-control" name="money" value="{:sysconf('renzheng_money')}元" readonly="readonly">
+                        
+                        </div>
+						
+                    </div>
+                    
+                    <div class="form-group">
+
+							<label class="col-md-2 control-label">手机号</label>
+
+							<div class="col-md-10">
+
+								<input name="mobile" type="text" class="form-control"   readonly="readonly"  value="{$mobile}">
+
+							</div>
+
+						</div>
+						
+
+						<div class="form-group">
+
+							<label class="col-md-2 control-label">姓名</label>
+
+							<div class="col-md-10">
+
+								<input name="renzheng_name" type="text" class="form-control"   readonly="readonly" value="{$name}">
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-md-2 control-label">身份证号</label>
+
+							<div class="col-md-10">
+
+								<input name="renzheng_sfz" type="text" class="form-control idcard_number"  readonly="readonly"   value="{$renzheng_sfz}">
+
+							</div>
+
+						</div>
+                    
+                     <div class="form-group">
+						<label class="col-md-2 control-label">支付方式</label>
+						<div class="col-md-10">
+                        
+                        {in name="1" value=":sysconf('paytype')"}
+                        
+                        <div class="radio radio-primary radio-inline">
+
+                                <input type="radio" name="paycode" value="001" id="paycode1" checked="checked">
+                                <label for="paycode1">支付宝
+                            </label>
+                          </div>
+                            {/in}
+                            {in name="2" value=":sysconf('paytype')"}
+                             <div class="radio radio-primary radio-inline">
+                            
+                                <input type="radio" name="paycode" id="paycode2" value="003" >
+                                <label for="paycode2">微信
+                            </label>
+                            </div>
+                            {/in}
+                            {in name="3" value=":sysconf('paytype')"}
+                             <div class="radio radio-primary radio-inline">
+                            
+
+                                <input type="radio" name="paycode"  id="paycode3" value="006" >
+							<label for="paycode3">QQ钱包
+                            </label>
+                            
+                            </div>
+                            {/in}
+						</div>
+						
+                    </div>
+                    
+                    <div class="form-group">
+						<label class="col-md-2 control-label"></label>
+						<div class="col-md-4">
+							<button type="submit" class="btn btn-success btn-block">确认支付</button>
+						</div>
+						<div class="col-md-6">
+							<p class="form-control-static"></p>
+						</div>
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+{/block}
+
+{block name="appendJS"}
+
+{/block}

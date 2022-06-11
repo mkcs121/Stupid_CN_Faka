@@ -1,0 +1,111 @@
+{extend name='./content'}
+
+{block name="content"}
+
+<div class="ibox-title notselect" style="margin-bottom:30px">
+        <h5>积分商品</h5>
+        
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-open="{:url('add')}" data-title="添加商品" class="layui-btn layui-btn-small"><i class="fa fa-plus"></i> 添加商品
+    </button>
+</div>
+
+    </div>
+    
+<!-- 表单搜索 开始 -->
+<form class="layui-form layui-form-pane form-search" action="__SELF__" onsubmit="return false" method="get">
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">标题名称</label>
+        <div class="layui-input-inline">
+            <input name="title"  value="{$title|default=''}" placeholder="请输入标题名称" class="layui-input">
+        </div>
+    </div>
+
+    
+    <div class="layui-form-item layui-inline">
+        <button type="submit" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+    </div>
+</form>
+<!-- 表单搜索 结束 -->
+
+<form onsubmit="return false;" data-auto="true" method="post">
+    <input type="hidden" value="resort" name="action"/>
+    <table class="layui-table" lay-skin="line" lay-size="sm">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>缩略图</th>
+            <th>名称</th>
+            <th>兑换积分</th>
+            <th>剩余数量</th>
+            <th>已售</th>
+            <th>状态</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $goodsList as $v}
+        <tr>
+            <td>{$v.id}</td>
+            <td>{$v.title}</td>
+            <td style="width: 13%;" ><img src="{$v.img}" style="height:60px; max-width:100%;"></td>
+            <td>{$v.money}</td>
+            <td>{$v.counts}</td>
+            <td>{$v.yscounts}</td>
+            <td>
+                {if $v.status==1}
+                <span style="color:green"><i class="glyphicon glyphicon-ok"></i> 已上架</span>
+                <a class="btn btn-danger btn-xs text-white" data-tips="确定取消冻结吗？ " data-update="{$v.id}" data-field='status' data-value='0' data-action='{:url("change_status")}'
+                   href="javascript:void(0)">下架</a>
+                {else/}
+                <span style="color:red"><i class="glyphicon glyphicon-remove"></i> 已下架</span>
+                <a class="btn btn-warning btn-xs" data-tips="确定冻结吗？" data-update="{$v.id}" data-field='status' data-value='1' data-action='{:url("change_status")}'
+                   href="javascript:void(0)">上架</a>
+                {/if}
+            </td>
+
+            <td>{$v.addtime|date="Y-m-d H:i:s",###}</td>
+            <td>
+                <a data-title="编辑" data-modal='{:url("edit")}?id={$v.id}' href="javascript:void(0)">编辑</a>
+                <a onclick="del(this,'{$v.id}')">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</form>
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期范围
+        laydate.render({
+            elem: '#date_range',
+            range: true
+        });
+    });
+
+        function del(obj, id) {
+        layer.confirm('确认要删除吗？删除后不可恢复！', function (index) {
+            $.ajax({
+                url:"/admin/shang/del",
+                type:'post',
+                data:'id='+id,
+                success:function(res){
+                    if(res.code == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}

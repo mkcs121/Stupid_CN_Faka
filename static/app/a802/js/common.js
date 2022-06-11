@@ -1,0 +1,1 @@
+$(function(){$(window).on("scroll",function(){if($(window).scrollTop()>100){$(".go-top").fadeIn();}else{$(".go-top").fadeOut();}});$(".go-top").on("click",function(){$("body,html").animate({scrollTop:0},500);return false});$(".htop li").hover(function(){$(this).find(".qr-img").fadeIn();},function(){$(this).find(".qr-img").fadeOut();});})

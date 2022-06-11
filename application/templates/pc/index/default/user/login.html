@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>登录_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}" />
+    <meta name="description" content="{:sysconf('site_desc')}" />
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+</head>
+
+<body class="loginpage-bg">
+<div class="loginpage">
+   <div class="logo">
+        <a href="/"><img src="{:sysconf('site_logo')}"/></a>
+    </div>
+    <div class="login-wrap">
+        <div class="login-left">
+            <img src="/static/app/cyfaka/imgs/img_32.jpg"/>
+        </div>
+        <div class="login-right ">
+            <form method="post" action="/login/userlogin">
+               <input type="hidden" name="__token__" value="{$Request.token}" />
+                <div class="head">
+                    <h3>用户登录</h3>
+                    <p>登录您的商户后台</p>
+                </div>
+                <div class="body">
+                    <ul>
+                        <li>
+                            <i class="iconfont icon-yonghu"></i>
+                            <input type="text" class="txt" name="username" id="username" value="" placeholder="输入用户名"/>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-mima"></i>
+                            <input type="password" class="txt" name="password" id="password" value="" placeholder="输入密码"/>
+                        </li>
+                    </ul>
+                    <div class="txt-right">
+                        <a href="/login/retpwd">忘记密码？</a>
+                    </div>
+                </div>
+                <div class="foot">
+                    <input type="button" class="btn" id="login_btn" value="登 录"/>
+                    <p>没账户？<a href="/register">去注册</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/app/cyfaka/js/jquery.js"></script>
+<script type="text/javascript" src="/static/app/cyfaka/js/script.js"></script>
+<script src="/static/app/js/layer.js"></script>
+<script>
+    $('#login_btn').click(function () {
+        if($('#username').val() == '') {
+            layer.msg('请输入用户名');
+            return false;
+        }
+        if($('#password').val() == '') {
+            layer.msg('请输入密码');
+            return false;
+        }
+        var loading ='';
+        $.ajax({
+            type: 'post',
+            url: '/index/user/doLogin',
+            dataType: "json",
+            data: $("form").serialize(),
+            beforeSend: function(xhr) {
+                loading = layer.load()
+            },
+            success: function(res) {
+                layer.close(loading);
+                if (res.code == 1) {
+                    window.location.href='/merchant/index';
+                } else {
+                    layer.msg(res.msg);
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                layer.close(loading);
+                layer.msg('连接错误');
+            }
+        });
+    })
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $("#login_btn").trigger("click");
+        }
+    })
+</script>
+
+
+
+</body>
+</html>
+

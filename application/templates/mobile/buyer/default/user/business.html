@@ -1,0 +1,34 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<script src="__RES__/app/js/clipboard.js"></script>
+<div class="main">
+	<div class="content">
+
+		<ul class="nav nav-tabs">
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+			<li role="presentation" class="active"><a href="javascript:;">API信息</a></li>
+		</ul><br>
+
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+				<div class="col-lg-8 m-b-30">
+                    <h4 class="form-control-static">商户I D ：{$_user.id}</h4>
+				    <h4 class="form-control-static">商户密钥：{$_user.key}</h4>
+					<h4 class="form-control-static">通知地址：<a href="{:sysconf('site_shop_domain')}/pay/api" target="_blank">{:sysconf('site_shop_domain')}/pay/api</a></h4>
+					<h4 class="form-control-static">SDK下载：<a href="/SDK.zip" target="_blank">点击下载</a></h4>
+					<h4 class="form-control-static">支付测试：<a href="{:sysconf('site_shop_domain')}/SDK/" target="_blank" >前往测试</a></h4>
+					<p class="form-control-static"><strong><span style="color:#ff0000;">温馨提示：最新警告，分站以及所有交易网站上面统一留可以联系到的客服联系方式，如果客户联系我们并提供相关截图联系证实客服无人处理，我们将直接退款给购买者。发现网站进行诈骗，虚假发货，直接冻结，如遇到问题请咨询本站客服</span></strong></p>
+					<br>
+
+					
+				<!-- end col -->
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+	<!-- end col -->
+</div>
+{/block}
+
+{block name="appendJS"}

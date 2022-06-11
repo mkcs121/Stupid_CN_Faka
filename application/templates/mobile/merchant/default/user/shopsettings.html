@@ -1,0 +1,415 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<!-- form Uploads -->
+<link href="__RES__/assets/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<div class="main">
+    <div class="content">
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">商户基本信息</a></li>
+        </ul>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post">
+            <div class="form-group">
+                <label class="col-md-3 control-label">商户编号</label>
+                <div class="col-md-9">
+                    <p class="form-control-static">{$_user.id}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">商户QQ</label>
+                <div class="col-md-9">
+                    <input name="qq" type="text" class="form-control" value="{$_user.qq}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">商户网站</label>
+                <div class="col-md-9">
+                    <input name="website" type="text" class="form-control" value="{$_user.website}">
+                	<p class="stock_display_2_tips">网址前请加http://或https://</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">子域名</label>
+                <div class="col-md-9">
+                    <input name="subdomain" type="text" class="form-control" value="{$_user.subdomain}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">店铺名称</label>
+                <div class="col-md-9">
+                    <input name="shop_name" type="text" class="form-control" value="{$_user.shop_name}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">店铺公告</label>
+                <div class="col-md-9">
+                    <textarea name="shop_notice" placeholder="" class="form-control" rows="5" maxlength="200">{$_user.shop_notice}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">店铺语音公告</label>
+                <div class="col-md-9">
+                    <textarea name="shop_yuyin" placeholder="不要换行，换行无法播放"  class="form-control" rows="5" >{$_user.shop_yuyin}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">系统公告自动弹出</label>
+                <div class="col-md-9">
+                    <select name="shop_notice_auto_pop" class="form-control" required>
+                        <option value="1" {if $_user.shop_notice_auto_pop==1}selected{/if}>是</option>
+                        <option value="0" {if $_user.shop_notice_auto_pop==0}selected{/if}>否</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">商家公告自动弹出</label>
+                <div class="col-md-9">
+                    <select name="user_notice_auto_pop" class="form-control" required>
+                        <option value="1" {if $_user.user_notice_auto_pop==1}selected{/if}>是 </option>
+                        <option value="0" {if $_user.user_notice_auto_pop==0}selected{/if}>否 </option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3 control-label">购卡协议自动弹出</label>
+                <div class="col-md-9">
+                    <select name="shop_gouka_protocol_pop" class="form-control" required>
+                        <option value="1" {if $_user.shop_gouka_protocol_pop==1}selected{/if}>是 </option>
+                        <option value="0" {if $_user.shop_gouka_protocol_pop==0}selected{/if}>否 </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">支付页面风格</label>
+                <div class="col-md-9">
+                    <select name="pay_theme" class="form-control" required>
+                        {foreach :config('pay_themes') as $theme}
+                        <option value="{$theme.alias}" {if $_user.pay_theme==$theme.alias}selected{/if}>{$theme.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">库存展示方式</label>
+                <div class="col-md-9">
+                    <select name="stock_display" class="form-control" required>
+                        <option value="1" {if $_user.stock_display==1}selected{/if}>实际库存</option>
+                        <option value="2" {if $_user.stock_display==2}selected{/if}>范围库存</option>
+                    </select>
+                    <p class="stock_display_2_tips" {if $_user.stock_display==1}style="display:none"{/if}>
+                        1. 库存大于100，显示 库存非常多<br>
+                        2. 库存小于100、大于30，显示 库存很多<br>
+                        3. 库存小于30、大于10，显示 库存一般<br>
+                        4. 库存小于10，显示 库存少量<br>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">提现方式</label>
+                <div class="col-md-9">
+                    <select name="cash_type" class="form-control">
+                        <option value="1" {if $_user.cash_type==1}selected{/if}>系统默认</option>
+                        <option value="2" {if $_user.cash_type==2}selected{/if}>手工提现</option>
+                        <option value="3" {if $_user.cash_type==3}selected{/if}>自动提现</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" style="color:red;">
+                <label class="col-md-3 control-label">* 说明 *</label>
+                <div class="col-md-9">
+                    手工提现：手动申请提现。自动提现：金额满 {:sysconf('auto_cash_money')} 元系统自动生成提款记录无需手工操作。
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">费率承担方</label>
+                <div class="col-md-9">
+                    <select name="fee_payer" class="form-control">
+                        <option value="0" {if $_user.fee_payer==0}selected{/if}>跟随系统</option>
+                        <option value="1" {if $_user.fee_payer==1}selected{/if}>商家承担</option>
+                        <option value="2" {if $_user.fee_payer==2}selected{/if}>买家承担</option>
+                    </select>
+                </div>
+            </div>
+			
+			<div class="form-group">
+
+							<label class="col-md-3 control-label">代理审核方式</label>
+
+							<div class="col-md-9">
+
+								<select name="daili_shenhe" class="form-control">
+
+									<option value="0" {if $_user.daili_shenhe==0}selected{/if}>手动</option>
+
+									<option value="1" {if $_user.daili_shenhe==1}selected{/if}>自动</option>
+
+								</select>
+
+				</div>
+
+			</div>
+						
+            <div class="form-group">
+
+							<label class="col-md-3 control-label">代理商品对接码</label>
+
+							<div class="col-md-9">
+
+								<input name="daili_duijiema"  type="text" class="form-control key" value="{$_user.daili_duijiema}">
+                                 {empty name="_user.daili_duijiema"}
+								<a class="btn btn-danger layui-btn-normal btn_key" data-id="{$_user.daili_duijiema}" type="button">更换对接码</a>
+                                 {/empty}
+							</div>
+
+						</div>
+            <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;保存设置</button>
+                </div>
+            </div>
+        </form>
+   {if sysconf('renzheng_kqsm')==1}
+ <!-- end col -->
+      
+	
+		{/if}
+		</form>
+	</div>
+	<!-- end col -->
+</div>
+<!-- end row -->
+</div>
+</div>
+<!-- end col -->
+</div>
+{/block}
+
+{block name="appendJS"}
+<script src="__RES__/assets/plugins/fileuploads/js/dropify.min.js"></script>
+<script>
+	$('[name="type"]').change(function(){
+		var selected=$(this).val()*1;
+		$('.collect_type').slideUp();
+		switch(selected){
+			case 1:  // 支付宝
+				$('.type_alipay').slideDown();
+				break;
+			case 2:  // 微信
+				$('.type_wxpay').slideDown();
+				break;
+			case 3:  // 银行
+				$('.type_bank').slideDown();
+				break;
+		}
+	});
+	$('[name="stock_display"]').change(function(){
+		var selected=$(this).val()*1;
+		console.log(selected);
+		if(selected==2){
+			$('.stock_display_2_tips').show();
+		}else{
+			$('.stock_display_2_tips').hide();
+		}
+	});
+	$('.dropify').dropify({
+		messages: {
+			'default': '点击上传二维码',
+			'replace': '点击替换二维码',
+			'remove': '删除',
+			'error': '上传错误'
+		},
+		error: {
+			'fileSize': '文件太大超过（1M）'
+		}
+	});
+
+    function getCode() {
+        layer.prompt({
+            title: '请输入验证码',
+            formType: 3
+        }, function (chkcode) {
+            $('#get_code').off('click');
+            $.post('/merchant/user/sendSmsCode', {
+                chkcode: chkcode,
+                token: "{$sms_token}",
+                phone: "{$_user.mobile}",
+                t: new Date().getTime()
+            }, function (ret) {
+                //                        console.log(ret);
+                if (ret.code === 1) {
+                    layer.closeAll();
+                    layer.msg(ret.msg);
+                    token = ret.data.token;
+                    $('#get_code').html('<i class="times">80</i> 秒后重发');
+                    timeC(80, '#get_code');
+                } else {
+                    alert(ret.msg);
+                    $('#get_code').on('click', getCode);
+                }
+            }, 'json');
+        })
+        $('.layui-layer-prompt .layui-layer-content').prepend($(
+            '<img style="cursor:pointer;height: 60px;" id="chkcode_img" src="/chkcode" onclick="javascript:this.src=\'/chkcode\'+\'?time=\'+Math.random()">'
+        ))
+    }
+</script>
+<script type="text/javascript">
+
+	function randomPassword(size){
+
+		  var seed = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z',
+
+		  'a','b','c','d','e','f','g','h','i','j','k','m','n','p','Q','r','s','t','u','v','w','x','y','z',
+
+		  '2','3','4','5','6','7','8','9'
+
+		  );//数组
+
+		  seedlength = seed.length;//数组长度
+
+		  var createPassword = '{:sysconf('rul_djm_kt')}';
+
+		  for (i=0;i<size;i++) {
+
+		    j = Math.floor(Math.random()*seedlength);
+
+		    createPassword += seed[j];
+
+		  }
+
+		  return createPassword;
+
+	}
+
+	
+
+	jQuery(document).on('click','.btn_daili_duijiema',function () {
+
+		var the=jQuery(this);
+
+		var id=the.attr('data-id');
+
+		$pwd=randomPassword(16);
+
+		jQuery('.daili_duijiema').val($pwd);
+
+		jQuery.ajax({
+
+			url:"/manage/user/dailiDuijiema",
+
+		    data:{
+
+		    	id:id,
+
+		    	daili_duijiema:$pwd
+
+		    },
+
+		    dataType: "json",
+
+		    type: "post",
+
+		    timeout: 10000,
+
+		    success: function(res) {
+
+		    },
+
+		    error: function() {
+
+		    }
+
+		});
+
+	})
+
+	
+
+	jQuery(document).on('click','.btn_key',function () {
+
+		var the=jQuery(this);
+
+		var id=the.attr('data-id');
+
+		$pwd=randomPassword({:sysconf('rul_djm_sl')});
+
+		jQuery('.key').val($pwd);
+
+		jQuery.ajax({
+
+			url:"/manage/user/apikey",
+
+		    data:{
+
+		    	id:id,
+
+		    	apikey:$pwd
+
+		    },
+
+		    dataType: "json",
+
+		    type: "post",
+
+		    timeout: 10000,
+
+		    success: function(res) {
+
+		    },
+
+		    error: function() {
+
+		    }
+
+		});
+
+	})
+
+	jQuery(document).on('click','.btn_key_clear',function () {
+
+		var the=jQuery(this);
+
+		var id=the.attr('data-id');
+
+		$pwd='';
+
+		jQuery('.key').val($pwd);
+
+		jQuery.ajax({
+
+			url:"/manage/user/apikey",
+
+		    data:{
+
+		    	id:id,
+
+		    	apikey:$pwd
+
+		    },
+
+		    dataType: "json",
+
+		    type: "post",
+
+		    timeout: 10000,
+
+		    success: function(res) {
+
+		    },
+
+		    error: function() {
+
+		    }
+
+		});
+
+	})
+
+	
+
+</script>
+{/block}

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+		<title> API 对接开发文档_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+		<meta name="keywords" content="{:sysconf('site_keywords')}" />
+		<meta name="description" content="{:sysconf('site_desc')}" />
+		<link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+		<link rel="stylesheet" href="/static/app/default/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+		<link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+		<link rel="stylesheet" href="/static/app/cyfaka/css/baguetteBox.css">
+		<link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+		<link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+		<link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+		<style>
+			.wrapper img {display: block;margin: 0 auto;max-width: 100%!important;}
+			.newsd-bd p {margin: 13px 0;}
+		</style>
+	</head>
+
+	<body>
+		<div class="h-header-wp h-bg">
+			{include file="./header"}
+			<div class="banner">
+				<div class="wrapper">
+					<div class="txt">
+						API 对接开发文档 </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper newsd">
+			<div class="newsd-hd">
+				<div class="left">
+					<a href=""></a>
+				</div>
+				<div class="right">
+					<a href=""></a>
+				</div>
+				<div class="center">
+					<h3>商户进件支付系统 API 对接开发文档</h3>
+					<p>2019-11-20<span> {:sysconf('site_name')}</span></p>
+				</div>
+			</div>
+			<div class="newsd-bd" style="min-height: 500px;">
+				<div class="row">
+					<div class="col-md-2 hidden-xs"></div>
+					<div class="col-md-8 col-sm-12">
+						<div class="blog-section-left">
+							<article class="page-content">
+								<div class="blog-content">
+									<div align="left"><strong><div align="center">商户进件支付系统 API 对接开发文档</div></strong><br /> &nbsp;
+										<br />
+										<strong>获取商户秘钥</strong><br /> &nbsp;
+										<br /> 网站对接，需要先获取到对接 API 账号以及秘钥和网关地址。<br /> &nbsp;
+										<br /> 登录商户面板-api面板里（审核认证后的账号才有秘钥，没有审核的客户需要提交认证资料联系客服进行审核）
+										<br /> 通道 API 管理－通道费率可以获取到相应通道编码<br />
+										<br />
+										<strong>接口参数说明</strong><br /> &nbsp;
+										<br /> Post 支付网关地址： {:sysconf('site_shop_domain')}/pay/api<br /> &nbsp;
+										<br /> 注意，提交方式是POST，请不要用GET方式提交
+										<br />
+										<br />
+									</div>
+									<table border="1" cellspacing="0" style="width:772px;">
+										<tbody>
+											<tr>
+												<td style="width:171px;">
+													<strong>参数名称</strong></td>
+												<td style="width:149px;">
+													<strong>参数含义</strong></td>
+												<td style="width:89px;">
+													<strong>是否必填</strong></td>
+												<td style="width:90px;">
+													<strong>参与签名</strong></td>
+												<td style="width:273px;">
+													<strong>参数说明</strong></td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													userid</td>
+												<td style="width:149px;">
+													商户号</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													平台分配商户号</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													orderno</td>
+												<td style="width:149px;">
+													订单号</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													上送订单号唯一, 字符长度 20</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													title</td>
+												<td style="width:149px;">
+													商品名称</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">&nbsp;
+												</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													paycode</td>
+												<td style="width:149px;">
+													通道编码</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													否</td>
+												<td style="width:273px;">
+													通道编码请以商户后台显示的为准</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													notify_url</td>
+												<td style="width:149px;">
+													异步支付回调地址</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													处理成功支付业务逻辑</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													return_url</td>
+												<td style="width:149px;">
+													支付成功支付回调地址</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													只是通知显示，不处理业务逻辑</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													amount</td>
+												<td style="width:149px;">
+													订单金额</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													商品金额</td>
+											</tr>
+
+											<tr>
+												<td style="width:171px;">sign </td>
+												<td style="width:149px;">
+													MD5 签名</td>
+												<td style="width:89px;">
+													是</td>
+												<td style="width:90px;">
+													否</td>
+												<td style="width:273px;">
+													请看 MD5 签名字段格式</td>
+											</tr>
+										</tbody>
+									</table>
+									<br />
+									<br />
+									<strong>签名算法：</strong><br /> &nbsp;
+									<br /> 签名生成的通用步骤如下：
+									<br /> &nbsp;
+									<br /> 第一步，设所有参与签名的数据为集合&nbsp;M，将集合&nbsp;M&nbsp;内的参数按照参数名&nbsp;ASCII&nbsp;码从小到大排序（字典序），使用&nbsp;URL&nbsp;键值对的格式（即key1=value1&amp;key2=value2&hellip;）拼接成字符串stringA。
+									<br /> &nbsp;
+									<br /> 第二步，在&nbsp;stringA&nbsp;最后拼接上&nbsp;key&nbsp;得到&nbsp;stringSignTemp&nbsp;字符串，并对&nbsp;stringSignTemp&nbsp;进行&nbsp;MD5&nbsp;运算，得到&nbsp;sign&nbsp;值 signValue。 &nbsp;
+									php举例: $sign=md5(stringA.$key);
+									<br />
+									<strong>支付结果通知：</strong><br /> &nbsp;
+									<br />
+									<table border="1" cellspacing="0" style="width:773px;">
+										<tbody>
+											<tr>
+												<td style="width:233px;">
+													<strong>参数名称</strong></td>
+												<td style="width:172px;">
+													<strong>参数含义</strong></td>
+												<td style="width:172px;">
+													<strong>参与签名</strong></td>
+												<td style="width:196px;">
+													<strong>参数说明</strong></td>
+											</tr>
+											<tr>
+												<td style="width:233px;">
+													amount</td>
+												<td style="width:172px;">
+													订单金额</td>
+												<td style="width:172px;">
+													是</td>
+												<td style="width:196px;">&nbsp;
+												</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													orderno</td>
+												<td style="width:149px;">
+													订单号</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													上送订单号唯一, 字符长度 20</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													title</td>
+												<td style="width:149px;">
+													商品名称</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">&nbsp;
+												</td>
+											</tr>
+											<tr>
+												<td style="width:233px;">
+													transaction</td>
+												<td style="width:172px;">
+													交易流水号</td>
+												<td style="width:172px;">
+													否</td>
+												<td style="width:196px;">&nbsp;
+												</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													notify_url</td>
+												<td style="width:149px;">
+													异步支付回调地址</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													处理成功支付业务逻辑</td>
+											</tr>
+											<tr>
+												<td style="width:171px;">
+													return_url</td>
+												<td style="width:149px;">
+													支付成功支付回调地址</td>
+												<td style="width:90px;">
+													是</td>
+												<td style="width:273px;">
+													只是通知显示，不处理业务逻辑</td>
+											</tr>
+											<tr>
+												<tr>
+													<td style="width:233px;">errcode </td>
+													<td style="width:172px;">
+														交易状态</td>
+													<td style="width:172px;">
+														否</td>
+													<td style="width:196px;">
+														<p>&ldquo;0&rdquo; 为成功<br /> &ldquo;1&rdquo; 为失败<br />&ldquo;errmsg&rdquo; 同时返回具体错误信息</p>
+													</td>
+												</tr>
+
+												<tr>
+													<td style="width:233px;">sign </td>
+													<td style="width:172px;">
+														签名</td>
+													<td style="width:172px;">
+														否</td>
+													<td style="width:196px;">
+														请看验证签名字段格式</td>
+												</tr>
+										</tbody>
+									</table>
+									注：返回参数没有userid，但签名字段包含userid。如果接收到服务器点对点通讯时，在页面输出&ldquo;ok&rdquo;（没有双引号，ok 两个字母小写）,否则会重复 3 次发送点对点通知.<br /> &nbsp;
+									<br />
+									<strong>[附件]银行编码参考</strong><br /> &nbsp;
+									<br />
+									<table border="1" cellspacing="0" style="width:777px;">
+										<tbody>
+											<tr>
+												<td style="width:562px;">
+													<strong>通道编码</strong></td>
+												<td style="width:215px;">
+													<strong>银行名称</strong></td>
+											</tr>
+											<tr>
+												<td style="width:562px;"> 001（随时有变动的可能，请以商户后台显示的为准）</td>
+												<td style="width:215px;"> 支付宝电脑版</td>
+											</tr>
+											<tr>
+												<td style="width:562px;">002（随时有变动的可能，请以商户后台显示的为准） </td>
+												<td style="width:215px;">支付宝手机版 </td>
+											</tr>
+											<tr>
+												<td style="width:562px;">003（随时有变动的可能，请以商户后台显示的为准） </td>
+												<td style="width:215px;">微信扫码</td>
+											</tr>
+											<tr>
+												<td style="width:562px;">004（随时有变动的可能，请以商户后台显示的为准） </td>
+												<td style="width:215px;">微信H5 </td>
+											</tr>
+											<tr>
+												<td style="width:562px;">005（随时有变动的可能，请以商户后台显示的为准） </td>
+												<td style="width:215px;">微信公众支付 </td>
+											</tr>
+											<tr>
+												<td style="width:562px;">006（随时有变动的可能，请以商户后台显示的为准） </td>
+												<td style="width:215px;">QQ钱包 </td>
+											</tr>
+											<tr>
+												<td style="width:562px;">007（随时有变动的可能，请以商户后台显示的为准） </td>
+												<td style="width:215px;">京东支付 </td>
+											</tr>
+										</tbody>
+									</table>
+								
+									<p style="margin:0pt 0pt 0.0001pt">&nbsp;</p>
+
+								</div>
+							</article>
+						</div>
+					</div>
+					<div class="col-md-2 hidden-xs"></div>
+				</div>
+			</div>
+			<style>
+				.button { background-color: #4CAF50;/* Green */
+					border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; -webkit-transition-duration: 0.4s;/* Safari */
+					transition-duration: 0.4s;}
+				.button1 { box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+				.button2:hover { box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);}
+			</style>
+
+			<div align="center">
+				<button class="button button2" onClick="javascript:window.open('./SDK.zip','_blank');">服务端SDK下载</button>
+			</div>
+			<br><br>
+			<div class="newsd-ft">
+				<a href="javascript:history.go(-1)" class="back">
+					<img src="/static/app/cyfaka/imgs/ico_14.png" alt="" />
+					<!--  <p>返回</p>-->
+				</a>
+			</div>
+		</div>
+		{include file="./footer"}
+	</body>
+
+</html>

@@ -1,0 +1,33 @@
+
+
+    <!--头部-->
+    <div class="header">
+        <div class="header-bd">
+            <div class="wrapper">
+                <div class="hd-logo">
+                    <a href="/"><img src="/static/img/logo1.png" width="190"/></a>
+                </div>
+                <div class="hd-nav">
+                    <ul>
+                                                      {volist name="nav" id="vo"}
+            <li><a href="{$vo.url}" {eq name="vo.target" value="1"}target="_blank"{/eq}>{$vo.title}</a></li>
+            {/volist}
+                                            </ul>
+                </div>
+                <div class="hd-btns">
+                                       
+                      {if session('?merchant.user')}
+					  <a class="login" href="/merchant/index">商户中心</a>
+                    <a class="register" href="/logout">退出登录</a>       
+        {else}
+       <a class="login" href="/login">登录</a>
+                    <a class="register" href="/register">注册</a>
+        {/if}
+                                    </div>
+            </div>
+            <div class="gh">
+                <a href="javascript:;"></a>
+            </div>
+        </div>
+    </div>
+    <!--头部End-->

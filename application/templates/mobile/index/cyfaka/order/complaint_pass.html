@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+          <title>投诉查询_{:sysconf('site_name')}</title>
+      <meta name="keywords" content="{:sysconf('site_keywords')}" />
+      <meta name="description" content="{:sysconf('site_desc')}" />
+      <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/easydropdown.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+   {include file="./header"}
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                订单投诉
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper ">
+ {if condition="!empty($complaint)"}
+    <div class="gbook">
+	 
+        <form>
+            <div class="gbook-hd" style="margin-bottom: 80px;">
+                <ul>
+                    <li>
+                        <div class="label">
+                            订单编号
+                        </div>
+                        <div class="input">
+                            <input type="text" class="txt" name="trade_no" id="" value="{$complaint->trade_no}" placeholder="填写投诉订单"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label">
+                            举报原因
+                        </div>
+                        <div class="input">
+                            <input disabled type="text" class="txt" name="type" value="{$complaint->type}"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label">
+                            联系方式
+                        </div>
+                        <div class="input">
+                            <a target="_blank" href="//wpa.qq.com/msgrd?v=3&amp;uin={$complaint->qq}&amp;site=qq&amp;menu=yes">
+                                <input disabled type="text" class="txt" name="qq" value="{$complaint->qq}" placeholder=""/>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label">
+                            投诉时间
+                        </div>
+                        <div class="input">
+                            <input disabled type="text" class="txt" name="mobile"  value="{$complaint.create_at|date='Y-m-d H:i:s', ###}" placeholder=""/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="label">
+                            投诉状态
+                        </div>
+                        <div class="input">
+                                                        <input disabled type="text" class="txt" value="处理中"/>
+                                                    </div>
+                    </li>
+                    <li>
+
+                        <div class="label">
+                            投诉结果
+                        </div>
+                        <div class="input">                          
+                                                        <input disabled type="text" class="txt" value="{if condition="$complaint->status == 0"}处理中{elseif condition="$complaint->status == -1"}已撤销{else /}已处理{/if}"/>
+                                                    </div>
+
+                    </li>                  
+                 
+			<font color="red">友情提醒：</font>
+			<font>尊敬的买家您好，为了公平公正的处理投诉，请把有关聊天截图等证据上传到投诉详情里面，
+             方便我平台进行判决，如您的问题真实存在我平台会无条件退款给您！投诉密码在您的手机短信内查看！
+            请在订单投诉后24小内密切关注投诉进度，如判决您获胜请联系我们企业QQ：{:sysconf('site_info_qq')}、进行退款操作！如忘记投诉密码可联系平台客服进行查询！
+            </font>
+                              
+                </ul>
+            </div>		
+            	
+            <div class="gbook-ft gbook-ft-margin">
+                <input type="button" class="rst" value="撤销投诉" onclick="cancel()"/>
+                <input type="button" class="btn" value="上传证据及卖家回复"onclick="detail()"/>
+            </div>
+                    </form>
+			<script>
+ $(function(){
+        layui.use(['layer'], function(){
+            var layer = layui.layer;
+        });
+    })
+    function cancel(){
+        layer.prompt({title: '请输入投诉密码'}, function (pwd) {
+            $.post("{:url('Index/Order/complaintCancel')}", {
+                        token: "{$token}",
+                        trade_no: "{$complaint->trade_no}",
+                        pwd: pwd
+						}, function (data) {
+                layer.closeAll();
+                var extra = {icon: 1}
+                if(data.code != '200') {
+                    extra = {icon: 2}
+                    layer.msg(data.msg, extra, function () {
+                        location.reload();
+                    })
+                } else {
+                    layer.open({
+                        type:1,
+                        maxmin: false,
+                        area:$(window).width() < 1200 ? "auto" : "425px" ,
+                        content: $('#pop-up'),
+                        shadeClose :true,
+                        closeBtn:0,
+                        skin: 'dissolve'
+                    });
+                    setTimeout(function(){  location.reload(); }, 2000);
+                }
+            });
+        });
+    }
+
+    function detail(){
+        layer.prompt({title: '请输入投诉密码'}, function (pwd) {
+            $.post("{:url('Index/Order/complaintPass')}", {
+                        token: "{$token}",
+                        trade_no: "{$complaint->trade_no}",
+                        pwd: pwd
+					}, function (data) {
+                if(data.code != '200') {
+                    layer.msg(data.msg, {icon:2})
+                }else{
+                    layer.msg(data.msg, {icon:1},function(){
+                        location.href = data.url;
+                    })
+                }
+
+            });
+        });
+    }
+
+            </script>		
+					
+	   			
+					
+					
+    </div>
+	
+	 {else /}
+		    <div class="oderr">
+        <img src="/static/app/cyfaka/imgs/ico_06.png">
+        <p>订单不存在或该订单暂无投诉信息</p>
+           </div>
+		
+		
+		
+      
+        {/if} 	
+</div>
+ {include file="./footer"}
+
+<script type="text/javascript" src="/static/app/cyfaka/js/jquery.js"></script>
+<script type="text/javascript" src="/static/app/cyfaka/js/jquery.easydropdown.min.js"></script>
+<script type="text/javascript" src="/static/app/cyfaka/js/script.js"></script>
+<script src="/static/app/js/layer.js"></script>
+<script type="text/javascript">
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

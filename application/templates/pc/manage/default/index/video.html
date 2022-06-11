@@ -1,0 +1,13 @@
+		<div id="video" style="width: 800px; height: 500px;"></div>
+		<script type="text/javascript" src="/static/app/js/ckplayer.js"></script>
+		<script type="text/javascript">
+			var videoObject = {
+				container: '#video', //容器的ID或className
+				variable: 'player',//播放函数名称
+				poster:'/static/app/images/logo.jpg',//封面图片
+				video: [//视频地址列表形式
+					['{$burl}', 'video/mp4', '中文标清', 0],
+				]
+			};
+			var player = new ckplayer(videoObject);
+		</script>

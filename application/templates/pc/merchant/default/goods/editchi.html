@@ -1,0 +1,51 @@
+{extend name="base"}
+
+{block name="content"}
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="row">
+				<form class="form-horizontal" role="form" action="" method="post">
+					<input type="hidden" name="id" value="{$goods.id}">
+					
+                    <div class="form-group">
+						<label class="col-md-2 control-label">商品池说明</label>
+						<div class="col-md-4">
+							<textarea name="content" placeholder="建议填写该商品的使用方法，文字不超过200字" class="form-control" rows="5" maxlength="200">{$goods.content}</textarea>
+						</div>
+						
+                    </div>
+                    
+                    <div class="form-group">
+						<label class="col-md-2 control-label"></label>
+						<div class="col-md-4">
+							<button type="submit" class="btn btn-purple waves-effect waves-light">确认提交</button>
+						</div>
+						<div class="col-md-6">
+							<p class="form-control-static"></p>
+						</div>
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+{/block}
+
+{block name="appendJS"}
+
+<script>
+
+//检查参数
+$('.form-horizontal').submit(function(){
+	var good_name = $(this).find("textarea[name='content']").val();
+	if(!good_name){
+		layer.alert('商品池内容不能为空!');
+		return false;
+	}
+ 
+	return true;
+})
+</script>
+
+{/block}

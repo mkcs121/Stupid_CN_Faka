@@ -1,0 +1,20 @@
+<div class="header">
+    <div class="wrapper">
+        <div class="logo">
+            <a href="/"><img src="https://www.510ka.com/static/upload/073c69667925a221/b2e4ecb35f552080.png" width="144"></a>
+        </div>
+        <div class="nav">
+            <ul>{volist name="nav" id="vo"}
+            <li><a href="{$vo.url}" {eq name="vo.target" value="1"}target="_blank"{/eq}>{$vo.title}</a></li>
+            {/volist}
+                            </ul>
+            <div class="btn">
+                                <a class="btn-login" href="/login">登录</a>
+                <a class="btn-resg" href="/register">快速注册</a>
+                            </div>
+        </div>
+    </div>
+    <div class="gh">
+        <a href="javascript:;"></a>
+    </div>
+</div>

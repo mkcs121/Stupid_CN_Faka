@@ -1,0 +1,70 @@
+,###{extend name='./content'}
+
+{block name="button"}
+
+{/block}
+
+{block name="content"}
+<form onsubmit="return false;" data-auto="true" method="post">
+    {if empty($list)}
+    <p class="help-block text-center well">没 有 记 录 哦！</p>
+    {else}
+    <input type="hidden" value="resort" name="action"/>
+    <table class="layui-table" lay-skin="line" lay-size="sm">
+        <thead>
+        <tr>
+            <th class='list-table-check-td'>
+                <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+            </th>
+            <th class='text-center'>ID</th>
+            <th class='text-center'>IP</th>
+            <th class='text-center'>地址</th>
+            <th class='text-center'>状态</th>
+            <th class='text-center'>冻结时间</th>
+            <th class='text-center'>解冻时间</th>
+            <th class='text-center'>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $list as $key=>$vo}
+        <tr>
+            <td class='list-table-check-td'>
+                <input class="list-check-box" value='{$vo.id}' type='checkbox'/>
+            </td>
+            <td class='text-center'>{$vo.id}</td>
+            <td class='text-center'>{$vo.ip}</td>
+            <td class='text-center'>{$vo.address}</td>
+            <td class='text-center'>
+                {if $vo.status eq 1}
+                <span>已冻结</span>
+                {elseif $vo.status eq 0}
+                <span style="color:#090">使用中</span>
+                {/if}
+            </td>
+            <td class="text-center nowrap">{$vo.dongjie_at|date="Y-m-d H:i:s",###}</td>
+            <td class="text-center nowrap">{$vo.update_at|date="Y-m-d H:i:s",###}</td>
+            <td class='text-center nowrap'>
+
+
+
+                {if $vo.status eq 0 and auth("$classuri/forbid")}
+                <span class="text-explode">|</span>
+                <a data-update="{$vo.id}" data-field='status' data-value='1' data-action='{:url("$classuri/forbid")}'
+                   href="javascript:void(0)">冻结</a>
+                {elseif auth("$classuri/resume")}
+                <span class="text-explode">|</span>
+                <a data-update="{$vo.id}" data-field='status' data-value='0' data-action='{:url("$classuri/resume")}'
+                   href="javascript:void(0)">解冻</a>
+                {/if}
+
+
+
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    {if isset($page)}<p>{$page}</p>{/if}
+    {/if}
+</form>
+{/block}

@@ -1,0 +1,101 @@
+{extend name="base/detail"}
+
+{block name="content"}
+<!-- form Uploads -->
+<link href="__RES__/assets/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<div class="main">
+    <div class="content">
+        <ul class="nav nav-tabs">
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li role="presentation" class="active"><a href="javascript:;">添加音乐</a></li>
+        </ul>
+        <br>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data"
+                      onsubmit="return beforeSubmit()">
+                   
+                     <div class="form-group import_type_1">
+                        <label class="col-md-2 control-label">音乐名称</label>
+                        <div class="col-md-4">
+                            <input type="text"  name="title" class="form-control"  placeholder="请输入音乐名称">
+                        </div>
+                    </div>
+                    <div class="form-group import_type_2" style="display:">
+                        <label class="col-md-2 control-label">音乐地址</label>
+                        <div class="col-md-4">
+                            <input type="text"  name="url" class="form-control"  placeholder="请输入音乐地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">是否开启</label>
+                        <div class="col-md-4">
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="status" id="check_card1" value="1" checked>
+                                <label for="check_card1">
+                                    是
+                                </label>
+                            </div>
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="status" id="check_card2" value="0" >
+                                <label for="check_card2">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-purple waves-effect waves-light">保存</button>
+                            <a href="https://www.69kz.com/yinyue/" target="_blank" class="btn btn-purple waves-effect">音乐地址获取</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="appendJS"}
+<script>
+    $('[name="import_type"]').change(function () {
+        var type = $(this).val();
+        $('.import_type_1').hide();
+        $('.import_type_2').hide();
+        $('.import_type_' + type).fadeIn();
+    });
+    $('[name="split_type"]').change(function () {
+        var type = $(this).val();
+        $('.card_split').text(type);
+    });
+    $('.dropify').dropify({
+        messages: {
+            'default': '拖拽文件至此或点击上传文件',
+            'replace': '拖拽文件至此或点击上传文件',
+            'remove': '取消',
+            'error': '文件大小不能超出100KB'
+        },
+        error: {
+            'fileSize': '文件大小不能超出100KB'
+        }
+    });
+
+    var canSubmit = true;
+
+    function beforeSubmit() {
+        if (canSubmit) {
+            canSubmit = false;
+            return true;
+        } else {
+            layer.msg('服务器开小差了，请刷新重试');
+            return false;
+        }
+    }
+</script>
+
+{/block}

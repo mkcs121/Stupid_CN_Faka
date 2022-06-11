@@ -1,0 +1,40 @@
+﻿
+{extend name="./layout"}
+
+{block name="content"}
+<div class="panel">
+
+    <script>
+        $(function() {
+            selectcateid2({$category.id|default=0})
+        })
+    </script>
+    <input type="hidden" name="goodid" id="goodid" value="{$goods.id|default=0}">
+    <input type="hidden" name="cateid" id="cateid" value="{$category.id}">
+    <div class="title"><img src="__RES__/app/lan/images/icon_001.png" /> 选择分类</div>
+    <div class="category">
+        <div class="categorys" id="categorys">
+            <div class="item category-{$category.id}" value="{$category.id}">
+                {$category.name}
+                <img src="__RES__/app/lan/images/icon_002.png" />
+            </div>
+        </div>
+    </div>
+    <div class="title"><img src="__RES__/app/lan/images/icon_004.png" />选择商品</div>
+    <div class="goods">
+        <div class="list" id="goodslist"></div>
+    </div>
+
+    <div style="display:none;" id="discountdetail">
+        <div class="title"><img src="__RES__/app/lan/images/icon_012.png" />批量优惠：</div>
+        <div class="choose-tip">
+            <span style="color: #4b19ae;" id="isdiscount_span"></span>
+        </div>
+    </div>
+
+    <div class="title"><img src="__RES__/app/lan/images/icon_009.png" />产品说明：</div>
+    <div class="choose-tip">
+        <span id="remark"></span>
+    </div>
+</div>
+{/block}

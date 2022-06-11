@@ -1,0 +1,134 @@
+<div class="footer">
+    <div class="wrapper">
+        <div class="flogo">
+            <div class="hd">
+                <img src="{:sysconf('site_logo')}">
+            </div>
+            <div class="bd">
+                <ul>
+                    <li>
+                        <a href="//wpa.qq.com/msgrd?v=1&amp;uin={:sysconf('site_info_qq')}&amp;site=miaoka.la&amp;menu=yes">{:sysconf('site_info_qq')}</a>
+                        <small>（企业QQ）</small>
+                    </li>                  
+                    <li>
+                        <a href="#">{:sysconf('site_info_tel')}</a>
+                        <small>（企业电话）</small>
+                    </li>
+                </ul>
+                <p>工作时间：10:00~22:00 （周末休息）</p>
+                
+            </div>
+           
+        </div>
+        <div class="fnav">
+            <div class="hd">
+                关于我们
+            </div>
+            <div class="bd">
+                <ul>
+                    {volist name="nav" id="vo"}
+            <li><a href="{$vo.url}" {eq name="vo.target" value="1"}target="_blank"{/eq}>{$vo.title}</a></li>
+            {/volist}
+                  
+                </ul>
+            </div>
+        </div>
+        <div class="fnav">
+            <div class="hd">
+                相关查询
+            </div>
+            <div class="bd">
+                <ul>
+                    <li><a href="/QueryOrder">订单查询</a></li>
+                    <li><a href="/complaintquery">投诉查询</a></li>
+                    <li><a href="/company/news">新闻资讯</a></li>
+                    <li><a href="/company/settlement">结算公告</a></li>
+                    <li><a href="/company/notice">商家公告</a></li>
+                    <li><a href="/article/23.html">禁售商品</a></li> 
+                </ul>
+            </div>
+        </div>
+        <div class="fnav">
+            <div class="hd">
+                <a class="bd" href="https://www.upyun.com">又拍云</a>
+            </div>
+        </div>
+        <div class="fwx">
+            <div class="hd">
+            </div>
+            <div class="bd">
+                <img src="{:sysconf('site_info_qrcode')}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="copyright">
+    <p>Copyright © 2018-2020 {:sysconf('site_name')} All rights reserved. 版权所有 | 
+	<a href="javascript:void(0)" onclick="window.open('http://www.beian.miit.gov.cn/');"><font color="#5d768f">{:htmlspecialchars_decode(sysconf('site_info_icp'))}</font></a></p>
+  <meta name="baidu-site-verification" content="m2VHpXXxN8" />
+</div>
+<strong>
+<center>
+<span id="showsectime" style="color:#FF0000;"></span>
+<script type="text/javascript">
+function NewDate(str) { 
+str = str.split('-'); 
+var date = new Date(); 
+date.setUTCFullYear(str[0], str[1] - 1, str[2]); 
+date.setUTCHours(0, 0, 0, 0); 
+return date; 
+} 
+function showsectime() {
+var birthDay =NewDate("2019-06-08");
+var today=new Date();
+var timeold=today.getTime()-birthDay.getTime();
+var sectimeold=timeold/1000
+var secondsold=Math.floor(sectimeold);
+var msPerDay=24*60*60*1000; var e_daysold=timeold/msPerDay;
+var daysold=Math.floor(e_daysold);
+var e_hrsold=(daysold-e_daysold)*-24;
+var hrsold=Math.floor(e_hrsold);
+var e_minsold=(hrsold-e_hrsold)*-60;
+var minsold=Math.floor((hrsold-e_hrsold)*-60); var seconds=Math.floor((minsold-e_minsold)*-60).toString();
+document.getElementById("showsectime").innerHTML = "本站已安全运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+setTimeout(showsectime, 1000);
+}showsectime();
+</script>
+<strong/>
+
+<div class="htop">
+    <ul>
+        <li class="qr">
+            <a href="#">
+                <i class="iconfont icon-weixin"></i>
+            </a>
+            <div class="qr-img">
+                <img src="{:sysconf('site_info_qrcode')}">
+                <p>官方微信</p>
+            </div>
+        </li>
+        <li class="htop-open">
+            <a href="//wpa.qq.com/msgrd?v=1&amp;uin={:sysconf('site_info_qq')}&amp;site=miaoka.la&amp;menu=yes">
+                <i class="iconfont icon-qq"></i><span>{:sysconf('site_info_qq')}</span>
+            </a>
+        </li>
+        <li class="htop-open">
+            <a href="#">
+                <i class="iconfont icon-telephone"></i><span>{:sysconf('site_info_tel')}</span>
+            </a>
+        </li>
+        <li class="go-top" style="display: list-item;">
+            <a href="#">
+                <i class="iconfont icon-xiangshang"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+{:htmlspecialchars_decode(sysconf('site_statistics'))}

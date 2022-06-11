@@ -1,0 +1,35 @@
+{extend name="base"}
+
+{block name="content"}
+<script src="__RES__/app/js/clipboard.js"></script>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="row">
+				<div class="col-lg-12 m-b-30">
+                    <h4 class="form-control-static">商户I D ：{$_user.id}</h4>
+
+				    {if $_user.key!=''}
+						<h4 class="form-control-static">商户密钥：{$_user.key}</h4>
+						{else/}
+					<h4 class="form-control-static">商户密钥：<span style="color:#00CC00;">请联系站长开通API支付秘钥</span></h4>
+						{/if}
+					<h4 class="form-control-static">通知地址：<a href="{:sysconf('site_shop_domain')}/pay/api" target="_blank">{:sysconf('site_shop_domain')}/pay/api</a></h4>
+					<h4 class="form-control-static">SDK下载：<a href="/SDK.zip" target="_blank">点击下载</a></h4>
+					<h4 class="form-control-static">支付测试：<a href="{:sysconf('site_shop_domain')}/SDK/" target="_blank" >前往测试</a></h4>
+					<p class="form-control-static"><strong><span style="color:#ff0000;">温馨提示：最新警告，分站以及所有交易网站上面统一留可以联系到的客服联系方式，如果客户联系我们并提供相关截图联系证实客服无人处理，我们将直接退款给购买者。发现网站进行诈骗，虚假发货，直接冻结，如遇到问题请咨询本站客服</span></strong></p>
+					<br>
+
+					
+				<!-- end col -->
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+	<!-- end col -->
+</div>
+{/block}
+
+{block name="appendJS"}
+
+{/block}

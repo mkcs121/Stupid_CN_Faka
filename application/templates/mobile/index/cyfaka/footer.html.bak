@@ -1,0 +1,124 @@
+<div class="footer">
+    <div class="wrapper">
+        <div class="flogo">
+            <div class="hd">
+                <img src="/static/app/510fk/imgs/logo_1.png">
+            </div>
+            <div class="bd">
+                <ul>
+                    <li>
+                        <a href="//wpa.qq.com/msgrd?v=1&amp;uin=800048852&amp;site=miaoka.la&amp;menu=yes">800048852</a>
+                        <small>（企业QQ）</small>
+                    </li>                  
+                    <li>
+                        <a href="#">4008018864</a>
+                        <small>（企业电话）</small>
+                    </li>
+                </ul>
+                <p>工作时间：10:00~22:00 （周一休息）</p>
+            </div>
+        </div>
+        <div class="fnav">
+            <div class="hd">
+                关于我们
+            </div>
+            <div class="bd">
+                <ul>
+                    <li><a href="/login">商家登录</a></li>
+                    <li><a href="/register">快速注册</a></li>
+                    <li><a href="/company/contact">关于我们</a></li>
+                    <li><a href="/article/57.html">企业资质</a></li>
+                    <li><a href="/company/faq">常见问题</a></li>
+                    <li><a href="/index/index/content/id/25.html">APP下载</a></li>
+                  
+                </ul>
+            </div>
+        </div>
+        <div class="fnav">
+            <div class="hd">
+                相关查询
+            </div>
+            <div class="bd">
+                <ul>
+                    <li><a href="/QueryOrder">订单查询</a></li>
+                    <li><a href="/complaintquery">投诉查询</a></li>
+                    <li><a href="/company/news">新闻资讯</a></li>
+                    <li><a href="/company/settlement">结算公告</a></li>
+                    <li><a href="/company/notice">商家公告</a></li>
+                    <li><a href="/article/23.html">禁售商品</a></li> 
+                </ul>
+            </div>
+        </div>
+        <div class="fnav">
+            <div class="hd">
+                友情链接
+            </div>
+            <div class="bd">
+                <ul>
+                    <li><a href="https://www.510ka.com/">发卡平台</a></li>
+                    <li><a href="http://www.910ka.com/">发卡网</a></li>
+                    <li><a href="http://www.cclolcc.com/">CC皮肤站</a></li>                 
+                    <li><a href="http://www.90pan.com/">90网赚网盘</a></li>
+					<li><a href="http://www.yuncpay.com/">云创支付</a></li>
+                    <li><a href="http://www.30d.com/">30d下载站</a></li>
+                    <li><a href="http://www.lolmh.com/">lol换肤</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="fwx">
+            <div class="hd">
+                关注微信
+            </div>
+            <div class="bd">
+                <img src="https://www.510ka.com/static/upload/8ae4745d252e0513/10394afd0eda9463.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="copyright">
+    <p>Copyright © 2018-2020 510自动发卡平台 All rights reserved. 版权所有 | 
+	<a href="javascript:void(0)" onclick="window.open('http://www.miitbeian.gov.cn/');"><font color="#5d768f">{:htmlspecialchars_decode(sysconf('site_info_icp'))}</font></a></p>
+	<a target="_blank" href="" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/static/app/images/gaba.png" style="float:left;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;"></p></a>
+    <p><a target="_blank" href="https://v.pinpaibao.com.cn/cert/site/?site=www.510ka.com&amp;at=realname"><img src="https://static.anquan.org/static/outer/image/sm_83x30.png"></a> 
+<a target="_blank" href="https://v.pinpaibao.com.cn/cert/site/?site=www.510ka.com&amp;at=realname"><img src="/static/app/default/image/aqkx_83x30.png" alt="发卡平台信誉"></a>
+<a href="http://webscan.360.cn/index/checkwebsite/url/www.510ka.com" target="_blank"><img style="height:30px" src="/static/app/default/image/361.png" alt="发卡平台安全监测"></a>  
+<a href="https://www.yunaq.com/new_analytics/report/login/?site=www.510ka.com" target="_blank"><img style="height:30px" src="/static/app/default/image/stat1.png" alt="发卡网安全站点"></a></p>
+</div>
+
+
+
+
+<div class="htop">
+    <ul>
+        <li class="qr">
+            <a href="#">
+                <i class="iconfont icon-weixin"></i>
+            </a>
+            <div class="qr-img">
+                <img src="https://www.510ka.com/static/upload/8ae4745d252e0513/10394afd0eda9463.jpg">
+                <p>官方微信</p>
+            </div>
+        </li>
+        <li class="htop-open">
+            <a href="//wpa.qq.com/msgrd?v=1&amp;uin=800048852&amp;site=miaoka.la&amp;menu=yes">
+                <i class="iconfont icon-qq"></i><span>{:sysconf('site_info_qq')}</span>
+            </a>
+        </li>
+        <li class="htop-open">
+            <a href="#">
+                <i class="iconfont icon-telephone"></i><span>{:sysconf('site_info_tel')}</span>
+            </a>
+        </li>
+        <li class="go-top" style="display: list-item;">
+            <a href="#">
+                <i class="iconfont icon-xiangshang"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+{:htmlspecialchars_decode(sysconf('site_statistics'))}

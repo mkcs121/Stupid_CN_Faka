@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+          <title> {$data.title|htmlspecialchars_decode}_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+      <meta name="keywords" content="{:sysconf('site_keywords')}" />
+      <meta name="description" content="{:sysconf('site_desc')}" />
+      <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/default/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/baguetteBox.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+    <style>
+        .wrapper img {display: block;margin: 0 auto;max-width:100%!important;}
+        .newsd-bd p {margin: 13px 0;}
+    </style>
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+ {include file="./header"}
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                新闻资讯            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper newsd">
+        <div class="newsd-hd">
+        <div class="left">
+                        <a href="/article/{$data.id-1}.html"></a>
+                    </div>
+        <div class="right">
+                        <a href="/article/{$data.id+1}.html"></a>
+                    </div>
+        <div class="center">
+            <h3>{$data.title|htmlspecialchars_decode}</h3>
+            <p>{$data.create_at|date="Y-m-d",###}<span> {$data.create_at|date="H:i:s",###}</span></p>
+        </div>
+    </div>
+        <div class="newsd-bd" style="min-height: 500px;">
+        <div class="row">
+            <div class="col-md-2 hidden-xs"></div>
+            <div class="col-md-8 col-sm-12">
+                <div class="blog-section-left">
+                    <article class="page-content">
+                        <div class="blog-content">
+                          {$data.content|htmlspecialchars_decode}
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-md-2 hidden-xs"></div>
+        </div>
+    </div>
+    <div class="newsd-ft">
+        <a href="javascript:history.go(-1)" class="back">
+            <img src="/static/app/cyfaka/imgs/ico_14.png" alt="" />
+            <!--  <p>返回</p>-->
+        </a>
+    </div>
+</div>
+ {include file="./footer"}
+</body>
+</html>
+

@@ -1,0 +1,219 @@
+html {
+    background: url(../images/web_001.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+body{
+    background:0;
+    color: #FFFFFF;
+}
+#buy-protocol p{
+    color: #000000;
+}
+.shop-notice{
+    background:0;
+}
+.choose .panel{
+    background:0;
+    padding: 20px 30px 0 30px;
+}
+.choose .category .categorys .item{
+    background:0;
+    color: #FFFFFF;
+}
+.choose .goods .item{
+    background:0;
+}
+.submit-bar{
+    background: #0071FF;
+}
+.header{
+    /*background: url(../images/web_102.png) no-repeat center center;*/
+    background: url(../images/web_101.png) no-repeat center center;
+    padding: 20px 0;
+}
+.submit-bar .btn button{
+    background: #ffffff;
+    color: #0071ff;
+}
+.choose .category .categorys .item.active {
+    background:#0071FF;
+    color: rgba(46,248,255,1);
+}
+.choose .category .categorys .item.active img {
+    right: 2px;
+    bottom: 2px;
+    width: 35px;
+}
+.title{
+    font-family:Tensentype MeiHeiJ;
+    font-weight:bold;
+    color:rgba(22,229,245,1);
+}
+.choose .category{
+    border-bottom:0;
+}
+.choose .goods{
+    border-bottom:0;
+}
+.paytype .title{
+    border-top:0;
+}
+.paytype .items >label{
+    border: 1px solid rgba(0,113,255,1);
+    height: 40px;
+}
+.paytype .items >label:hover, .paytype .items >label.on{
+    box-shadow: 1px 1px 2px 2px #0071ff;
+}
+input{
+    background:0;
+    color: #FFFFFF;
+}
+.form-field .value .input{
+    background:0;
+}
+.submit-bar .total input{
+    background:0;
+    margin: 0 5px;
+}
+[class*=css-icon][class*=circle]{
+     border:0;
+    background-color: #ffffff78;
+}
+[class*=css-icon]:before, [class*=css-icon]:after{
+    background-color: rgb(255, 255, 255);
+}
+.submit-bar .total .total-price .tprice{
+    color: #FFFFFF;
+}
+.choose .goods .item .name{
+    color: #FFFFFF;
+    font-size: 15px;
+}
+.choose .goods .item.active{
+    background:#0071FF;
+}
+.choose .goods .item.active .name{
+    color: rgba(46,248,255,1);
+
+}
+.choose .goods .item.active img {
+    right: 2px;
+    bottom: 2px;
+    width: 35px;
+}
+.choose .goods .item .price{
+    color: #FFFFFF;
+}
+.header .header-nav a{
+    padding: 4px 10px;
+    background: 0;
+    color:#FFFFFF;
+}
+.choose .category .categorys .item{
+    border:1px solid rgba(0,113,255,1);
+}
+.choose .goods .item{
+    border:1px solid rgba(0,113,255,1);
+}
+#discountdetail .title img{
+    margin-right: 10px;
+    width: 20px;
+}
+#discountdetail .title{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+    font-size: 16px;
+}
+#discountdetail .choose-tip{
+ padding-bottom: 25px;
+}
+.choose .goods .item .stores{
+    right: 20%;
+    color: rgba(46,248,255,1);
+}
+.choose-tip #remark {
+    color: #fff;
+    font-size: 13px;
+}
+.form-field .value .input{
+    height: 30px;
+    width: 20%;
+}
+.notice-type label{
+    padding: 4px 8px;
+    color: rgba(46,248,255,1);
+}
+.notice-type >div{
+    background:0;
+    border:1px solid rgba(0,113,255,1);
+}
+.notice-type >div.on{
+    box-shadow: 1px 1px 2px 2px #0071ff;
+}
+.form-field .value .input{
+    border:1px solid rgba(0,113,255,1);
+}
+.form-field .label img {
+    margin: 0 10px;
+}
+.paytype .title{
+    padding: 30px 20px 30px 0;
+}
+.paytype .title img{
+    margin-right: 10px;
+}
+#nyroModalContent input{
+    color: #0b0b0b;
+}
+.shop-notice{
+    padding: 20px 0;
+    color: #FFFFFF;
+}
+.shop-notice{
+    width: 33%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.top_menu li{
+    text-align: center;
+}
+.btnStyle4{
+    border-radius: 10px;
+    background: 0;
+    border:1px solid rgba(0,113,255,1);
+    color: #FFFFFF;
+    padding: 5px 10px;
+}
+.shop-notice input{
+    border: 1px solid rgba(0,113,255,1);
+    border-radius: 10px;
+    padding: 5px;
+    width: 58%;
+}
+button{
+    outline:none;
+}
+.choose .panel{
+    margin-top: 0 ;
+}
+.choose-tip{
+    padding-top: 0;
+}
+.paytype .title{
+    margin-top: 0 ;
+}
+.paytype .items{
+    padding: 0;
+}
+.choose .goods{
+    padding: 0 0 30px 0;
+}
+.choose .panel > .title{
+    padding-bottom: 15px;
+}

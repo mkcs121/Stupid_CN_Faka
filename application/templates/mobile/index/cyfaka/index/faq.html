@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>常见问题_{:sysconf('site_subtitle')}_{:sysconf('site_name')}</title>
+    <meta name="keywords" content="{:sysconf('site_keywords')}" />
+    <meta name="description" content="{:sysconf('site_desc')}" />
+    <link rel="shortcut icon" href="{:sysconf('browser_icon')}" />
+    <link rel="stylesheet" href="/static/app/cyfaka/css/qietu.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/font/iconfont.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/header.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/style.css">
+    <link rel="stylesheet" href="/static/app/cyfaka/css/responsive.css">
+</head>
+
+<body>
+<div class="h-header-wp h-bg">
+ {include file="./header"} 
+    <div class="banner">
+        <div class="wrapper">
+            <div class="txt">
+                常见问题
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tabnav">
+    <div class="wrapper">
+        <ul>
+            <li><a href="/company/notice">系统公告</a></li>
+            <li><a href="/company/news">新闻资讯</a></li>
+            <li><a href="/company/settlement">结算公告</a></li>
+            <li class="on"><a href="/company/faq">常见问题</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="faqlist">
+    <div class="wrapper">
+        <div class="body" style="min-height:300px;margin-bottom:30px;">
+            <form>
+                <input type="hidden" name="alias" id="alias" value="faq">
+                <input type="hidden" name="page" id="page" value="2">
+            <ul id="lists">
+                               
+                                <li>
+                    <h3>Q：8.{:sysconf('site_name')}台安全吗？</h3>
+                    <p><p>非常安全，{:sysconf('site_name')}</a>运用先进的安全技术保护用户在{:sysconf('site_name')}账户中存储的个人信息、账户信息以及交易记录的安全。</p>
+
+<p>{:sysconf('site_name')}拥有完善的全监测系统，可以及时发现网站的非正常访问并做相应的安全响应。</p>
+
+<p><span style="display: none;">&nbsp;</span></p>
+</p>
+                </li>
+                                <li>
+                    <h3>Q：7.如果买家已经付款,但是他说没有收到卡密该怎么办？</h3>
+                    <p><p>请直接联系{:sysconf('site_name')}</a>客服QQ进行解决。</p>
+
+
+</p>
+                </li>
+                                <li>
+                    <h3>Q：6.财务结算商户方式有那些？</h3>
+                    <p><p>支持支付宝、银行卡，微信结算。</p>
+
+<p>正常财务结算时间：早上9:00-21:00</p>
+</p>
+                </li>
+                                <li>
+                    <h3>Q：5.账户的金额满多少自动结算？</h3>
+                    <p><p>商户账户金额满100.00元，凌晨1点系统自动帮您提现，财务将于第二天12点前结算到您预留的账户，不满100.00元可以申请手动提现。</p>
+</p>
+                </li>
+                                <li>
+                    <h3>Q：4.平台可以卖些什么？</h3>
+                    <p><p>{:sysconf('site_name')}业务范围：<br />
+（1）商家电子券、网络游戏产品、手机游戏产品、游戏辅助类卡密<br />
+（2）软件注册码、激活码等寄售<br />
+（3）官方卡密和直充的虚拟产品服务<br />
+（4）数字产品交易的系统支撑服务</p>
+</p>
+                </li>
+                                <li>
+                    <h3>Q：3.怎么用平台销售虚拟商品？</h3>
+                    <p><p>商户通过后台可以添加商品，每个商品{:sysconf('site_name')}都会分配一个购买链接，商户只要将这个链接发送给买家，买家付款后平台自动发货，即可完成交易。</p>
+</p>
+                </li>
+                                <li>
+                    <h3>Q：2.怎么登录自动发卡平台商户后台?</h3>
+                    <p><p>点此右上角&ldquo;登录&rdquo;按钮进入!</p>
+</p>
+                </li>
+                                <li>
+                    <h3>Q：1.怎么入驻自动发卡平台,成为商户?</h3>
+                    <p><p>通过平台的账户注册功能，即可免费或者收费邀请码入驻{:sysconf('site_name')}。（注册如需审核通过，请联系客服QQ：{:sysconf('site_info_qq')}，如购买邀请码入驻，请直接点击购买邀请码即可入驻本平台！）</p>
+
+<p>
+                </li>
+                            </ul>
+            </form>
+        </div>
+        <!---->
+    </div>
+</div>
+
+ {include file="./footer"} 
+<script type="text/javascript" src="/static/app/cyfaka/js/jquery.js"></script>
+<script type="text/javascript" src="/static/app/cyfaka/js/script.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //问答
+        $(".faqlist li h3").on("click",function(){
+            if($(this).parent().find("p").is(":hidden")){
+                $(this).parent().addClass("open").siblings().removeClass("open");
+                $(this).parent().children("p").slideDown();
+                $(this).parent().siblings().children("p").slideUp();
+            }else{
+                $(this).parent().removeClass("open");
+                $(this).parent().children("p").slideUp();
+            }
+            return false
+        });
+    })
+    <!---->
+</script>
+
+
+
+</body>
+</html>
+
